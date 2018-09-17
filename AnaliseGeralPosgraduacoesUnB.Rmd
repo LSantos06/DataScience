@@ -272,7 +272,7 @@ Os arquivos estão no formato JSON, e seus atributos iniciais e conteúdos são 
 ###Perfil profissional dos docentes vinculados às pós-graduações
 
 ```{r}
-json.perfil <- "data/UnBPosGeral/profile.json"
+json.perfil <- "data/unbpos.profile.json"
 file.info(json.perfil)
 ```
 
@@ -282,7 +282,7 @@ Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
 ###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
 
 ```{r}
-json.advise <- "data/UnBPosGeral/advise.json"
+json.advise <- "data/unbpos.advise.json"
 file.info(json.advise)
 ```
 
@@ -293,7 +293,7 @@ Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
 ###Produção bibliográfica gerada pelos docentes vinculados às pós-graduações
 
 ```{r}
-json.producao.bibliografica <- "data/UnBPosGeral/publication.json"
+json.producao.bibliografica <- "data/unbpos.publication.json"
 file.info(json.producao.bibliografica) 
 ```
 
@@ -302,14 +302,14 @@ O arquivo `r json.producao.bibliografica` apresenta dados sobre a produção bib
 ###Agrupamento dos docentes conforme áreas de atuação
 
 ```{r}
-json.researchers_by_area <- "data/UnBPosGeral/researchers_by_area.json" 
+json.researchers_by_area <- "data/unbpos.researchers_by_area.json" 
 file.info(json.researchers_by_area)
 ```
 
 O arquivo `r json.researchers_by_area` apresenta as vinculações de todos os docentes que declararam atuar em cada uma das áreas de pós-graduação do Sistema Nacional de Pós-Graduação da CAPES, conforme apresenta-se registrada essa informação no currículo Lattes de cada um, em data recente. 
 
 ```{r}
-file.info('data/UnBPosGeral/graph.json')
+file.info('data/unbpos.graph.json')
 ```
 
 ###Redes de colaboração entre docentes
@@ -338,7 +338,7 @@ Como já informado, a descrição dos dados verifica se os dados sendo acessados
 O arquivo unb.perfis.json, que contém dados que caracterizam o perfil profissional de todos os docentes do grupo sob análise, podem ser lido por meio do comando seguinte.
 
 ```{r}
-unb.prof <- fromJSON("data/UnBPosGeral/profile.json")
+unb.prof <- fromJSON("data/unbpos.profile.json")
 ```
 
 A quantidade de docentes sob análise é apresentada a seguir.
@@ -381,7 +381,7 @@ A fim de compreender a relevância dos dados para a avaliação da produção ac
 ###Descrição dos dados de orientações
 
 ```{r}
-unb.adv <- fromJSON("data/UnBPosGeral/advise.json")
+unb.adv <- fromJSON("data/unbpos.advise.json")
 names(unb.adv)
 names(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO)
 length(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2016`$natureza)
@@ -392,7 +392,7 @@ head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing 
 
 ###Descrição dos dados de produção bibliográfica
 ```{r}
-unb.pub <- fromJSON("data/UnBPosGeral/publication.json")
+unb.pub <- fromJSON("data/unbpos.publication.json")
 names(unb.pub)
 names(unb.pub$PERIODICO$`2012`)
 head(sort(table(unb.pub$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
@@ -402,7 +402,7 @@ head(sort(table(unb.pub$LIVRO$`2015`$nome_da_editora), decreasing = TRUE), 10)
 
 ###Descrição dos dados de agregação de docentes por área
 ```{r}
-unb.area <- fromJSON("data/UnBPosGeral/researchers_by_area.json")
+unb.area <- fromJSON("data/unbpos.researchers_by_area.json")
 unb.area.df <- cbind(names(unb.area$`Areas dos pesquisadores`),
            (sapply(unb.area$`Areas dos pesquisadores`, function(x) length(x))))
 rownames(unb.area.df) <- c(1:nrow(unb.area.df)); colnames(unb.area.df) <- c("Area", "Professores")
@@ -749,7 +749,7 @@ extrai_areas_atuacao <- function(jsonProfessores){
 ########################### Inicio 
 
 # colocar o diretorio onde está o arquivo json de perfis a serem lidos 
-unb.prof.json <- read_file("data/UnBPosGeral/profile.json")
+unb.prof.json <- read_file("data/unbpos.profile.json")
 unb.prof.df.capes <- read.csv("data/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
 unb.prof <- fromJSON(unb.prof.json)
