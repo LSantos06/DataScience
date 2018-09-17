@@ -10,7 +10,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = "~/Documents/eLattes/UNB/CD4A")
+knitr::opts_knit$set(root.dir = "~/Documents/R/DataScience")
 ```
 
 # Introdução
