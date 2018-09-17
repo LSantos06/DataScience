@@ -1,0 +1,910 @@
+---
+title:  Ciência de Dados para Todos (Data Science
+  For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB
+author: "Jorge H. C. Fernandes, Ricardo B. Sampaio, João Ribas de Moura e Jerônimo A. Filho"
+date: "11/06/2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "~/Documents/eLattes/UNB/CD4A")
+```
+
+# Introdução
+
+Este documento apresenta um modelo básico para a construção do relatório final da disciplina Tópicos Avançados em Computadores - TurmaD - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, em uma ou mais áreas de conhecimento.   
+
+A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). 
+
+Este documento deve ser referenciado do modo como aparece na seção de referências ao final do texto, abaixo reproduzida.
+
+Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science   For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+
+
+#CRISP-DM (Corresponderia à seção de Metodologia)
+
+Para desenvolvimento do trabalho devem ser seguidos, da forma mais simplificada e coerente possível, as fases e atividades genéricas do ciclo de vida de um projeto executado em aderência ao CRISP-DM, conforme ilustra de forma geral a figura 1. Em outras palavras, a produção do relatorio deve seguir a metodologia CRISP-DM.
+
+![Fases do Ciclo de Vida do CRISM-DM. Fonte: (Chapman et al., 2000).](CRISP-DM)
+
+Perceba que a Figura 1 sugere haver grande flexibilidade na execução das fases, de modo que se pode retornar a fases anteriores em muitos pontos.
+
+"A widely used methodology for data mining is the CRoss-Industry Standard Process for Data Mining (CRISP-DM) which mas initiated in 1996 (…) with the intent of providing a process that is __reliable and repeatable__ by people with little data-mining background, with a framework within which experience can be recorded, to support the replication of projects, to support planning and management, as well as to demonstrate data mining as a mature discipline (…)" [Sullivan, Rob. Introduction to Data Mining for the Life Sciences. Springer Science & Business Media. 2012]
+
+O seu trabalho deve conter uma seção metodologia, onde você faz uma breve descrição da metodologia que seu grupo adotou para realização do trabalho, que pode ser baseada no texto dessa seção, desde que citado adequadamente.
+
+## Delimitações iniciais
+Em aderência à estrutura do CRISP-DM, algumas delimitações de contexto para o trabalho são apresentadas a seguir:
+
+###Domínio de Aplicação do projeto
+O domínio de aplicação do projeto é o da produção científica e acadêmica brasileira, mais específicamente a produção científica ou produção acadêmica de um subgrupo de pesquisadores vinculados à Universidade de Brasília. O domínio de aplicação do projeto deve ser declarado na introdução ao relatório.
+
+<!--registrada na [base de currículos Lattes](lattes.cnpq.br), do CNPq.-->
+
+###Tipo de Problema abordado
+
+O tipo de problema abordado é o da produção de análises descritivas, quantitativas e de modelagem computacional ou estatística, que permitam caracterizar como e porque ocorre a produção científica e acadêmica de um grupo de pesquisadores. Essa caracterização visa subsidiar a tomada de decisão por membros do Sistema Nacional de Pós-Graduação. O tipo de problema abordado no projeto deve ser declarado na introdução ao relatório.
+
+###Conjunto de Ferramentas e Técnicas
+
+O conjunto de requisitos relativos a ferramentas e técnicas a serem empregadas na execução do trabalho é:
+
+* O relatório deve ser entregue no formato R Markdown, apto à geração de saída \LaTeX e PDF, composto por comandos em R entremeados por descrições textuais que auxiliem na interpretação dos resultados, bem como na compreensão do domínio de conhecimento sob análise.
+* As análises descritivas devem empregar de forma criativa as funções das bibliotecas de ciência de dados em R propostas por Wickham e Grolemund (2016).
+* As análises quantitativas devem lançar mão de recursos gráficos variados, que complementarão análises descritivas com _insights_ sobre de que forma os processos de produção científica e acadêmica contribuem para os resultados apresentados. 
+Por exemplo, os dados analisados possibilitam justificar o eventual crescimento ou decréscimo de índices de produção observados?
+* A modelagem computacional ou estatística avançada dos dados deve usar uma das quatro técnicas prescritas: 
+    + Aprendizado de Máquina (Datacamp, 2018; Kuhn et al., 2018; Bruce e Bruce, 2017); 
+    + Aprendizado Estatístico; 
+    + Mineração de Texto ou; 
+    + Análise de Redes (Kolaczyk e Csárdi, 2014; Lusher et al., 2013; de Nooy et al., 2005).
+
+O conjunto de requisitos relativos a ferramentas e técnicas a serem empregadas na execução do trabalhodo projeto deve ser declarado na parte de metodologia do relatório.
+
+##Modelo de Referência CRISP-DM
+
+Miner (2012), aprofunda: “(…) In CRISP-DM, the complete life cycle of a data mining project is represented with __six phases__: business understanding (determining the purpose of the study), data understanding (data exploration and understanding), data preparation, modeling, evaluation, and deployment.(…). [Miner, Gary. Practical Text Mining and Statistical Analysis for Non-structure Text Data Applications. Academic Press, 2012.]
+
+###Por que usar o CRISP-DM?
+
+Imagine uma analogia entre um projeto de datamining e a preparação de uma receita de bolo para ser usada em uma fábrica. Para iniciar a produção, com base numa receita de comprovada eficácia (metodológica e científica), você tem que minerar os ingredientes (dados) em um grande supermercado (_dataset_). Com os ingredientes você precisa aplicar um método (a forma de misturá-los), colocar os ingredientes numa determinada ordem, mexer por um certo tempo, aquecer por tantos minutos até o bolo ficar pronto e ser aprovado em um ou mais testes de degustação. 
+
+Tendo por objetivo fazer com que essa receita (script de mineração de dados) possa ser executada com sucesso diversas vezes, numa fábrica, será que outro cozinheiro (cientista) que reproduzisse a receita (método) chegaria ao mesmo resultado? Se a metodologia (receita) já foi bastante  testada, então é bem provável que o resultado será o mesmo e seu produto (receita de bolo) será aceito para a produção (_deployment_) de análises para consumo futuro, com base em fundamentos científicos.
+
+### Organização hierárquica de atividades em fases
+
+Dentro de cada fase no CRISP-DM existe uma estrutura hierárquica de atividades genéricas para serem realizadas. Cada uma dessas atividades __genéricas__ pode determinar a execução de atividades __específicas__. 
+
+Voltando ao exemplo do bolo, a atividade ” 1. Entendimento do Bolo” poderia conter uma atividade genérica chamada “1.1. Determinar para que o bolo servirá (simples café da manhã? bolo de aniversário? bolo de casamento?)“. Dentro dessa atividade genérica poderia haver atividades específicas como “1.1.1.Entrevistar o contratante para obter detalhes de onde o bolo será usado?“; “1.1.2. Conversar com os convidados sob alguma necessidade especial (sem lactose? sem glútem?)“, etc. 
+
+### Seis Fases do CRISP-DM
+
+Com base no apresentado, segue uma descrição um pouco mais detalhada das seis fases de um projeto no CRISP-DM, interpretadas no contexto do relatório que você e seu grupo deverão  produzir.
+
+Todas as fases deverão ser adequadamente relatadas no relatório, em seções que aparecem após a seçãoda metodologia 
+
+1. O propósito da fase de __Entendimento do Negócio__ é o desenvolvimento dos objetivos e declaração das necessidades do projeto sob a perspectiva do negócio, para transformar isso tudo em definição de um problema de data mining. 
+
+As atividades genéricas dentro dessa fase envolvem:
+
+* Identificar o que a organização realmente necessita alcançar. No caso específico desta disciplina, a necessidade do Sistema Nacional de Pós-Graduação do Brasil de produzir análises de alta qualidade de suas pós-graduações, com baixo custo. Como produzir um projeto de mineração de dados se você não sabe o que necessita encontrar ou resolver? Se você não entender os objetivos da organização pode levar ao erro de procurar as respostas certas para as perguntas erradas. 
+
+* Avaliação das Circunstâncias. Envolve identificar quais recursos ou dificuldades podem influenciar os  objetivos da mineração ou do projeto em si. No caso específico desta disciplina, isso envolve refletir, entre vários outros aspectos, sobre as limitações de tempo do projeto, que precisa ser realizado dentro de um semestre letivo, de modo que considerável parte das atividades já foram pré-organizadas pelos docentes responsáveis pela disciplina. 
+
+* O projeto de mineração é o grande objetivo desta etapa e o relatório precisa conter uma seção sobre Metodologia, apresentando em detalhes o que se pretende fazer adiante.
+
+2. A fase de __Entendimento dos Dados__ inicia determinando quais são os dados realmente disponíveis na organização, se existe permissão para utilizá-los, se existem dados confidenciais ou cobertos pelo sigilo. Por exemplo, um _dataset_ das declarações de imposto de renda da Receita Federal certamente seria protegido pelo sigilo fiscal. Dados de pacientes de hospitais podem conter restrições.
+
+Também é necessário acessar os dados para compreendê-los melhor para ter o _insight_ de como será feita a modelagem mais tarde.
+
+Na fase de entendimento dos dados pode-se trabalhar com quatro atividades genéricas:
+
+* Coleta inicial dos dados. Essa atividade envolve a análise das permissões de acesso e outras questões envolvendo sigilo e outros proprietários dos dados (terceiros). Por exemplo, eu poderia estar acessando uma base de dados que foi obtida de outro órgão por convênio, mas nesse convênio (contrato) não foi dada permissão para qualquer outro tipo de acesso ou exploração dos dados. Neste projeto, a coleta inicial foi feita pelos autores deste relatório. O relatório final deve conter indicações de como foi realizada a coleta inicial dos dados.
+
+* Descrição dos dados. A descrição dos dados verifica se os dados sendo acessados terão potencial para responder às questões de _data mining_. Além disso, deve-se avaliar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc. Neste projeto, a descrição dos dados é responsabilidade parcial dos alunos, tendo em vista que este modelo já oferece uma descrição inicial. O relatório final deve conter descrições significativas e aprofundadas dos dados.
+
+* Análise exploratória dos dados. A análise exploratória dos dados possibilita um entendimento mais profundo da relação estatística existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para o objetivo do projeto. 
+Neste projeto, a análise exploratória dos dados é responsabilidade parcial dos alunos, tendo em vista que este relatório apresenta uma análise exploratória preliminar.
+O relatório final deve conter análises exploratórias dos dados que sejam significativas e aprofundadas.
+
+* Verificação da qualidade dos dados. A verificação da qualidade dos dados envolve responder se os dados disponíveis estão realmente completos. As informações disponíveis são suficientes para o trabalho proposto? Neste projeto, a verificação da qualidade dos dados é responsabilidade dos alunos.
+
+3. Na fase de __Preparação dos Dados__ os _datasets_ que serão utilizados em todo o trabalho são construídos a partir dos dados brutos. Aqui os dados são “filtrados” retirando-se partes que não interessam e selecionando-se os “campos” necessários para o trabalho de mineração. 
+
+São 5 as atividades genéricas nesta fase de preparação dos dados:
+
+* Seleção dos dados. Envolve identificar quais dados, da nossa "montanha de dados", serão realmente utilizados. Quais variáveis dos dados brutos serão convertidas para o _dataset_? Não é raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contém a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruído (Silver, Nate. The Signal and the Noise: Why so many predictions fail — but some don’t. USA: The Penguin Press HC, 2012.). 
+
+* Limpeza dos dados.
+
+* Construção dos dados. Envolve a criação de novas variáveis a partir de outras presentes nos _datasets_.
+
+* Integração dos dados. Envolve a união (merge) de diferentes tabelas para criar um único _dataset_ para ser utilizado no R, por exemplo.
+
+* Formatação dos dados. Envolve a realização de pequenas alterações na estrutura dos dados, como a ordem das variáveis, para permitir a execução de determinado método de data mining.
+
+4. A fase de __Modelagem__ no CRISP-DM envolve a construção e avaliação do modelo, podendo ser realizada em quatro atividades genéricas:
+
+* Seleção das técnicas de modelagem.
+
+* Realização de testes de modelagem, onde diferentes modelos são previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construção de modelos, e outra pequena parte para validar  e avaliar a eficiência de cada modelo criado até se chegar ao mais “eficiente”. 
+
+* Construção do modelo definitivo, com base na melhor experiência do passo anterior.
+
+* Avaliação do modelo.
+
+5. Na fase de __Avaliação__ do CRISP-DM os resultados não são apenas avaliados, mas se verifica se existem questões relacionadas à organização que não foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum “efeito colateral” para a organização. 
+
+Nesta fase, pode-se trabalhar com 3 atividades genéricas:
+
+* Avaliação dos resultados
+
+* Revisão do processo, por meio da qual verifica-se se o modelo foi construído adequadamente. As variáveis (passadas) para construir o modelo estarão disponíveis no futuro?
+
+* Determinação dos etapas seguintes. Pode ser necessário decidir-se por finalizar o projeto, passar à etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
+
+6. Na fase de __Implantação__ (_deployment_) se realiza o planejamento de implantação dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenção do sistema (script) desenvolvido. A fase de implantação concluir com a produção e apresentação do relatório final com os resultados do projeto.
+
+São atividades genéricas  na fase de __implantação__:
+
+* Planejamento da transição dos produtos;
+* Planejamento do monitoramento dos produtos em utilização no ambiente operacional;
+* Planejamento de manuteção a ser eventualmente efetuada no produto (scripts);
+* Produção do relatório final;
+* Apresentação do relatório final;
+* Revisão sobre a execução do projeto, com registro de lições aprendidas etc.
+
+No contexto do projeto realizado no âmbito desta disciplina, a responsabilidade por execução de todas essas atividades é dos alunos, com exceção da apresentação do relatório final, que não será realizada.
+
+# CRISP-DM Fase 1 - Entendimento do Negócio
+
+##O que é o Sistema Nacional de Pós-Graduação? (Contextualização)
+
+A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
+
+Fernandes e Sampaio (2017) já indicaram que a ciência é reconhecidamente um elemento essencial para o desenvolvimento social e econômico de qualquer nação.
+Assim sendo, faz-se mister aprimorar o SNPG como forma de promoção desse crescimento, visando maximizar o retorno decorrente do emprego dos recursos nele aplicados. 
+A promoção do crescimento do SNPG se dá predominantemente por meio de avaliações regulares de seus programas de pós-graduação, sob responsabilidade da CAPES, que realiza a cada quatro anos um complexo (Leite, 2018, p. 13) e custoso processo de coleta de dados, análise e deliberação sobre as pós-graduações _strictu sensu_, em coerência com o estabelecido no Plano Nacional de Pós-Graduação (PNPG) 2012-2020 (CAPES, 2010) e nos diversos documentos que definem os critérios de organização da pós-graduação em cada área do conhecimento (CAPES, 2018).
+Leite (2018) faz uma apresentação geral  de como se organizam e são avaliadas as pós-graduações no Brasil.
+
+O Plano Nacional de Pós-Graduação (PNPG), por outro lado, define diretrizes estratégicas para desenvolvimento da pós-graduação brasileira, que deve abordar prioritariamente grandes temas de interesse nacional, tais como a redução das assimetrias de desenvolvimento entre as regiões do Brasil, a formação de professores para a educação básica, a formação de recursos humanos para as empresas, a resposta aos grandes desafios brasileiros sobre Água, Energia, Transporte, Controle de Fronteiras, Agronegócio, Amazônia, Amazônia Azul (Mar), Saúde, Defesa, Programa Espacial, além de Justiça, Segurança Pública, Criminologia e Desequilíbrio Regional.
+O PNPG também traça as diretrizes para financiamento da pós-graduação e sua internacionalização, apresentando conclusões e recomendações.
+
+As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
+Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
+Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
+
+Não há solução simples, mas postula-se, nesta disciplina, que uma maior agilidade na avaliação e a utilização de critérios mais objetivos, poderá facilitar a melhoria do sistema.
+
+###Os Colégios, Grandes Áreas e Áreas da Pós-Graduação Brasileira
+
+A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas, conforme apresentam as tabelas a seguir.
+
+####Colégio de Ciências da vida
+
+CIÊNCIAS AGRÁRIAS| CIÊNCIAS BIOLÓGICAS| CIÊNCIAS DA SAÚDE
+-|-|-
+Ciência de Alimentos |Biodiversidade |Educação Física
+Ciências Agrárias I |Ciências Biológicas I |Enfermagem
+Medicina Veterinária |Ciências Biológicas II |Farmácia
+Zootecnia / Recursos Pesqueiros |Ciências Biológicas III |Medicina I
+- |- |Medicina II
+- |- |Medicina III
+- |- |Nutrição
+- |- |Odontologia
+- |- |Saúde Coletiva
+
+
+####Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar
+
+CIÊNCIAS EXATAS E DA TERRA|ENGENHARIAS|MULTIDISCIPLINAR
+-|-|-
+Astronomia / Física |Engenharias I |Biotecnologia
+Ciência da Computação |Engenharias II |Ciências Ambientais
+Geociências |Engenharias III |Ensino
+Matemática / Probabilidade e Estatística |Engenharias IV |Interdisciplinar
+Química | - |Materiais
+
+
+####Colégio de Humanidades
+
+
+CIÊNCIAS HUMANAS | CIÊNCIAS SOCIAIS APLICADAS | LINGUÍSTICA, LETRAS E ARTES
+-|-|-
+Antropol/Arqueol | Admin.Púb./Empr.,C.Contáb. e Tur.|Artes
+Ciência Pol. e Rel. Int. |Arquit., Urban. e Design | Linguística e Literatura
+Ciências da Religião e Teol. |Comunicação e Informação|-
+Educação |Direito|-
+Filosofia |Economia|-
+Geografia |Planej. Urbano e Reg. / Demografia|-
+História |Serviço Social |-
+Psicologia|-|-
+Sociologia|-|-
+
+Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas.
+Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
+
+##A UnB dentro do Sistema Nacional de Pós-Graduação (Contextualização)
+
+### O que é a UnB?
+Descrição da Universidade de Brasília, com foco na sua produção científica e acadêmica.
+
+###Descrição das pós-graduações da UnB
+Texto a desenvolver.
+
+###Outros aspectos que caracterizam a produção científica e acadêmica da UnB
+Texto a desenvolver.
+
+## O que a Organização precisa realmente alcançar?
+
+Vários stakeholders estão envolvidos no projeto em curso, e poderíamos considerar cada um deles como distintas organizações que possuem interesses distintos e complementares. Elas são:
+* A Disciplina Ciência de Dados para Todos 2018.1, que quer comprovar que seus alunos dominam ferramentas e técnicas de ciência de dados, para fins de avaliação de rendimento da disciplina.
+* A UnB, representada pelos decanatos de pós-graduação (DPG) e de pesquisa e inovação (DPI), que querem dispor de instrumentos para realização de avaliações contínuas de suas pós-graduações.
+* O SNPG, que assim com o DPG e DPI, também pode se beneficiar do uso de instrumentos para realização de avaliações contínuas de suas pós-graduações.
+* Os interessados em melhor conhecer o que é produzido pelo Sistema Nacional de Pós-graduação, como empresas privadas, que querem desfrutar dos benefícios gerados pela  ciência brasileira.
+
+A fim de dar maior fidelidade e homogeneidade ao exercício realizado na disciplina, focaremos em atendimento aos interesses comuns das organizações DPI, DPG e CAPES, que desejam dispor de instrumentos ágeis para avaliação contínua da pós-graduação brasileira. 
+
+Com base no exposto, o objetivo do trabalho final a ser alcançado pelos produtos d emineração de dados desenvolvido pelos alunos da disciplina Ciência de Dados para Todos é produzir, tomando por base inicial os dados fornecidos pelos professores responsáveis pela disciplina, ferramentas para análise e avaliação contínuas e de baixo custo, do desempenho de um conjunto de pós-graduações que estão vinculadas a uma mesma subárea ou grupo de conhecimento. Cada área de pós-graduação apresenta suas características peculiares, assim como cada um dos programas vinculados a essas áreas.
+Como já informado, características peculiares de cada programa podem ser obtidas a partir de visita ao sítio da CAPES (2018).
+
+##Avaliação das Circunstâncias
+
+Este documento serve como base para a realização dos trabalhos dos alunos. apresenta limitações no tocante à quantidade pequena de dados que serão empregados para análises e avaliações, tendo em vista sua finalidade maior que é a didática, de permitir aos alunos demonstrarem a capacidade de aplicação das técnicas e ferramentas apreendidas durante o semestre.
+
+###Avaliação preliminar das pós-graduações na UnB
+Texto a desenvolver.
+
+###Avaliação preliminar da produção científica e acadêmica da UnB
+Texto a desenvolver.
+
+#CRISP-DM Fase 2 - Entendimento dos Dados
+
+Doravante, a fim de facilitar aos alunos seguirem a metodologia CRISP-DM, os nomes das seções e subseções de texto serão prefixadas com o número e nome da fase e atividade genérica do CRISP-DM. Fica facultado aos grupos seguir ou não a sequência prevista, tendo em vista que se pode retornar às fases anteriores, bem como podem haver atividades que não foram adequadas às características do problema específico sob análise.
+
+##CRISP-DM Fase.Atividade 2.1 - Coleta inicial dos dados
+Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores responsáveis pela disciplina. Os dados foram gerados no mês de maio de 2018, e compilam informações entre os anos de 2010 e 2017. 
+Os arquivos estão no formato JSON, e seus atributos iniciais e conteúdos são apresentados a seguir.
+
+###Perfil profissional dos docentes vinculados às pós-graduações
+
+```{r}
+json.perfil <- "data/UnBPosGeral/profile.json"
+file.info(json.perfil)
+```
+
+O arquivo `r json.perfil` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017. 
+Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
+
+###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
+
+```{r}
+json.advise <- "data/UnBPosGeral/advise.json"
+file.info(json.advise)
+```
+
+O arquivo `r json.advise` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017. 
+Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
+
+
+###Produção bibliográfica gerada pelos docentes vinculados às pós-graduações
+
+```{r}
+json.producao.bibliografica <- "data/UnBPosGeral/publication.json"
+file.info(json.producao.bibliografica) 
+```
+
+O arquivo `r json.producao.bibliografica` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017. 
+
+###Agrupamento dos docentes conforme áreas de atuação
+
+```{r}
+json.researchers_by_area <- "data/UnBPosGeral/researchers_by_area.json" 
+file.info(json.researchers_by_area)
+```
+
+O arquivo `r json.researchers_by_area` apresenta as vinculações de todos os docentes que declararam atuar em cada uma das áreas de pós-graduação do Sistema Nacional de Pós-Graduação da CAPES, conforme apresenta-se registrada essa informação no currículo Lattes de cada um, em data recente. 
+
+```{r}
+file.info('data/UnBPosGeral/graph.json')
+```
+
+###Redes de colaboração entre docentes
+
+O arquivo data/UnBPosGeral/graph.json apresenta redes de colaboração na co-autoria de artigos cientpificos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
+
+##CRISP-DM Fase.Atividade 2.2 - Descrição dos Dados
+
+Para ler e manipular inicialmente esses dados, serão usadas primordialmente as bibliotecas seguintes 
+
+```{r library-load}
+library(jsonlite)
+library(listviewer)
+library(readxl)
+library(readr)
+library(readtext)
+library(ggplot2)
+library(tidyverse)
+library(stringr)
+```
+
+Como já informado, a descrição dos dados verifica se os dados sendo acessados terão potencial para responder às questões de _data mining_. Além disso, deve-se avaliar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc. Neste projeto, a descrição dos dados é responsabilidade parcial dos alunos, tendo em vista que esta seção já oferece uma descrição inicial simplificada. O relatório final deve conter descrições significativas e aprofundadas dos dados.
+
+###Descrição dos dados do perfil
+
+O arquivo unb.perfis.json, que contém dados que caracterizam o perfil profissional de todos os docentes do grupo sob análise, podem ser lido por meio do comando seguinte.
+
+```{r}
+unb.prof <- fromJSON("data/UnBPosGeral/profile.json")
+```
+
+A quantidade de docentes sob análise é apresentada a seguir.
+```{r}
+length(unb.prof)
+```
+
+Para gerar uma apresentação inicial dos dados que estão contido nos dados de perfil dos docentes, pode-se usar a função glimpse, da biblioteca dplyr, como ilustra o código seguinte, que apresenta os atributos típicos que podem ser obtidos relativamente a um pesquisador específico, o mais antigo docente ainda em exercício na UnB a ter criado seu registro na plataforma Lattes.
+
+```{r}
+glimpse(unb.prof[[1]], width = 30)
+```
+
+Uma breve inspeção visual dos atributos anteriormente apresentados permite inferir que o pesquisador sob análise:
+
+* Atua predominantemente na área de matemática.
+* Trabalha no Instituto de Ciências Exatas da UnB.
+* Possui três artigos recentes publicados, além de um aceito para publicação.
+* Possui uma orientação de doutorado em andamento, iniciada em 2014.
+* Foi classificado com senioridade 5.
+
+####Potencial de utilização dos dados do perfil dos docentes
+
+Esses dados terão potencial para responder às questões de _data mining_?
+O que é possível gerar a partir desses dados, para o conjunto dos 1592 docentes da UnB?
+A fim de compreender a relevância dos dados para a avaliação da produção acadêmica nas pós-graduações brasileiras pode-se recorrer a trabalhos como os seguintes:
+
+* Leite (2018) apresenta, em suas "Considerações básicas sobre  a Avaliação do Sistema  Nacional de Pós-Graduação", o conjunto dos itens que são tópicos de avaliação das pós-graduações pela CAPES, e que envolvem, entre outros:
+    + Avaliação do corpo docente, com 20% a 30% de peso na avaliação total do programa, a depender do seu tipo. Analisando-se de forma mais detalhada os critérios de avaliação do corpo docente, indicados por Leite, o que é possível gerar com base nos dados disponíveis em unb.prof? Há dados que permitam identificar o perfil do docente, como proposto pela CAPES, inclusive no documento de área específica na qual atua o pesquisador? Que outros aspectos relevantes para a CAPES podem ser levantados com base nos dados dessa fonte?
+    + Avaliação do corpo discente, Teses e dissertações, com 30% a 20% de peso na avaliação total do programa, a depender de seu tipo. Os dados sobre orientação permitem fazer quais tipos de avaliações do corpo discente?
+    + Avaliação da produção intelectual, com 40% de peso na avaliação total. Qual a relevância dos dados em unb.prof para essa avaliação? Que outros arquivos podem melhor subsidiar essa avaliação?
+* Em busca de considerar outros fatores relevantes para a avaliação da pós-graduação, não considerados no modelo da CAPES, pode-se recorrer ao trabalho de Kalpazidou Schmidt e Graversen (2018), que apresentam um conjunto de fatores persistentes que facilitam a existência de ambientes de pesquisa inovadores e dinâmicos, dentre os quais se destaca:
+    + Atividade em pesquisas com elevado grau de impacto social;
+    + Promoção de elevado grau de autonomia individual, tanto do ponto de vista teórico quanto metodológico;
+    + Possuem um bom clima de trabalho, baseado no trabalho em times;
+    + São internacioinalmente bem conhecidas etc.
+    
+    Estariam esses fatores contemplados, de alguma forma, memso que parcialmente, nos dados presentes em unb.prof? Ou em qualquer outros dos arquivos? Cabe explorar.
+
+###Descrição dos dados de orientações
+
+```{r}
+unb.adv <- fromJSON("data/UnBPosGeral/advise.json")
+names(unb.adv)
+names(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO)
+length(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2016`$natureza)
+head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+```
+
+
+###Descrição dos dados de produção bibliográfica
+```{r}
+unb.pub <- fromJSON("data/UnBPosGeral/publication.json")
+names(unb.pub)
+names(unb.pub$PERIODICO$`2012`)
+head(sort(table(unb.pub$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
+head(sort(table(unb.pub$LIVRO$`2015`$nome_da_editora), decreasing = TRUE), 10)
+```
+
+
+###Descrição dos dados de agregação de docentes por área
+```{r}
+unb.area <- fromJSON("data/UnBPosGeral/researchers_by_area.json")
+unb.area.df <- cbind(names(unb.area$`Areas dos pesquisadores`),
+           (sapply(unb.area$`Areas dos pesquisadores`, function(x) length(x))))
+rownames(unb.area.df) <- c(1:nrow(unb.area.df)); colnames(unb.area.df) <- c("Area", "Professores")
+glimpse(unb.area.df)
+head(unb.area.df[])
+```
+
+
+###Descrição dos dados de redes de colaboração
+
+
+##CRISP-DM Fase.Atividade 2.3 - Análise exploratória dos dados
+
+Como já informado, a análise exploratória dos dados possibilita um entendimento mais profundo da relação estatística existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para os objetivos do projeto. 
+
+Como já informado, a análise exploratória dos dados é responsabilidade parcial dos alunos, tendo em vista que este relatório apresenta uma análise exploratória preliminar.
+O relatório final deve conter análises exploratórias dos dados que sejam significativas e aprofundadas.
+
+###Arquivo Profile
+
+```{r}
+# jsonedit(unb.prof)
+# Número de áreas de atuação cumulativo
+sum(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao)))
+# Número de áreas de atuação por pessoa
+table(unlist(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao))))
+# Número de pessoas por grande area
+table(unlist(sapply(unb.prof, function(x) (x$areas_de_atuacao$grande_area))))
+# Número de pessoas que produziram os específicos tipos de produção
+table(unlist(sapply(unb.prof, function(x) names(x$producao_bibiografica))))
+# Número de publicações por tipo
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+# Número de produções por ano
+table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+# Número de pessoas que realizaram diferentes tipos de orientações
+length(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
+# Número de pessoas por tipo de orientação
+table(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
+#Número de orientações concluidas
+sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+# Número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+# Número de orientações por ano
+table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+```
+
+###Arquivo Publicação
+```{r}
+# Visualizar a estrutura do arquivo de Publicacao
+#jsonedit(unb.pub)
+#Criando um data-frame com todos os anos
+unb.pub.df <- data.frame()
+for (i in 1:length(unb.pub[[1]]))
+  unb.pub.df <- rbind(unb.pub.df, unb.pub$PERIODICO[[i]])
+glimpse(unb.pub.df)
+# Limpando o data-frame de listas
+unb.pub.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.df$autores)
+unb.pub.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.df$autores)
+unb.pub.df$`autores-endogeno` <- gsub(",", ";", unb.pub.df$`autores-endogeno`)
+unb.pub.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.df$`autores-endogeno`)
+glimpse(unb.pub.df)
+
+```
+
+###Arquivo Orientação
+```{r}
+#Orientação
+#Visualizar a estrutura do json no painel Viewer
+#jsonedit(unb.adv)
+#Reunir todos os anos e orientações concluidas em um mesmo data-frame
+unb.adv.tipo.df <- data.frame(); unb.adv.df <- data.frame()
+for (i in 1:length(unb.adv[[1]]))
+  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
+unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df); unb.adv.tipo.df <- data.frame()
+for (i in 1:length(unb.adv[[1]]))
+  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO[[i]])
+unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df); unb.adv.tipo.df <- data.frame()
+for (i in 1:length(unb.adv[[1]]))
+  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
+unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df)
+glimpse(unb.adv.df)
+#Transformar as colunas de listas em caracteres eliminando c("")
+unb.adv.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$nome_orientadores)
+unb.adv.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$id_lattes_orientadores)
+#Separar as colunas com dois orientadores
+unb.adv.df <- separate(unb.adv.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+unb.adv.df <- separate(unb.adv.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+#Numero de orientacoes por ano
+table(unb.adv.df$ano)
+#Tabela com nome de professor e numero de orientacoes
+head(sort(table(rbind(unb.adv.df$ori1, unb.adv.df$ori2)), decreasing = TRUE), 20)
+```
+
+
+##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
+
+Como já informado, a verificação da qualidade dos dados envolve responder se os dados disponíveis estão realmente completos. 
+
+As informações disponíveis são suficientes para o trabalho proposto? 
+
+Neste projeto, a verificação da qualidade dos dados é responsabilidade dos alunos.
+
+#CRISP-DM Fase 3 -  __Preparação dos Dados__
+
+Como já informado, na fase de __Preparação dos Dados__ os _datasets_ que serão utilizados em todo o trabalho são construídos a partir dos dados brutos. Aqui os dados são “filtrados” retirando-se partes que não interessam e selecionando-se os “campos” necessários para o trabalho de mineração. 
+
+São 5 as atividades genéricas nesta fase de preparação dos dados, a seguir divididas em subseções
+
+##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
+
+Como já informado, a seleção dos dados envolve identificar quais dados, da nossa "montanha de dados", serão realmente utilizados. 
+
+Quais variáveis dos dados brutos serão convertidas para o _dataset_? 
+
+Não é raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contém a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruído (Silver, Nate. The Signal and the Noise: Why so many predictions fail — but some don’t. USA: The Penguin Press HC, 2012.). 
+
+##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
+
+##CRISP-DM Fase.Atividade 3.3 - Construção dos dados
+
+Como já informado, a construção dos dados envolve a criação de novas variáveis a partir de outras presentes nos _datasets_.
+```{r}
+# Funcoes 
+
+# converte as colunas de um dataframe tipo lista em tipo character
+cv_tplista2tpchar <- function( df  ) { 
+  for( variavel in names(df)) {
+    if (class(df[[variavel]]) == "list" ) {
+      df[[variavel]] <- lapply(df[[variavel]] ,   function(x)   lista2texto( x  ) ) 
+      df[[variavel]] <- as.character( df[[variavel]] )
+    }
+  }
+  return(df)
+}
+###
+
+
+# converte o conteudo de lista em array de characters
+lista2texto <- function( lista  ) {
+  if(is.null(lista)) {
+    return ( NULL )
+  }
+  saida <- ""
+  for( j in 1:length(lista)) { 
+    for( i in 1:length(lista[[j]]) ) {
+      elemento <- lista[[j]][i] 
+      if( !is.null(elemento)) { 
+        if( i == length(lista[[j]]) & j == length(lista)  ) { 
+          # se for o ultimo elemento nao coloque o ponto e virgula no final            
+          saida <- paste0( saida , elemento  )
+        } else {
+          # enquanto nao for o ultimo coloque ; separando os elementos concatenados 
+          saida <- paste0( saida , elemento , sep = " ; ")
+        }
+      }  
+    }
+  }
+  return( saida )
+}
+
+# Converte producao elattes separada por anos em um unico dataframe 
+converte_producao2dataframe<- function( lista_producao ) {
+  df_saida <- NULL 
+  
+  for( ano in names(lista_producao)) {
+    df_saida <- rbind(df_saida , lista_producao[[ano]])
+  }
+  
+  # converte tipo lista em array de character 
+  df_saida <- cv_tplista2tpchar(df_saida)
+  return(df_saida)
+  
+
+}
+
+#concatena dois dataframes com  colunas diferentes 
+concatenadf <- function( df1, df2) { 
+  #cria colunas de df1 que faltam em df2
+  for( coluna in names(df1 ) ) {
+    if( !is.element(coluna, names(df2) )) {
+      df2[coluna] <- NA
+    }
+  }
+  
+  #cria colunas de df2 que faltam em df1  
+  for( coluna in names(df2 ) ) {
+    
+    if( !is.element(coluna, names(df1) )) {
+      df1[coluna] <- NA
+    }
+  }
+  
+  
+  #faz o rbind dos dois dataframes 
+  df_final <- rbind(df1 , df2)
+  return(df_final)
+  
+}
+
+# Extracao dos perfis dos professores 
+
+extrai_1perfil <- function( professor ) {
+  idLattes <- names(professor)
+  nome <- professor[[idLattes]]$nome   
+  resumo_cv <- professor[[idLattes]]$resumo_cv 
+  endereco_profissional <- professor[[idLattes]]$endereco_profissional #list 
+  instituicao <- endereco_profissional$instituicao
+  orgao <- endereco_profissional$orgao
+  unidade <- endereco_profissional$unidade
+  DDD <- endereco_profissional$DDD
+  telefone <- endereco_profissional$telefone
+  bairro <- endereco_profissional$bairro
+  cep <- endereco_profissional$cep
+  cidade <- endereco_profissional$cidade
+  senioridade <- professor[[idLattes]]$senioridade  
+  df_1perfil <- data.frame( idLattes , nome, resumo_cv ,instituicao , 
+                           orgao, unidade , DDD, telefone, bairro,cep,cidade , senioridade,
+                           stringsAsFactors = FALSE)
+  
+  return(df_1perfil)  
+}
+
+extrai_perfis <- function(jsonProfessores) {
+  df_saida <- data.frame()
+  for( i in 1:length(jsonProfessores)) {
+    jsonProfessor <- jsonProfessores[i]
+    df_professor <- extrai_1perfil(jsonProfessor)
+    if( nrow(df_saida) > 0 ) {
+      df_saida <- rbind(df_saida , df_professor)
+    } else {
+      df_saida <- df_professor 
+    }
+  }
+   
+  return(df_saida)
+}
+
+# Extracao da producao bibliografica dos professores 
+
+extrai_1producao <- function(professor) {
+  idLattes <- names(professor)
+  df_1producao <<- NULL 
+  producao_bibliografica <- professor[[idLattes]]$producao_bibiografica  #list
+  for( tipo_producao in names(producao_bibliografica)) { 
+    df_temporario <- cv_tplista2tpchar ( producao_bibliografica[[tipo_producao]]) 
+    df_temporario$tipo_producao <-  tipo_producao 
+    df_temporario$idLattes <-  idLattes
+    df_1producao <- concatenadf( df_1producao , df_temporario  )
+  }  
+  return(df_1producao)
+}
+
+extrai_producoes <- function( jsonProfessores) {
+  df_saida <- data.frame()
+  for( i in 1:length(jsonProfessores)) {
+    jsonProfessor <- jsonProfessores[i]
+    df_producao <- extrai_1producao(jsonProfessor)
+    if( nrow(df_saida) > 0 ) {
+      df_saida <- concatenadf(df_saida , df_producao)
+    } else {
+      df_saida <- df_producao 
+    }
+  }
+  df_saida <- df_saida %>% filter( !is.na(tipo_producao))
+  return(df_saida)  
+}
+
+# Extracao das orientacoes dos professores 
+
+extrai_1orientacao <- function(professor) {
+  idLattes <- names(professor)
+  df_1orientacao <- NULL
+  orientacoes_academicas  <- professor[[idLattes]]$orientacoes_academicas  #list
+  for( orientacao in names(orientacoes_academicas )) { 
+    df_temporario <- cv_tplista2tpchar ( orientacoes_academicas[[orientacao]])
+    df_temporario$orientacao <-  orientacao 
+    df_temporario$idLattes <-  idLattes
+    df_1orientacao <- concatenadf( df_1orientacao , df_temporario  )
+  }  
+  return(df_1orientacao) 
+}
+
+extrai_orientacoes <- function(jsonProfessores) {
+  df_saida <- data.frame()
+  for( i in 1:length(jsonProfessores)) {
+    jsonProfessor <- jsonProfessores[i]
+    df_orientacao <- extrai_1orientacao(jsonProfessor)
+    if( nrow(df_saida) > 0 ) {
+      df_saida <- concatenadf(df_saida , df_orientacao)
+    } else {
+      df_saida <- df_orientacao
+    }
+  }
+  df_saida <- df_saida %>% filter(!is.na(idLattes))
+  return(df_saida)  
+}
+
+# Extracao das areas de atuacao dos professores 
+
+extrai_1area_de_atuacao <- function(professor){
+  idLattes <- names(professor)
+  df_1area <-  professor[[idLattes]]$areas_de_atuacao
+  df_1area$idLattes <- idLattes
+  return(df_1area)
+}
+
+extrai_areas_atuacao <- function(jsonProfessores){
+  df_saida <- data.frame()
+  for( i in 1:length(jsonProfessores)) {
+    jsonProfessor <- jsonProfessores[i]
+    df_area_atuacao <- extrai_1area_de_atuacao(jsonProfessor)
+    if( nrow(df_saida) > 0 ) {
+      df_saida <- concatenadf(df_saida , df_area_atuacao)
+    } else {
+      df_saida <- df_area_atuacao
+    }
+  }
+  df_saida <- df_saida %>% filter( !is.na(idLattes))
+  return(df_saida)   
+}
+########################### Inicio 
+
+# colocar o diretorio onde está o arquivo json de perfis a serem lidos 
+unb.prof.json <- read_file("data/UnBPosGeral/profile.json")
+unb.prof.df.capes <- read.csv("data/PesqPosCapes.csv", 
+                              sep = ";", header = TRUE, colClasses = "character")
+unb.prof <- fromJSON(unb.prof.json)
+length(unb.prof)
+
+# extrai perfis dos professores 
+unb.prof.df.professores <- extrai_perfis(unb.prof)
+
+# extrai producao bibliografica de todos os professores 
+unb.prof.df.publicacoes <- extrai_producoes(unb.prof)
+
+#extrai orientacoes 
+unb.prof.df.orientacoes <- extrai_orientacoes(unb.prof)
+
+#extrai areas de atuacao 
+unb.prof.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof)
+
+#salva os daframes 
+save(unb.prof.df.professores, unb.prof.df.publicacoes,
+     unb.prof.df.orientacoes, unb.prof.df.areas.de.atuacao, file = "dataframes.Rda")
+
+#cria arquivo para análise
+unb.prof.df <- data.frame()
+unb.prof.df <- unb.prof.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    unb.prof.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.df.capes %>% 
+      select(AreaPos, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(AreaPos)), 
+    by = "idLattes")
+
+glimpse(unb.prof.df)
+```
+
+
+##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
+
+Como já informado, a integração dos dados envolve a união (merge) de diferentes tabelas para criar um único _dataset_ para ser utilizado no R, por exemplo.
+
+##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
+
+Como já informado, a formatação de dados envolve a realização de pequenas alterações na estrutura dos dados, como a ordem das variáveis, para permitir a execução de determinado método de data mining.
+
+#CRISP-DM Fase 4 - __Modelagem__
+
+Como já informado, na fase de __Modelagem__ no CRISP-DM ocorre a construção e avaliação de modelos estatísticos ou computacionais, podendo ser realizada em quatro atividades genéricas, a seguir organizadas na forma de seções
+
+##CRISP-DM Fase.Atividade 4.1 - Seleção das técnicas de modelagem
+
+##CRISP-DM Fase.Atividade 4.2 -  Realização de testes de modelagem
+
+Como já informado, na realização de testes de modelagem diferentes modelos estatísticos ou computacionais são previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construção de modelos, e outra pequena parte para validar  e avaliar a eficiência de cada modelo criado até se chegar ao mais “eficiente”. 
+
+##CRISP-DM Fase.Atividade 4.3 -  Construção do modelo definitivo
+
+Como já informado, a construçao do modelo definitivo é realizada com base na melhor experiência do passo anterior.
+
+##CRISP-DM Fase.Atividade 4.4 - Avaliação do modelo
+
+#CRISP-DM Fase 5 - __Avaliação__
+
+Como já informado, na fase de __Avaliação__ do CRISP-DM os resultados não são apenas avaliados, mas se verifica se existem questões relacionadas à organização que não foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum “efeito colateral” para a organização. 
+
+Como já informado, nesta fase, pode-se trabalhar com 3 atividades genéricas, a seguir distribuídas em seções.
+
+##CRISP-DM Fase.Atividade 5.1 - Avaliação dos resultados
+
+##CRISP-DM Fase.Atividade 5.2 - Revisão do processo
+
+Como já informado, durante a revisão do processo verifica-se se o modelo foi construído adequadamente. As variáveis (passadas) para construir o modelo estarão disponíveis no futuro?
+
+##CRISP-DM Fase.Atividade 5.3 -  Determinação dos etapas seguintes
+
+Como já informado, pode ser necessário decidir-se por finalizar o projeto, passar à etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
+
+#CRISP-DM Fase 6 - __Implantação__ (_deployment_)
+
+Como já informado, na fase de __Implantação__ (_deployment_) se realiza o planejamento de implantação dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenção do sistema (script) desenvolvido. A fase de implantação concluir com a produção e apresentação do relatório final com os resultados do projeto.
+
+Como já informado, são seis as atividades genéricas na fase de __implantação__, a seguir apresentadas na forma de seções.
+
+##CRISP-DM Fase.Atividade 6.1 -  Planejamento da transição 
+
+De que forma os produtos desenvolvidos pelo grupo poderiam ser colocados em uso prático regular, na organização cliente?
+
+##CRISP-DM Fase.Atividade 6.2 -  Planejamento do monitoramento dos produtos 
+
+De que forma seria possível realizar o monitoramento do funcionamento dos produtos em utilização no ambiente operacional?
+
+##CRISP-DM Fase.Atividade 6.3 -  Planejamento de manuteção 
+
+que manutenções, ajustes, mudanças, poderia ter que ser eventualmente realizadas no produto (scripts), quando em uso no ambiente operacional do cliente?
+
+##CRISP-DM Fase.Atividade 6.4 -  Produção do relatório final
+
+A entrega do relatório do grupo, tomando como base este aqui, reflete  a execução desta etapa.
+
+##CRISP-DM Fase.Atividade 6.5 -  Apresentação do relatório final
+
+Como já informado, não será feita apresentação do relatório, mas esperamos que publicações científicas possam ser geradas com pelo seu grupo, com o apoio dos professores da disciplina.
+
+##CRISP-DM Fase.Atividade 6.6 -  Revisão sobre a execução do projeto
+
+Deve-se fazer aqui o registro de lições aprendidas, bem como traçadas perspectivas futuras de aprimoramento deste trabalho, da disciplina de Ciência de Dados para Todos etc.
+
+# Referências
+
+* Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e Afrânio Mendes Catani. “O Sistema Nacional de Pós-Graduação (SNPG) e o Plano Nacional de Educação (PNE 2014-2024): regulação, avaliação e financiamento”. Revista Brasileira de Política e Administração da Educação 32, nº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
+* Can, Fazli, Tansel Özyer, e Faruk Polat, orgs. State of the Art Applications of Social Network Analysis. Lecture Notes in Social Networks. Switzerland: Springer International Publishing, 2014.
+* CAPES. “Documentos de Área”. CAPES.gov.br. Acessado 12 de junho de 2018. http://avaliacaoquadrienal.capes.gov.br/documentos-de-area.
+* ———. “Plano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 1”. Brasília - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/Livros-PNPG-Volume-I-Mont.pdf.
+* ———. “Plano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 2”. Brasília - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/PNPG_Miolo_V2.pdf.
+* ———. “Sucupira: coleta de dados, docentes de pós-graduação stricto sensu no Brasil 2015”. CAPES - Banco de Metadados, 16 de março de 2016. http://metadados.capes.gov.br/index.php/catalog/63.
+* Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e Rüdiger Wirth. “CRISP-DM 1.0: Step-by-Step Data Mining Guide”. USA: CRISP-DM Consortium, 2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
+* Datacamp. “Machine Learning with R (Skill Track)”. Datacamp, 2018. https://www.datacamp.com/tracks/machine-learning.
+* Fernandes, Jorge H C, e Ricardo Barros Sampaio. “DataScienceForAll”. Zotero, 13 de junho de 2018. https://www.zotero.org/groups/2197167/datascienceforall.
+* ———. “Especificação do Trabalho Final da Disciplina de Ciência de Dados para Todos 2017.2: Estudo sobre a visibilidade internacional da produção científica das pós-graduações vinculadas às áreas de conhecimento da CAPES, na Universidade de Brasília (Comunicação Interna)”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2017.2, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 28 de novembro de 2017. https://aprender.ead.unb.br/pluginfile.php/474549/mod_resource/content/1/Estudo%20da%20Cie%CC%82ncia.pdf.
+* Fernandes, Jorge H C, Ricardo Barros Sampaio, e João Ribas de Moura. “Ciência de Dados para Todos (Data Science   For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
+* Frickel, Scott, e Kelly Moore. The New Political Sociology of Science: Institutions, Networks, and Power. Science and technology in society. USA: The University of Wisconsin Press, 2006.
+* Graduate Prospects Ltd. “Job profile: Higher education lecturer”, 2018. https://www.prospects.ac.uk/job-profiles/higher-education-lecturer.
+* Kalpazidou Schmidt, Evanthia, e Ebbe Krogh Graversen. “Persistent factors facilitating excellence in research environments”. Higher Education 75, nº 2 (1º de fevereiro de 2018): 341–63. https://doi.org/10.1007/s10734-017-0142-0.
+* Kilduff, Martin, e Wenpin Tsai. Social Networks and Organizations. UK: Sage Publications, 2003.
+* Kolaczyk, Eric D., e Gábor Csárdi. Statistical Analysis of Network Data with R. USA: Springer, 2014.
+* Kuhn, Max, Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, et al. “Package ‘Caret’ - Classification and Regression Training”, 27 de maio de 2018. https://cran.r-project.org/web/packages/caret/caret.pdf.
+* Leite, Fernando César Lima. “Considerações básicas sobre  a Avaliação do Sistema  Nacional de Pós-Graduação”. Comunicação Pessoal (slides). Universidade de Brasília, abril de 2018. https://aprender.ead.unb.br/pluginfile.php/502250/mod_resource/content/1/Considera%C3%A7%C3%B5es%20b%C3%A1sicas%20sobre%20a%20Avalia%C3%A7%C3%A3o%20do%20Sistema%20Nacional.pdf.
+* Lusher, Dean, Johan Koskinen, e Garry Robins, orgs. Exponential Random Graph Models for Social Networks: Theory, methods, and applications. Structural Analysis in the Social Sciences. USA: Cambridge University Press, 2013.
+* Mariscal, Gonzalo, Óscar Marbán, e Covadonga Fernández. “A survey of data mining and knowledge discovery process models and methodologies”. The Knowledge Engineering Review 25, nº 2 (2010): 137–66. https://doi.org/10.1017/S0269888910000032.
+* Nery, Guilherme, Ana Paula Bragaglia, Flávia Clemente, e Suzana Barbosa. “Nem tudo parece o que é: Entenda o que é plágio”. Instituto de Arte e Comunicação Social da UFF, 2009. http://www.noticias.uff.br/arquivos/cartilha-sobre-plagio-academico.pdf.
+* Nooy, Wouter de, Andrej Mrvar, e Vladimir Batagelj. Exploratory Social Network Analysis with Pajek. Structural Analysis in the Social Sciences. USA: Routldge, 2005.
+* Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. “Sistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desafios para política de Estado - Lívio Amaral”. Revista Educação e Linguagens 2, nº 3 (julho de 2013): 11–17.
+* Schwartzman, Simon. “A Ciência da Ciência”. Ciência Hoje 2, nº 11 (março de 1984): 54–59.
+* Silver, Nate. The Signal and the Noise: Why so many predictions fail — but some don’t. USA: The Penguin Press HC, 2012.
+* Vicari, Donatella, Akinori Okada, Giancarlo Ragozini, e Claus Wiehs. Analysis and Modeling of Complex Data in Behavioral and Social Sciences. Studies in Classifi cation, Data Analysis, and Knowledge Organization. Switzerland: Springer, 2014.
+* Wickham, Hadley, e Garrett Grolemund. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. USA: O’Reilly, 2016.
+

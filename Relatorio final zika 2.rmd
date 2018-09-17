@@ -1,0 +1,469 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+#Definir JSONS
+```{r}
+profile <- c("~/Documents/eLattes/Fiocruz e Zica/eLattes output/saida/profile.json")
+advise  <- c("~/Documents/eLattes/Fiocruz e Zica/eLattes output/saida/advise.json")
+publication <- c("~/Documents/eLattes/Fiocruz e Zica/eLattes output/saida/publication.json")
+list <- c("~/Documents/eLattes/Fiocruz e Zica/eLattes output/saida/zika.list.json")
+graph  <- c("~/Documents/eLattes/Fiocruz e Zica/eLattes output/saida/graph.json") 
+
+```
+
+
+#CRISP-DM Fase 2 - Entendimento dos Dados
+
+A segunda parte do CRISP-DM consiste no entendimento dos dados. Para realizar análises significativas
+com os __datasets__ disponíveis, é essencial ter um bom entendimento sobre a forma que estão organizados. 
+
+Os arquivos utilizados são provenientes da plataforma Elattes e compilam informações sobre pesquisadores científicos que produzem estudos e conhecimentos que possam levar a desenvolvimentos significativos no combate __Zika__.
+
+Os __datasets__ que serão trabalhados consistem em: perfil profissional; orientações de mestrado e doutorado realizadas; produções bibliográficas e redes de colaboração entre os pesquisadores.
+
+
+##Arquivos Analisados
+
+Os arquivos com informações sobre os pesquisadores que tratam sobre __Zika__ são:
+
+
+* __Dados/zika.profile.json__: apresenta dados sobre o __perfil__ de todos os pesquisadores.
+
+* __Dados/zika.advise.json__: apresenta dados sobre o __orientações de mestrado e doutorado__ feitas por todos os pesquisadores.
+
+* __Dados/zika.publication.json__: apresenta dados sobre as __publicações__ e __produções bibliográficas__ geradas por todos os pesquisadores.
+
+
+##Análise estrutural dos dados
+
+Para continuar com as análises, as seguintes bibliotecas são selecionadas:
+
+```{r}
+library(jsonlite) #Importado para lidar com arquivos com extensão JSON
+library(listviewer) #Importado para lidar com listas
+library(ggplot2) #Importado para realizar visualizações
+library(tidyr) #Importado par utilizar funções relacionadas a dataframes
+library(dplyr)
+library(readxl)
+library(stringr)
+```
+
+A importação dos dados é mostrada como a seguir, utilizando a função `fromJSON()` do pacote `jsonlite`.
+
+```{r}
+zika.profile <- fromJSON(profile)
+zika.advise <- fromJSON(advise)
+zika.publication <- fromJSON(publication)
+zika.list <- fromJSON(list)
+zika.graph <- fromJSON(graph)
+
+```
+
+Ao realizar a importação dos arquivos em formato `json`, é possível identificar seu formato, uma lista (ou “large list”) de objetos JSON. Esse formato não é o mais simples de ser análisado utilizando as funções e bibliotecas da linguagem R, porém em breve, uma série de passos será aplicada para que sejam simplificadas.
+
+Por meio da biblioteca `dplyr` é possível realizar uma série de verificações relacionadas à disposição dos dados ao serem importados.
+
+##Descrição dos dados do Perfil
+
+As seguintes análises são realizadas para os arquivos de perfis.
+
+Por meio do tamanho da lista gerada ao importar os arquivos, é possível obter a quantidade de pesquisadores científicos que produzem estudos e conhecimentos que possam levar a desenvolvimentos significativos no combate __Zika__.
+*Quantidade de pesquisadores na base*
+```{r}
+length(zika.profile)
+```
+
+
+Por meio da função `glimpse`, é possível verificar uma apresentação inicial dos dados de perfil pesquisadores.
+O código a seguir mostra os atributos presentes em um dos pesquisadores.
+
+```{r}
+glimpse(zika.profile[[1]], width = 30)
+```
+
+Uma breve inspeção visual dos atributos anteriormente apresentados permite inferir que o pesquisador __x__, sob análise:
+1. A
+2. B
+3. C
+4. D
+5. E
+
+#Descrição dos dados de orientações
+
+As seguintes descrições possuem, para simplificar, informações relativas às orientações concluídas nos anos 2016 e 2017.
+
+
+*Retorna campos dentro do arquivo `zika.advise`*
+```{r}
+names(zika.advise)
+```
+
+
+*Quantidade de orientações de Mestrado concluídas em 2017*
+```{r}
+length(zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$natureza)
+```
+
+
+*Quantidade de orientações de Doutorado concluídas em 2017*
+```{r}
+length(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$natureza)
+```
+
+
+*Cursos presentes nos Doutorados concluídos em 2017*
+```{r}
+head(sort(table(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+```
+
+
+*Cursos presentes nos Mestrados concluídos em 2017*
+```{r}
+head(sort(table(zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+```
+
+
+
+##Descrição dos dados de produção bibliográfica
+Quanto aos dados de publicações, as descrições a seguir mostram informações sobre os tipos de produções bibliográficas presentes no arquivo juntantente a títulos de periódicos publicados no ano de 2017.
+
+*Retorna campos com tipos de publicação dentro de `zika.publication`*
+```{r}
+names(zika.publication)
+```
+
+
+*Retorna campos dos periódicos de 2017*
+```{r}
+names(zika.publication$PERIODICO$`2017`)
+```
+
+
+*Mostra o título dos periódicos publicados em 2017*
+```{r}
+head(sort(table(zika.publication$PERIODICO$`2017`$titulo), decreasing = TRUE), 10)
+```
+
+
+
+##CRISP-DM Fase 3 - Preparação dos Dados
+A terceira fase do CRISP é conhecida por ser a parte de preparação dos dados. Tal fase possui como
+característica a execução de atividades para construir o conjunto final de dados a partir dos dados brutos iniciais. 
+Pode-se separar essa etapa em cinco momentos que serão descritos nessa seção.
+
+• Seleção dos dados
+
+• Limpeza dos dados
+
+• Construção dos dados
+
+• Integração dos dados
+
+• Formatação dos dados
+
+Na etapa de seleção dos dados a entrada é o conjunto de dados bruto e nela ocorre a decisão dos dados a serem usados para análise. Os critérios incluem relevância para as metas de mineração de dados, qualidade e restrições técnicas, como limites no volume de dados ou tipos de dados.
+Então vem a fase da limpeza que recebe a seleção de dados úteis efetuada anteriormente e é efetuado um aumento na qualidade dos dados para o nível exigido pelas técnicas de análise selecionadas. Aqui pode haver o uso de técnicas mais elaboradas, como a estimativa de dados ausentes por modelagem e inserção de padrões adequados.
+
+O terceiro passo é a construção dos dados. Essa tarefa inclui operações de preparação de dados construtivos, como a produção de atributos derivados, novos registros ou valores transformados para atributos existentes.
+A penúltima atividade é a integração dos dados. Este é o momento no qual as informações são combinadas de vários bancos de dados, tabelas ou registros para criar novos registros ou valores.
+Por fim, ocorre a tarefa de formatação dos dados, que é a realização de modificações na estrutura dos dados de forma que as operações planejadas possam ser efetuadas de forma conveniente.
+
+Para tornar a análise mais fácil de ser feita e até mesmo para possibilitar a realização de comparações ao final, os mesmos procedimentos foram realizados para os três programas de pós-graduação. Além disso, é importante ressaltar que as variáveis e estruturas montadas foram nomeados de forma mnemônica permitindo a distinção de diferentes programas e aspectos, como orientações, publicações, entre outros.
+
+
+##ZIKA
+
+```{r}
+# quantidade de periódicos publicados sobre ZIKA entre 2010 a 2017
+infperiodicosZika <- data.frame()
+for(i in 1:length(zika.publication$PERIODICO))
+infperiodicosZika <- rbind(infperiodicosZika, zika.publication$PERIODICO[[i]])
+```
+
+```{r}
+# quantidade de livros publicados relacionados a Zika entre 2010 a 2017
+inflivrosZika <- data.frame()
+for(i in 1:length(zika.publication$LIVRO))
+inflivrosZika <- rbind(inflivrosZika, zika.publication$LIVRO[[i]])
+```
+
+
+```{r}
+# produção de livros de cada integrante do ZIKA no ano de 2017
+autoreslivrosZika <- zika.publication[["LIVRO"]][["2017"]][["autores"]]
+tabelaautoresZika <- table(unlist(autoreslivrosZika))
+dfautoresZika <- data.frame(tabelaautoresZika)
+```
+
+
+```{r}
+# quantidade de periódicos publicados sobre Zika entre 2010 a 2017
+infeventosZika <- data.frame()
+for(i in 1:length(zika.publication$EVENTO))
+infeventosZika <- rbind(infeventosZika, zika.publication$EVENTO[[i]])
+```
+
+```{r}
+# Monta data frame com orientações completas
+orientacaoCompletaZika <- bind_rows(zika.advise$ORIENTACAO_CONCLUIDA_DOUTORADO)
+orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
+zika.advise$ORIENTACAO_CONCLUIDA_POS_DOUTORADO)
+orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
+zika.advise$ORIENTACAO_CONCLUIDA_MESTRADO)
+orientacaoCompletaZika <- bind_rows(orientacaoCompletaZika,
+zika.advise$OUTRAS_ORIENTACOES_CONCLUIDAS)
+```
+
+```{r}
+# Monta data frame com orientações incompletas
+orientacaoIncompletaZika <-bind_rows(zika.advise$ORIENTACAO_EM_ANDAMENTO_DE_POS_DOUTORADO)
+orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
+zika.advise$ORIENTACAO_EM_ANDAMENTO_DOUTORADO)
+orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
+zika.advise$ORIENTACAO_EM_ANDAMENTO_MESTRADO)
+orientacaoIncompletaZika <- bind_rows(orientacaoIncompletaZika,
+zika.advise$ORIENTACAO_EM_ANDAMENTO_GRADUACAO)
+```
+
+```{r}
+# data frames com orientações completas e incompletas
+orientacaoZika.df <- bind_rows(orientacaoIncompletaZika, orientacaoCompletaZika)
+df_orientadores1Zika <- as.data.frame(sort(table(unlist(
+orientacaoZika.df$id_lattes_orientadores, recursive = TRUE)),decreasing=TRUE))
+```
+
+<!-- ```{r} -->
+<!-- # circulação de publicações nos cenários nacional e internacional -->
+<!-- participantesDGP.Zika <- participantesDGP.Zika %>% -->
+<!-- mutate(`Nome Participante`=tolower(`Nome Participante`)) -->
+<!-- df_orientadoresZika <- as.data.frame(unique(unlist( -->
+<!-- orientacaoZika.df$nome_orientadores, recursive = TRUE))) -->
+<!-- names(df_orientadoresZika) <- c("nome") -->
+<!-- df_orientadoresZika <- df_orientadoresZika %>% mutate(`nome`=tolower(`nome`)) -->
+<!-- tokenGruposZika <- inner_join(participantesDGP.Zika, df_orientadoresZika, -->
+<!-- by = c("Nome Participante" = "nome")) -->
+<!-- tokenGruposZika <- as.data.frame(unique( -->
+<!-- tokenGruposZika$`Token Grupo Pesquisa`),stringsAsFactors = FALSE) -->
+<!-- names(tokenGruposZika) <- c("token") -->
+<!-- producaoDGP.Zika <- inner_join(tokenGruposZika, -->
+<!-- producaoDGP.Zika, by = c("token" = "Token Grupo Pesquisa")) -->
+<!-- publicacoesInternacionaisZika <- -->
+<!-- sum(producaoDGP.Zika$`Quantidades de Produções - Artigos Completos de Circulação Internacional`) -->
+<!-- publicacoesNacionaisZika <- -->
+<!-- sum(producaoDGP.Zika$`Quantidades de Produções - Artigos Completos de Circulação Nacional`) -->
+<!-- publicacoesZika.df <- data.frame("group"=c("circulação nacional","circulação internacional"), -->
+<!-- "value"=c(publicacoesNacionaisZika, -->
+<!-- publicacoesInternacionaisZika)) -->
+
+<!-- ``` -->
+
+```{r}
+# participação de professores em eventos de cunho internacional
+pubZika <- data.frame()
+for(profile in zika.profile) {
+if(!is.null(profile$`producao_bibiografica`$`EVENTO`)) {
+temp <- profile$`producao_bibiografica`$`EVENTO` %>%
+filter(classificacao == "INTERNACIONAL")
+pubZika <- rbind(pubZika, temp)
+}
+}
+```
+
+```{r}
+# periódicos que possuem mais artigos publicados
+perZika <- data.frame()
+for (profile in zika.profile) {
+if(!is.null(profile$producao_bibiografica$PERIODICO)) {
+temp <- profile$`producao_bibiografica`$PERIODICO
+perZika <- rbind(perZika, temp)
+}
+}
+top10Zika <- perZika %>%
+filter(ano >= 2012) %>%
+count(periodico) %>%
+top_n(10) %>%
+arrange(n, periodico) %>%
+mutate(periodico = factor(periodico, levels = unique(periodico)))
+```
+
+
+
+##Resultados
+Foram escolhidos alguns resultados, em relação aos dados encontrados durante o processo, para serem plotados em gráficos.
+
+```{r}
+infperiodicosZika %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "darkcyan")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+
+É possível notar que o __ZIKA__ publicou __x__ nos últimos anos. Percebe-se que o máximo de publicações, durante o período estudado, encontra-se no ano de 2016. Isso pode indicar
+que existem pesquisas com um bom aproveitamento nesse período.
+
+
+```{r}
+inflivrosZika %>%
+group_by(pais_de_publicacao) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = pais_de_publicacao, y = Quantidade)) +
+geom_bar(width=0.8, height = 0.3, position = "stack",stat = "identity", fill = "coral")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5) +
+theme_minimal()
+```
+
+
+Com relação aos livros publicados no contexto do __ZIKA__, nota-se que existe um número considerável(
+principalmente se o número de livros publicados em território nacional for levado em conta) de livros
+publicados no exterior. Com 6 livros publicados nos Estados Unidos nos últimos anos, além de outros países
+como Alemanha e Holanda, onde há um foco grande na área da computação, é possível perceber que o
+programa tem caminhado para um ótimo nível de internacionalização, pelo menos no quesito dos livros.
+
+
+```{r}
+inflivrosZika %>%
+filter(pais_de_publicacao %in% c("Brasil", "Estados Unidos", "Holanda",
+"Grã-Bretanha", "Alemanha", "Suiça")) %>%
+group_by(ano,pais_de_publicacao) %>%
+ggplot(aes(x=ano,y=pais_de_publicacao, color= pais_de_publicacao)) +
+xlab("Ano") + ylab("Pais") + geom_point()
+```
+
+
+Quanto à perspectiva dos livros sendo publicados em diferentes países nos últimos anos, é possível ver que
+houve um aumento na quantidade de localidades. O ano de 2017 parece ser o auge dessa quantidade, com
+livros sendo publicados em até 4 países diferentes.
+
+
+```{r}
+ggplot(dfautoresZika, aes(x = Freq, y = Var1, color=Var1)) +
+xlab("QUANTIDADE") + ylab("Autor") + geom_point()
+```
+
+O gráfico acima mostra os autores de livros em função do número de suas publicações.
+```{r}
+infeventosZika %>%
+filter(pais_do_evento %in% c("Brasil", "Estados Unidos", "Japão", "Colômbia",
+"Venezuela", "Portugal", "Grã-Bretanha", "França",
+"Espanha", "China", "Alemanha")) %>%
+group_by(ano_do_trabalho,pais_do_evento) %>%
+ggplot(aes(x=ano_do_trabalho,y=pais_do_evento, color= pais_do_evento)) +
+xlab("Ano") + ylab("Pais") + geom_point() + geom_jitter()
+```
+
+
+Quanto aos eventos em que houveram participações dos membros do do PPGInf, nota-se uma concentração
+grande de cunho nacional, com um foco internacional nos Estados Unidos.
+
+```{r}
+ggplot(orientacaoCompletaZika,aes(ano,fill=natureza)) +
+geom_bar(stat = "count", position="dodge") +
+ggtitle("Natureza das Orientações Completas Por Ano") +
+theme(legend.position="bottom",legend.text=element_text(size=7)) +
+guides(fill=guide_legend(nrow=5, byrow=TRUE, title.position = "top")) +
+labs(x="Ano",y="Quantidade")
+```
+
+
+Em relação às orientações completadas durante os últimos anos, nota-se que o foco maior dos professores
+envolvidos é o trabalho de conclusão de curso. Isso se dá, provavelmente por uma questão numérica. O
+número de alunos de graduação é naturalmente maior que os de pós graduação. Esses professores que
+compõem o PPGInf também são, em maioria, professores da graduação. Dado isso, essa disparidade é
+esperada. Quanto ao número de dissertações de mestrado e doutorado, que é o foco desse programa, nota-se
+um bom número de orientações dessa natureza, principalmente da primeira mencionada.
+
+```{r}
+ggplot(orientacaoIncompletaZika,aes(ano,fill=natureza)) +
+geom_bar(stat = "count", position="dodge") +
+ggtitle("Natureza das Orientações Incompletas Por Ano") +
+theme(legend.position="bottom",legend.text=element_text(size=9)) +
+guides(fill=guide_legend(nrow=2, byrow=TRUE, title.position = "top")) +
+labs(x="Ano",y="Quantidade")
+```
+
+
+Quanto às orientações incompletas, é possível perceber que o número de orientações de doutorado que aparece
+nesse gráfico é relativamente maior do que o número que apareceu no gráfico anterior. Um forte indicador
+do porquê disso acontecer é a maior complexidade de uma pesquisa necessária para a escrita de tese de
+doutorado.
+
+
+
+```{r}
+ggplot(df_orientadores1Zika, aes(x=Var1, y=Freq)) +
+geom_point(size=3) +
+geom_segment(aes(x=Var1,
+xend=Var1,
+y=0,
+yend=Freq)) +
+labs(title="Número de Orientações por Professor", x="Lattes do Professor",
+y="Número de Orientações") +
+theme(axis.text.x = element_text(angle=75, vjust=0.6))
+```
+
+
+
+O gráfico acima mostra o número de orientações por professor com base em seu identificador de Lattes.
+Percebe-se que o número de orientações é bastante variado.
+
+<!-- ```{r} -->
+<!-- data <- publicacoesZika.df %>% -->
+<!-- mutate(per=`value`/sum(`value`)) %>% -->
+<!-- arrange(per) -->
+<!-- data$label <- scales::percent(data$per) -->
+<!-- ggplot(data=data)+ -->
+<!-- geom_bar(aes(x="", y=per, fill=group), stat="identity", width = 1)+ -->
+<!-- coord_polar("y", start=0)+ -->
+<!-- labs(title="Comparativo entre Publicações de 2017", -->
+<!-- caption="fonte: Publicações do PPGInf") + -->
+<!-- theme_void()+ -->
+<!-- geom_text(aes(x=1, y = cumsum(per) - per/2, label=label)) -->
+<!-- ``` -->
+
+<!-- O gráfico acima informa um comparativo das publicações do __ZIKA__ no ano de 2017. Nota-se um foco bem -->
+<!-- maior no foco internacional, com impressionantes 77,8% de suas publicações possuindo circulação internacional, -->
+<!-- o que mostra ainda mais como o programa está se internacionalizando de forma eficaz. -->
+
+
+
+```{r}
+pubZika %>%
+group_by(ano_do_trabalho) %>%
+summarise(Quantidade=n()) %>%
+ggplot(aes(x=ano_do_trabalho, y=Quantidade)) +
+geom_bar(stat="identity", fill="lightblue")
+```
+O gráfico acima mostra a quantidade geral de publicações do grupo, de todas as naturezas.
+
+
+
+<!-- ```{r} -->
+<!-- perZika %>% -->
+<!-- filter(periodico %in% top10PPGINF$periodico) %>% -->
+<!-- mutate(periodico = factor(periodico, levels = levels(top10PPGINF$periodico))) %>% -->
+<!-- ggplot(aes(x = periodico, y="Quantidade", fill=periodico)) + -->
+<!-- geom_bar(stat="identity", width=0.5) + -->
+<!-- coord_flip() + -->
+<!-- guides(fill=FALSE) -->
+<!-- ``` -->
+
+<!-- O gráfico acima mostra os dez periódicos que mais aceitaram trabalhos da __ZIKA__, com o destaque para __x__. -->
+
+
+##Conclusão
+Por meio desse trabalho, foi possível ter uma noção mais real de como é trabalhar com a ciência de dados
+e deixar ainda mais claro a importância de ferramentas de análise. Foi possível perceber como boa parte
+do tempo empregado é gasto analisando a estrutura dos dados obtidos e bolando estratégias para que se
+adquira aquilo que realmente importa.
+Também, há de se ressaltar, como é gratificante atingir o objetivo que se planeja ao iniciar a análise, possibilitando
+um entendimento maior do que se está estudando. No caso, foi possível diminuir o escopo dos
+nossos dados, filtrar por informações particulares, plotar gráficos para facilitar a visualização, e, de forma
+geral, conhecer um volume de dados expressivo com uma pequena análise quantitativa e qualitativa feita em
+cima dele.
