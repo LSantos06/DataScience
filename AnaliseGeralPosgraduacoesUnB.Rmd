@@ -4,9 +4,10 @@ title:  Ciência de Dados para Todos (Data Science
 author: "Jorge H. C. Fernandes, Ricardo B. Sampaio, João Ribas de Moura e Jerônimo A. Filho"
 date: "11/06/2018"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
@@ -27,8 +28,6 @@ Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo A
 #CRISP-DM (Corresponderia à seção de Metodologia)
 
 Para desenvolvimento do trabalho devem ser seguidos, da forma mais simplificada e coerente possível, as fases e atividades genéricas do ciclo de vida de um projeto executado em aderência ao CRISP-DM, conforme ilustra de forma geral a figura 1. Em outras palavras, a produção do relatorio deve seguir a metodologia CRISP-DM.
-
-![Fases do Ciclo de Vida do CRISM-DM. Fonte: (Chapman et al., 2000).](CRISP-DM)
 
 Perceba que a Figura 1 sugere haver grande flexibilidade na execução das fases, de modo que se pode retornar a fases anteriores em muitos pontos.
 
