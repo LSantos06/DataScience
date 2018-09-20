@@ -271,7 +271,7 @@ Os arquivos estão no formato JSON, e seus atributos iniciais e conteúdos são 
 ###Perfil profissional dos docentes vinculados às pós-graduações
 
 ```{r}
-json.perfil <- "dados-2018-2/engenharia-biomedica/279.profile.json"
+json.perfil <- "dados-2018-2/engenharia-eletronicos-automacao/280.profile.json"
 file.info(json.perfil)
 ```
 
@@ -281,7 +281,7 @@ Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
 ###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
 
 ```{r}
-json.advise <- "dados-2018-2/engenharia-biomedica/279.advise.json"
+json.advise <- "dados-2018-2/engenharia-eletronicos-automacao/280.advise.json"
 file.info(json.advise)
 ```
 
@@ -292,7 +292,7 @@ Esse arquivo foi fornecido pelos docentes responsáveis pela disciplina.
 ###Produção bibliográfica gerada pelos docentes vinculados às pós-graduações
 
 ```{r}
-json.producao.bibliografica <- "dados-2018-2/engenharia-biomedica/279.publication.json"
+json.producao.bibliografica <- "dados-2018-2/engenharia-eletronicos-automacao/280.publication.json"
 file.info(json.producao.bibliografica) 
 ```
 
@@ -307,7 +307,7 @@ O arquivo `r json.producao.bibliografica` apresenta dados sobre a produção bib
 O arquivo RESEARCHERS_BY_AREA???? apresenta as vinculações de todos os docentes que declararam atuar em cada uma das áreas de pós-graduação do Sistema Nacional de Pós-Graduação da CAPES, conforme apresenta-se registrada essa informação no currículo Lattes de cada um, em data recente. 
 
 ```{r}
-file.info('data/dados-2018-2/engenharia-biomedica/279.graph.json')
+file.info('data/dados-2018-2/engenharia-eletronicos-automacao/280.graph.json')
 ```
 
 ###Redes de colaboração entre docentes
@@ -336,7 +336,7 @@ Como já informado, a descrição dos dados verifica se os dados sendo acessados
 O arquivo unb.perfis.json, que contém dados que caracterizam o perfil profissional de todos os docentes do grupo sob análise, podem ser lido por meio do comando seguinte.
 
 ```{r}
-unb.prof <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
+unb.prof <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.profile.json")
 ```
 
 A quantidade de docentes sob análise é apresentada a seguir.
@@ -379,7 +379,7 @@ A fim de compreender a relevância dos dados para a avaliação da produção ac
 ###Descrição dos dados de orientações
 
 ```{r}
-unb.adv <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
+unb.adv <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.advise.json")
 names(unb.adv)
 names(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO)
 length(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2016`$natureza)
@@ -390,7 +390,7 @@ head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing 
 
 ###Descrição dos dados de produção bibliográfica
 ```{r}
-unb.pub <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
+unb.pub <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.publication.json")
 names(unb.pub)
 names(unb.pub$PERIODICO$`2012`)
 head(sort(table(unb.pub$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
@@ -742,7 +742,7 @@ extrai_areas_atuacao <- function(jsonProfessores){
 ########################### Inicio 
 
 # colocar o diretorio onde está o arquivo json de perfis a serem lidos 
-unb.prof.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
+unb.prof.json <- read_file("dados-2018-2/engenharia-eletronicos-automacao/280.profile.json")
 unb.prof.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
 unb.prof <- fromJSON(unb.prof.json)
