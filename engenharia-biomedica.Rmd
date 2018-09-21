@@ -1,13 +1,13 @@
 ---
 title:  Ciência de Dados para Todos (Data Science
-  For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB
-author: "Jorge H. C. Fernandes, Ricardo B. Sampaio, João Ribas de Moura e Jerônimo A. Filho"
-date: "11/06/2018"
+  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica
+author: "Marcos V.P. Tonin, Lucas Nascimento, Carlos Aragão"
+date: "20/09/2018"
 output:
-  pdf_document: 
-    latex_engine: xelatex
   html_document:
     df_print: paged
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
@@ -16,24 +16,28 @@ knitr::opts_knit$set(root.dir = getwd())
 
 # Introdução
 
-Este documento apresenta um modelo básico para a construção do relatório final da disciplina Tópicos Avançados em Computadores - TurmaD - 2018.2, do Departamento de Ciência da Computação da Universidade de Brasília, que trata da análise da produção científica e acadêmica na Universidade de Brasília, em uma ou mais áreas de conhecimento.   
-
-A metodologia para desenvolvimento do relatório é baseada no modelo de mineração de dados denominado CRISP-DM (Chapman et al., 2000, Mariscal et al., 2010). 
-
-Este documento deve ser referenciado do modo como aparece na seção de referências ao final do texto, abaixo reproduzida.
-
-Fernandes, Jorge H C, Ricardo Barros Sampaio, João Ribas de Moura e Jerônimo AVelar Filho. “Ciência de Dados para Todos (Data Science   For All) - 2018.1 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnB”. Disciplina 116297 - Tópicos Avançados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasília, 13 de junho de 2018.
-
+O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia biomédica em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
 
 #CRISP-DM (Corresponderia à seção de Metodologia)
 
-Para desenvolvimento do trabalho devem ser seguidos, da forma mais simplificada e coerente possível, as fases e atividades genéricas do ciclo de vida de um projeto executado em aderência ao CRISP-DM, conforme ilustra de forma geral a figura 1. Em outras palavras, a produção do relatorio deve seguir a metodologia CRISP-DM.
+Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto usado pelo CRISP-DM.
 
-Perceba que a Figura 1 sugere haver grande flexibilidade na execução das fases, de modo que se pode retornar a fases anteriores em muitos pontos.
+O ciclo é basicamente definido pelas seguintes fases:
+* **Entendimento do negócio** : primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
 
-"A widely used methodology for data mining is the CRoss-Industry Standard Process for Data Mining (CRISP-DM) which mas initiated in 1996 (…) with the intent of providing a process that is __reliable and repeatable__ by people with little data-mining background, with a framework within which experience can be recorded, to support the replication of projects, to support planning and management, as well as to demonstrate data mining as a mature discipline (…)" [Sullivan, Rob. Introduction to Data Mining for the Life Sciences. Springer Science & Business Media. 2012]
+* **Entendimento dos dados** : Busca-se entender os dados de forma mais superficial primeiramente.
 
-O seu trabalho deve conter uma seção metodologia, onde você faz uma breve descrição da metodologia que seu grupo adotou para realização do trabalho, que pode ser baseada no texto dessa seção, desde que citado adequadamente.
+* **Preparação de dados ** : Então limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
+
+* **Modelagem ** : Faz a modelagem do dado.
+* **Avaliação ** : Avalia-se o resultado da modelagem.
+* **Implantação ** : Faz uso dos dados.
+
+As fases não são independentes entre si, mas possuem certa comunicação, depedendo das fases, sendo melhor visualizado na figura abaixo.
+
+![Ciclo do CRISP-DM que será usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
+
+Por esta imagem consegue-se perceber que o entendimento do negócio e do dado pode muitas vezes ser alternada, indo e voltando.
 
 ## Delimitações iniciais
 Em aderência à estrutura do CRISP-DM, algumas delimitações de contexto para o trabalho são apresentadas a seguir:
