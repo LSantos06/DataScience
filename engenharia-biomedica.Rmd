@@ -4,10 +4,10 @@ title:  Ciência de Dados para Todos (Data Science
 author: "Marcos V.P. Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -23,6 +23,7 @@ O presente trabalho tem por finalidade entender e correlacionar dados que possam
 Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto usado pelo CRISP-DM.
 
 O ciclo é basicamente definido pelas seguintes fases:
+
 * **Entendimento do negócio** : primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
 
 * **Entendimento dos dados** : Busca-se entender os dados de forma mais superficial primeiramente.
@@ -40,229 +41,32 @@ As fases não são independentes entre si, mas possuem certa comunicação, depe
 Por esta imagem consegue-se perceber que o entendimento do negócio e do dado pode muitas vezes ser alternada, indo e voltando.
 
 ## Delimitações iniciais
-Em aderência à estrutura do CRISP-DM, algumas delimitações de contexto para o trabalho são apresentadas a seguir:
+
 
 ###Domínio de Aplicação do projeto
-O domínio de aplicação do projeto é o da produção científica e acadêmica brasileira, mais específicamente a produção científica ou produção acadêmica de um subgrupo de pesquisadores vinculados à Universidade de Brasília. O domínio de aplicação do projeto deve ser declarado na introdução ao relatório.
+O domínio de aplicação do projeto é  produção científica ou produção acadêmica de um subgrupo de pesquisadores vinculados à Universidade de Brasília, sendo vinculado ao subtema __engenharia biomédica__, tais arquivos foram pegos na plataforma elattes.
 
-<!--registrada na [base de currículos Lattes](lattes.cnpq.br), do CNPq.-->
+###Problema abordado
 
-###Tipo de Problema abordado
-
-O tipo de problema abordado é o da produção de análises descritivas, quantitativas e de modelagem computacional ou estatística, que permitam caracterizar como e porque ocorre a produção científica e acadêmica de um grupo de pesquisadores. Essa caracterização visa subsidiar a tomada de decisão por membros do Sistema Nacional de Pós-Graduação. O tipo de problema abordado no projeto deve ser declarado na introdução ao relatório.
-
-###Conjunto de Ferramentas e Técnicas
-
-O conjunto de requisitos relativos a ferramentas e técnicas a serem empregadas na execução do trabalho é:
-
-* O relatório deve ser entregue no formato R Markdown, apto à geração de saída \LaTeX e PDF, composto por comandos em R entremeados por descrições textuais que auxiliem na interpretação dos resultados, bem como na compreensão do domínio de conhecimento sob análise.
-* As análises descritivas devem empregar de forma criativa as funções das bibliotecas de ciência de dados em R propostas por Wickham e Grolemund (2016).
-* As análises quantitativas devem lançar mão de recursos gráficos variados, que complementarão análises descritivas com _insights_ sobre de que forma os processos de produção científica e acadêmica contribuem para os resultados apresentados. 
-Por exemplo, os dados analisados possibilitam justificar o eventual crescimento ou decréscimo de índices de produção observados?
-* A modelagem computacional ou estatística avançada dos dados deve usar uma das quatro técnicas prescritas: 
-    + Aprendizado de Máquina (Datacamp, 2018; Kuhn et al., 2018; Bruce e Bruce, 2017); 
-    + Aprendizado Estatístico; 
-    + Mineração de Texto ou; 
-    + Análise de Redes (Kolaczyk e Csárdi, 2014; Lusher et al., 2013; de Nooy et al., 2005).
-
-O conjunto de requisitos relativos a ferramentas e técnicas a serem empregadas na execução do trabalhodo projeto deve ser declarado na parte de metodologia do relatório.
-
-##Modelo de Referência CRISP-DM
-
-Miner (2012), aprofunda: “(…) In CRISP-DM, the complete life cycle of a data mining project is represented with __six phases__: business understanding (determining the purpose of the study), data understanding (data exploration and understanding), data preparation, modeling, evaluation, and deployment.(…). [Miner, Gary. Practical Text Mining and Statistical Analysis for Non-structure Text Data Applications. Academic Press, 2012.]
-
-###Por que usar o CRISP-DM?
-
-Imagine uma analogia entre um projeto de datamining e a preparação de uma receita de bolo para ser usada em uma fábrica. Para iniciar a produção, com base numa receita de comprovada eficácia (metodológica e científica), você tem que minerar os ingredientes (dados) em um grande supermercado (_dataset_). Com os ingredientes você precisa aplicar um método (a forma de misturá-los), colocar os ingredientes numa determinada ordem, mexer por um certo tempo, aquecer por tantos minutos até o bolo ficar pronto e ser aprovado em um ou mais testes de degustação. 
-
-Tendo por objetivo fazer com que essa receita (script de mineração de dados) possa ser executada com sucesso diversas vezes, numa fábrica, será que outro cozinheiro (cientista) que reproduzisse a receita (método) chegaria ao mesmo resultado? Se a metodologia (receita) já foi bastante  testada, então é bem provável que o resultado será o mesmo e seu produto (receita de bolo) será aceito para a produção (_deployment_) de análises para consumo futuro, com base em fundamentos científicos.
-
-### Organização hierárquica de atividades em fases
-
-Dentro de cada fase no CRISP-DM existe uma estrutura hierárquica de atividades genéricas para serem realizadas. Cada uma dessas atividades __genéricas__ pode determinar a execução de atividades __específicas__. 
-
-Voltando ao exemplo do bolo, a atividade ” 1. Entendimento do Bolo” poderia conter uma atividade genérica chamada “1.1. Determinar para que o bolo servirá (simples café da manhã? bolo de aniversário? bolo de casamento?)“. Dentro dessa atividade genérica poderia haver atividades específicas como “1.1.1.Entrevistar o contratante para obter detalhes de onde o bolo será usado?“; “1.1.2. Conversar com os convidados sob alguma necessidade especial (sem lactose? sem glútem?)“, etc. 
-
-### Seis Fases do CRISP-DM
-
-Com base no apresentado, segue uma descrição um pouco mais detalhada das seis fases de um projeto no CRISP-DM, interpretadas no contexto do relatório que você e seu grupo deverão  produzir.
-
-Todas as fases deverão ser adequadamente relatadas no relatório, em seções que aparecem após a seçãoda metodologia 
-
-1. O propósito da fase de __Entendimento do Negócio__ é o desenvolvimento dos objetivos e declaração das necessidades do projeto sob a perspectiva do negócio, para transformar isso tudo em definição de um problema de data mining. 
-
-As atividades genéricas dentro dessa fase envolvem:
-
-* Identificar o que a organização realmente necessita alcançar. No caso específico desta disciplina, a necessidade do Sistema Nacional de Pós-Graduação do Brasil de produzir análises de alta qualidade de suas pós-graduações, com baixo custo. Como produzir um projeto de mineração de dados se você não sabe o que necessita encontrar ou resolver? Se você não entender os objetivos da organização pode levar ao erro de procurar as respostas certas para as perguntas erradas. 
-
-* Avaliação das Circunstâncias. Envolve identificar quais recursos ou dificuldades podem influenciar os  objetivos da mineração ou do projeto em si. No caso específico desta disciplina, isso envolve refletir, entre vários outros aspectos, sobre as limitações de tempo do projeto, que precisa ser realizado dentro de um semestre letivo, de modo que considerável parte das atividades já foram pré-organizadas pelos docentes responsáveis pela disciplina. 
-
-* O projeto de mineração é o grande objetivo desta etapa e o relatório precisa conter uma seção sobre Metodologia, apresentando em detalhes o que se pretende fazer adiante.
-
-2. A fase de __Entendimento dos Dados__ inicia determinando quais são os dados realmente disponíveis na organização, se existe permissão para utilizá-los, se existem dados confidenciais ou cobertos pelo sigilo. Por exemplo, um _dataset_ das declarações de imposto de renda da Receita Federal certamente seria protegido pelo sigilo fiscal. Dados de pacientes de hospitais podem conter restrições.
-
-Também é necessário acessar os dados para compreendê-los melhor para ter o _insight_ de como será feita a modelagem mais tarde.
-
-Na fase de entendimento dos dados pode-se trabalhar com quatro atividades genéricas:
-
-* Coleta inicial dos dados. Essa atividade envolve a análise das permissões de acesso e outras questões envolvendo sigilo e outros proprietários dos dados (terceiros). Por exemplo, eu poderia estar acessando uma base de dados que foi obtida de outro órgão por convênio, mas nesse convênio (contrato) não foi dada permissão para qualquer outro tipo de acesso ou exploração dos dados. Neste projeto, a coleta inicial foi feita pelos autores deste relatório. O relatório final deve conter indicações de como foi realizada a coleta inicial dos dados.
-
-* Descrição dos dados. A descrição dos dados verifica se os dados sendo acessados terão potencial para responder às questões de _data mining_. Além disso, deve-se avaliar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc. Neste projeto, a descrição dos dados é responsabilidade parcial dos alunos, tendo em vista que este modelo já oferece uma descrição inicial. O relatório final deve conter descrições significativas e aprofundadas dos dados.
-
-* Análise exploratória dos dados. A análise exploratória dos dados possibilita um entendimento mais profundo da relação estatística existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para o objetivo do projeto. 
-Neste projeto, a análise exploratória dos dados é responsabilidade parcial dos alunos, tendo em vista que este relatório apresenta uma análise exploratória preliminar.
-O relatório final deve conter análises exploratórias dos dados que sejam significativas e aprofundadas.
-
-* Verificação da qualidade dos dados. A verificação da qualidade dos dados envolve responder se os dados disponíveis estão realmente completos. As informações disponíveis são suficientes para o trabalho proposto? Neste projeto, a verificação da qualidade dos dados é responsabilidade dos alunos.
-
-3. Na fase de __Preparação dos Dados__ os _datasets_ que serão utilizados em todo o trabalho são construídos a partir dos dados brutos. Aqui os dados são “filtrados” retirando-se partes que não interessam e selecionando-se os “campos” necessários para o trabalho de mineração. 
-
-São 5 as atividades genéricas nesta fase de preparação dos dados:
-
-* Seleção dos dados. Envolve identificar quais dados, da nossa "montanha de dados", serão realmente utilizados. Quais variáveis dos dados brutos serão convertidas para o _dataset_? Não é raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contém a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruído (Silver, Nate. The Signal and the Noise: Why so many predictions fail — but some don’t. USA: The Penguin Press HC, 2012.). 
-
-* Limpeza dos dados.
-
-* Construção dos dados. Envolve a criação de novas variáveis a partir de outras presentes nos _datasets_.
-
-* Integração dos dados. Envolve a união (merge) de diferentes tabelas para criar um único _dataset_ para ser utilizado no R, por exemplo.
-
-* Formatação dos dados. Envolve a realização de pequenas alterações na estrutura dos dados, como a ordem das variáveis, para permitir a execução de determinado método de data mining.
-
-4. A fase de __Modelagem__ no CRISP-DM envolve a construção e avaliação do modelo, podendo ser realizada em quatro atividades genéricas:
-
-* Seleção das técnicas de modelagem.
-
-* Realização de testes de modelagem, onde diferentes modelos são previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construção de modelos, e outra pequena parte para validar  e avaliar a eficiência de cada modelo criado até se chegar ao mais “eficiente”. 
-
-* Construção do modelo definitivo, com base na melhor experiência do passo anterior.
-
-* Avaliação do modelo.
-
-5. Na fase de __Avaliação__ do CRISP-DM os resultados não são apenas avaliados, mas se verifica se existem questões relacionadas à organização que não foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum “efeito colateral” para a organização. 
-
-Nesta fase, pode-se trabalhar com 3 atividades genéricas:
-
-* Avaliação dos resultados
-
-* Revisão do processo, por meio da qual verifica-se se o modelo foi construído adequadamente. As variáveis (passadas) para construir o modelo estarão disponíveis no futuro?
-
-* Determinação dos etapas seguintes. Pode ser necessário decidir-se por finalizar o projeto, passar à etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
-
-6. Na fase de __Implantação__ (_deployment_) se realiza o planejamento de implantação dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenção do sistema (script) desenvolvido. A fase de implantação concluir com a produção e apresentação do relatório final com os resultados do projeto.
-
-São atividades genéricas  na fase de __implantação__:
-
-* Planejamento da transição dos produtos;
-* Planejamento do monitoramento dos produtos em utilização no ambiente operacional;
-* Planejamento de manuteção a ser eventualmente efetuada no produto (scripts);
-* Produção do relatório final;
-* Apresentação do relatório final;
-* Revisão sobre a execução do projeto, com registro de lições aprendidas etc.
-
-No contexto do projeto realizado no âmbito desta disciplina, a responsabilidade por execução de todas essas atividades é dos alunos, com exceção da apresentação do relatório final, que não será realizada.
+Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatística, que permitam caracterizar como, porque e também para que ocorre a produção científica e acadêmica na área de engenharia biomédica.
 
 # CRISP-DM Fase 1 - Entendimento do Negócio
 
-##O que é o Sistema Nacional de Pós-Graduação? (Contextualização)
+A Universidade de Brasília é uma das grandes universidades federais, sendo responsável pela produção de artigos visando artigos acadêmicos, este presente trabalho de como programas :
 
-A produção do conhecimento científico, no Brasil, é predominantemente efetuada por meio do Sistema Nacional de Pós-Graduação - SNPG, e mais fortemente relacionada com a formação de doutores nesse sistema (Pátaro e Mezzomo, 2013), por meio de cursos de pós-graduação _strictu sensu_. 
+## Programas de Pós-Graduação Grupo 15
+| Ids           | Área de Avaliação | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
+|---------------|------------------:|---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
+| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
+| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
+| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO | [ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
+| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOMÉDICA                              | [ENGENHARIA BIOMÉDICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
 
-Fernandes e Sampaio (2017) já indicaram que a ciência é reconhecidamente um elemento essencial para o desenvolvimento social e econômico de qualquer nação.
-Assim sendo, faz-se mister aprimorar o SNPG como forma de promoção desse crescimento, visando maximizar o retorno decorrente do emprego dos recursos nele aplicados. 
-A promoção do crescimento do SNPG se dá predominantemente por meio de avaliações regulares de seus programas de pós-graduação, sob responsabilidade da CAPES, que realiza a cada quatro anos um complexo (Leite, 2018, p. 13) e custoso processo de coleta de dados, análise e deliberação sobre as pós-graduações _strictu sensu_, em coerência com o estabelecido no Plano Nacional de Pós-Graduação (PNPG) 2012-2020 (CAPES, 2010) e nos diversos documentos que definem os critérios de organização da pós-graduação em cada área do conhecimento (CAPES, 2018).
-Leite (2018) faz uma apresentação geral  de como se organizam e são avaliadas as pós-graduações no Brasil.
-
-O Plano Nacional de Pós-Graduação (PNPG), por outro lado, define diretrizes estratégicas para desenvolvimento da pós-graduação brasileira, que deve abordar prioritariamente grandes temas de interesse nacional, tais como a redução das assimetrias de desenvolvimento entre as regiões do Brasil, a formação de professores para a educação básica, a formação de recursos humanos para as empresas, a resposta aos grandes desafios brasileiros sobre Água, Energia, Transporte, Controle de Fronteiras, Agronegócio, Amazônia, Amazônia Azul (Mar), Saúde, Defesa, Programa Espacial, além de Justiça, Segurança Pública, Criminologia e Desequilíbrio Regional.
-O PNPG também traça as diretrizes para financiamento da pós-graduação e sua internacionalização, apresentando conclusões e recomendações.
-
-As avaliações do SNPG, ao atribuirem mensurações de desempenho às diversas pós-graduações que dele fazem parte, geram incentivos e penalidades aos programas, tendo em vista a limitada disponibilidade de recursos para investimento em bolsas, taxas de bancada etc.
-Embora o sistema seja altamente sofisticado ele é também altamente criticado (Azevedo et al., 2016), sobretudo porque há percalços na busca por um equilíbrio entre as diferentes concepções de finalidade da ciência. 
-Se de um lado a promoção do conhecimento gerado predominantemente nas ditas ciências _hard_ constribui para criar fluxos econômicos mais intensos, isso não significa que essa promoção possa ocorrer em detrimento da menor promoção na geração de conhecimento sobre problemas sociais, predominantemente gerado nas ditas ciências _soft_, especialmente das áreas de humanidades, sob pena de ampliação de desigualdades (Azevedo et al., 2016).
-
-Não há solução simples, mas postula-se, nesta disciplina, que uma maior agilidade na avaliação e a utilização de critérios mais objetivos, poderá facilitar a melhoria do sistema.
-
-###Os Colégios, Grandes Áreas e Áreas da Pós-Graduação Brasileira
-
-A partir de 2018, as diversas áreas da pós-graduação brasileira foram organizadas na forma de colégios, grandes áreas e áreas, conforme apresentam as tabelas a seguir.
-
-####Colégio de Ciências da vida
-
-CIÊNCIAS AGRÁRIAS| CIÊNCIAS BIOLÓGICAS| CIÊNCIAS DA SAÚDE
--|-|-
-Ciência de Alimentos |Biodiversidade |Educação Física
-Ciências Agrárias I |Ciências Biológicas I |Enfermagem
-Medicina Veterinária |Ciências Biológicas II |Farmácia
-Zootecnia / Recursos Pesqueiros |Ciências Biológicas III |Medicina I
-- |- |Medicina II
-- |- |Medicina III
-- |- |Nutrição
-- |- |Odontologia
-- |- |Saúde Coletiva
-
-
-####Colégio de Ciências Exatas, Tecnológicas e Multidisciplinar
-
-CIÊNCIAS EXATAS E DA TERRA|ENGENHARIAS|MULTIDISCIPLINAR
--|-|-
-Astronomia / Física |Engenharias I |Biotecnologia
-Ciência da Computação |Engenharias II |Ciências Ambientais
-Geociências |Engenharias III |Ensino
-Matemática / Probabilidade e Estatística |Engenharias IV |Interdisciplinar
-Química | - |Materiais
-
-
-####Colégio de Humanidades
-
-
-CIÊNCIAS HUMANAS | CIÊNCIAS SOCIAIS APLICADAS | LINGUÍSTICA, LETRAS E ARTES
--|-|-
-Antropol/Arqueol | Admin.Púb./Empr.,C.Contáb. e Tur.|Artes
-Ciência Pol. e Rel. Int. |Arquit., Urban. e Design | Linguística e Literatura
-Ciências da Religião e Teol. |Comunicação e Informação|-
-Educação |Direito|-
-Filosofia |Economia|-
-Geografia |Planej. Urbano e Reg. / Demografia|-
-História |Serviço Social |-
-Psicologia|-|-
-Sociologia|-|-
-
-Cada um desses colégios, grandes áreas e áreas de conhecimento possuem dinâmicas próprias, e, portanto, não há um modelo universal que se aplique a todas.
-Existem aspectos comuns, mas também grandes peculiaridades, descritas parcialmente nos correspondentes documentos de área disponíveis em CAPES (2018).
-
-##A UnB dentro do Sistema Nacional de Pós-Graduação (Contextualização)
-
-### O que é a UnB?
-Descrição da Universidade de Brasília, com foco na sua produção científica e acadêmica.
-
-###Descrição das pós-graduações da UnB
-Texto a desenvolver.
-
-###Outros aspectos que caracterizam a produção científica e acadêmica da UnB
-Texto a desenvolver.
-
-## O que a Organização precisa realmente alcançar?
-
-Vários stakeholders estão envolvidos no projeto em curso, e poderíamos considerar cada um deles como distintas organizações que possuem interesses distintos e complementares. Elas são:
-* A Disciplina Ciência de Dados para Todos 2018.1, que quer comprovar que seus alunos dominam ferramentas e técnicas de ciência de dados, para fins de avaliação de rendimento da disciplina.
-* A UnB, representada pelos decanatos de pós-graduação (DPG) e de pesquisa e inovação (DPI), que querem dispor de instrumentos para realização de avaliações contínuas de suas pós-graduações.
-* O SNPG, que assim com o DPG e DPI, também pode se beneficiar do uso de instrumentos para realização de avaliações contínuas de suas pós-graduações.
-* Os interessados em melhor conhecer o que é produzido pelo Sistema Nacional de Pós-graduação, como empresas privadas, que querem desfrutar dos benefícios gerados pela  ciência brasileira.
-
-A fim de dar maior fidelidade e homogeneidade ao exercício realizado na disciplina, focaremos em atendimento aos interesses comuns das organizações DPI, DPG e CAPES, que desejam dispor de instrumentos ágeis para avaliação contínua da pós-graduação brasileira. 
-
-Com base no exposto, o objetivo do trabalho final a ser alcançado pelos produtos d emineração de dados desenvolvido pelos alunos da disciplina Ciência de Dados para Todos é produzir, tomando por base inicial os dados fornecidos pelos professores responsáveis pela disciplina, ferramentas para análise e avaliação contínuas e de baixo custo, do desempenho de um conjunto de pós-graduações que estão vinculadas a uma mesma subárea ou grupo de conhecimento. Cada área de pós-graduação apresenta suas características peculiares, assim como cada um dos programas vinculados a essas áreas.
-Como já informado, características peculiares de cada programa podem ser obtidas a partir de visita ao sítio da CAPES (2018).
+Sendo o enfoque principal os dados referente a engenharia biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de biomédica.
 
 ##Avaliação das Circunstâncias
 
-Este documento serve como base para a realização dos trabalhos dos alunos. apresenta limitações no tocante à quantidade pequena de dados que serão empregados para análises e avaliações, tendo em vista sua finalidade maior que é a didática, de permitir aos alunos demonstrarem a capacidade de aplicação das técnicas e ferramentas apreendidas durante o semestre.
-
-###Avaliação preliminar das pós-graduações na UnB
-Texto a desenvolver.
-
-###Avaliação preliminar da produção científica e acadêmica da UnB
-Texto a desenvolver.
+Este trabalho terá o limite que os próprios dados gerado pela plataforma elattes tem, já que se os dados fornecidos delimitariam o escopo do projeto e até pode-se ir, ou melhor, até onde os dados permitem uma análise fidedgina. 
 
 #CRISP-DM Fase 2 - Entendimento dos Dados
 
