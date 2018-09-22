@@ -1,130 +1,133 @@
 ---
-title:  CiÃªncia de Dados para Todos (Data Science
-  For All) - 2018.2 - AnÃ¡lise da ProduÃ§Ã£o CientÃ­fica e AcadÃªmica da Universidade de BrasÃ­lia - Engenharia BiomÃ©dica
-author: "Marcos V.P. Tonin, Lucas Nascimento, Carlos AragÃ£o"
+title:  Ciência de Dados para Todos (Data Science
+  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica
+author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
-  pdf_document: 
-    latex_engine: xelatex
   html_document:
     df_print: paged
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_knit$set(root.dir = getwd())
 ```
 
-# IntroduÃ§Ã£o
+# Introdução
 
-O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pÃ³s-graduaÃ§Ã£o em engenharia biomÃ©dica em mÃ£os busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
+O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia biomédica em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
 
-#CRISP-DM (Corresponderia Ã  seÃ§Ã£o de Metodologia)
+#Metodologia
 
 Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto usado pelo CRISP-DM.
 
-O ciclo Ã© basicamente definido pelas seguintes fases:
+O ciclo é basicamente definido pelas seguintes fases:
 
-* **Entendimento do negÃ³cio** : primeiramente deve-se entender o que se busca encontrar, haja visto que nÃ£o faz sentido fazer uma anÃ¡lise de dados sem saber o que se busca.
+* **Entendimento do negócio** : primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
 
 * **Entendimento dos dados** : Busca-se entender os dados de forma mais superficial primeiramente.
 
-* **PreparaÃ§Ã£o de dados ** : EntÃ£o limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
+* **Preparação de dados ** : Então limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
 
 * **Modelagem ** : Faz a modelagem do dado.
-* **AvaliaÃ§Ã£o ** : Avalia-se o resultado da modelagem.
-* **ImplantaÃ§Ã£o ** : Faz uso dos dados.
+* **Avaliação ** : Avalia-se o resultado da modelagem.
+* **Implantação ** : Faz uso dos dados.
 
-As fases nÃ£o sÃ£o independentes entre si, mas possuem certa comunicaÃ§Ã£o, depedendo das fases, sendo melhor visualizado na figura abaixo.
+As fases não são independentes entre si, mas possuem certa comunicação, depedendo das fases, além de não ser estritamente sequencial, sendo melhor visualizado na figura abaixo.
 
-![Ciclo do CRISP-DM que serÃ¡ usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
+![Ciclo do CRISP-DM que será usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
 
-Por esta imagem consegue-se perceber que o entendimento do negÃ³cio e do dado pode muitas vezes ser alternada, indo e voltando.
+Por esta imagem consegue-se perceber que o entendimento do negócio e do dado pode muitas vezes ser alternada, indo e voltando.
 
-## DelimitaÃ§Ãµes iniciais
+## Delimitações iniciais
 
 
-###DomÃ­nio de AplicaÃ§Ã£o do projeto
-O domÃ­nio de aplicaÃ§Ã£o do projeto Ã©  produÃ§Ã£o cientÃ­fica ou produÃ§Ã£o acadÃªmica de um subgrupo de pesquisadores vinculados Ã  Universidade de BrasÃ­lia, sendo vinculado ao subtema __engenharia biomÃ©dica__, tais arquivos foram pegos na plataforma elattes.
+###Domínio de Aplicação do projeto
+O domínio de aplicação do projeto é  produção científica ou produção acadêmica de um subgrupo de pesquisadores vinculados à Universidade de Brasília, sendo vinculado ao subtema __engenharia biomédica__, tais arquivos foram pegos na plataforma elattes.
 
 ###Problema abordado
 
-Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatÃ­stica, que permitam caracterizar como, porque e tambÃ©m para que ocorre a produÃ§Ã£o cientÃ­fica e acadÃªmica na Ã¡rea de engenharia biomÃ©dica.
+Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatástica, que permitam caracterizar como, porque e também para que ocorre a produção científica e acadêmica na Área de engenharia biomédica.
 
-# CRISP-DM Fase 1 - Entendimento do NegÃ³cio
+# CRISP-DM Fase 1 - Entendimento do Negócio
 
-A Universidade de BrasÃ­lia Ã© uma das grandes universidades federais, sendo responsÃ¡vel pela produÃ§Ã£o de artigos visando artigos acadÃªmicos, este presente trabalho de como programas :
+A Universidade de Brasília é uma das grandes universidades federais, sendo responsável pela produção de artigos visando artigos acadêmicos, este presente trabalho de como programas :
 
-## Programas de PÃ³s-GraduaÃ§Ã£o Grupo 15
-| Ids           | Ãrea de AvaliaÃ§Ã£o | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
+## Programas de Pós-Graduação Grupo 15
+| Ids           | Área de Avaliação | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
 |---------------|------------------:|---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
-| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA ELÃ‰TRICA                               | [ENGENHARIA ELÃ‰TRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
-| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA ELÃ‰TRICA                               | [ENGENHARIA ELÃ‰TRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
-| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETRÃ”NICOS E DE AUTOMAÃ‡ÃƒO | [ENGENHARIA DE SISTEMAS ELETRÃ”NICOS E DE AUTOMAÃ‡ÃƒO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
-| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOMÃ‰DICA                              | [ENGENHARIA BIOMÃ‰DICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
+| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
+| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
+| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO | [ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
+| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOMÉDICA                              | [ENGENHARIA BIOMÉDICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
 
-Sendo o enfoque principal os dados referente a engenharia biomÃ©dica, que por sua vez tem sua pesquisa muitas voltada a novas soluÃ§Ãµes na Ã¡rea de biomÃ©dica.
+Sendo o enfoque principal os dados referente a engenharia biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de biomédica.
 
-##AvaliaÃ§Ã£o das CircunstÃ¢ncias
+##Avaliação das Circunstancias
 
-Este trabalho terÃ¡ o limite que os prÃ³prios dados gerado pela plataforma elattes tem, jÃ¡ que se os dados fornecidos delimitariam o escopo do projeto e atÃ© pode-se ir, ou melhor, atÃ© onde os dados permitem uma anÃ¡lise fidedgina. 
+Este trabalho terá o limite que os próprios dados gerado pela plataforma elattes tem, já que se os dados fornecidos delimitariam o escopo do projeto e até pode-se ir, ou melhor, até onde os dados permitem uma análise fidedgina. 
 
 #CRISP-DM Fase 2 - Entendimento dos Dados
 
-Doravante, a fim de facilitar aos alunos seguirem a metodologia CRISP-DM, os nomes das seÃ§Ãµes e subseÃ§Ãµes de texto serÃ£o prefixadas com o nÃºmero e nome da fase e atividade genÃ©rica do CRISP-DM. Fica facultado aos grupos seguir ou nÃ£o a sequÃªncia prevista, tendo em vista que se pode retornar Ã s fases anteriores, bem como podem haver atividades que nÃ£o foram adequadas Ã s caracterÃ­sticas do problema especÃ­fico sob anÃ¡lise.
-
 ##CRISP-DM Fase.Atividade 2.1 - Coleta inicial dos dados
-Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores responsÃ¡veis pela disciplina. Os dados foram gerados no mÃªs de maio de 2018, e compilam informaÃ§Ãµes entre os anos de 2010 e 2017. 
-Os arquivos estÃ£o no formato JSON, e seus atributos iniciais e conteÃºdos sÃ£o apresentados a seguir.
 
-###Perfil profissional dos docentes vinculados Ã s pÃ³s-graduaÃ§Ãµes
+Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores responsáveis pela disciplina, através da plataforma elattes. Os dados foram gerados no mês de setembro de 2018, data em que o presente grupo começou a realizar o trabalho e compilam informações entre os anos de 2010 e 2017, das áreas expostas na seção anterior. 
+Os arquivos estão no formato JSON, sendo todos fornecidos pelos docentes responsável por esta disciplina.
+
+###Perfil profissional dos docentes vinculados às pós-graduações
 
 ```{r}
 json.perfil <- "dados-2018-2/engenharia-biomedica/279.profile.json"
 file.info(json.perfil)
 ```
 
-O arquivo `r json.perfil` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pÃ³s-graduaÃ§Ã£o da UnB, entre 2010 e 2017. 
-Esse arquivo foi fornecido pelos docentes responsÃ¡veis pela disciplina.
+O arquivo `r json.perfil` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, da UnB, entre 2010 e 2017. 
 
-###OrientaÃ§Ãµes de mestrado e doutorado realizadas pelos docentes vinculados Ã s pÃ³s-graduaÃ§Ãµes
+
+###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
 
 ```{r}
 json.advise <- "dados-2018-2/engenharia-biomedica/279.advise.json"
 file.info(json.advise)
 ```
 
-O arquivo `r json.advise` apresenta dados sobre o orientaÃ§Ãµes de mestrado e doutorado feitas por todos os docentes vinculados a programas de pÃ³s-graduaÃ§Ã£o da UnB, entre 2010 e 2017. 
-Esse arquivo foi fornecido pelos docentes responsÃ¡veis pela disciplina.
+O arquivo `r json.advise` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica, da UnB, entre 2010 e 2017. 
 
 
-###ProduÃ§Ã£o bibliogrÃ¡fica gerada pelos docentes vinculados Ã s pÃ³s-graduaÃ§Ãµes
+###Produção bibliográfica gerada pelos docentes vinculados Ã s pós-graduações
 
 ```{r}
 json.producao.bibliografica <- "dados-2018-2/engenharia-biomedica/279.publication.json"
 file.info(json.producao.bibliografica) 
 ```
 
-O arquivo `r json.producao.bibliografica` apresenta dados sobre a produÃ§Ã£o bibliogrÃ¡fica gerada por todos os docentes vinculados a programas de pÃ³s-graduaÃ§Ã£o da UnB, entre 2010 e 2017. 
+O arquivo `r json.producao.bibliografica` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017. 
 
-###Agrupamento dos docentes conforme Ã¡reas de atuaÃ§Ã£o
-
-```{r}
-
-```
-
-O arquivo RESEARCHERS_BY_AREA???? apresenta as vinculaÃ§Ãµes de todos os docentes que declararam atuar em cada uma das Ã¡reas de pÃ³s-graduaÃ§Ã£o do Sistema Nacional de PÃ³s-GraduaÃ§Ã£o da CAPES, conforme apresenta-se registrada essa informaÃ§Ã£o no currÃ­culo Lattes de cada um, em data recente. 
+###ID's dos docentes participantes e o que contêm o arquivo list.json
 
 ```{r}
-file.info('data/dados-2018-2/engenharia-biomedica/279.graph.json')
+json.list <- "dados-2018-2/engenharia-biomedica/279.list.json"
+file.info(json.list) 
 ```
 
-###Redes de colaboraÃ§Ã£o entre docentes
+O arquivo `r json.list` apresenta o id de todos docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
 
-O arquivo data/UnBPosGeral/graph.json apresenta redes de colaboraÃ§Ã£o na co-autoria de artigos cientpificos, feitas entre os docentes vinculados a programas de pÃ³s-graduaÃ§Ã£o da UnB, entre 2010 e 2017.
 
-##CRISP-DM Fase.Atividade 2.2 - DescriÃ§Ã£o dos Dados
 
-Para ler e manipular inicialmente esses dados, serÃ£o usadas primordialmente as bibliotecas seguintes 
+
+###Redes de colaboração entre docentes
+
+```{r}
+json.graph<-'dados-2018-2/engenharia-biomedica/279.graph.json'
+file.info(json.graph)
+```
+
+O arquivo `r json.graph` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
+
+##CRISP-DM Fase.Atividade 2.2 - Descrição dos Dados
+
+Para ler e manipular inicialmente esses dados, serão usadas primordialmente as bibliotecas seguintes 
 
 ```{r library-load}
 library(jsonlite)
@@ -137,54 +140,36 @@ library(tidyverse)
 library(stringr)
 ```
 
-Como jÃ¡ informado, a descriÃ§Ã£o dos dados verifica se os dados sendo acessados terÃ£o potencial para responder Ã s questÃµes de _data mining_. AlÃ©m disso, deve-se avaliar qual o volume de dados, a estrutura dos dados (tipos), codificaÃ§Ãµes usadas, etc. Neste projeto, a descriÃ§Ã£o dos dados Ã© responsabilidade parcial dos alunos, tendo em vista que esta seÃ§Ã£o jÃ¡ oferece uma descriÃ§Ã£o inicial simplificada. O relatÃ³rio final deve conter descriÃ§Ãµes significativas e aprofundadas dos dados.
+Com estas bibliotecas seremos capazes de responder e determinar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc..
 
-###DescriÃ§Ã£o dos dados do perfil
-
-O arquivo unb.perfis.json, que contÃ©m dados que caracterizam o perfil profissional de todos os docentes do grupo sob anÃ¡lise, podem ser lido por meio do comando seguinte.
+###Descrição dos dados do perfil
 
 ```{r}
 unb.prof <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
 ```
 
-A quantidade de docentes sob anÃ¡lise Ã© apresentada a seguir.
+A quantidade de docentes sob análise é apresentada a seguir.
 ```{r}
 length(unb.prof)
 ```
 
-Para gerar uma apresentaÃ§Ã£o inicial dos dados que estÃ£o contido nos dados de perfil dos docentes, pode-se usar a funÃ§Ã£o glimpse, da biblioteca dplyr, como ilustra o cÃ³digo seguinte, que apresenta os atributos tÃ­picos que podem ser obtidos relativamente a um pesquisador especÃ­fico, o mais antigo docente ainda em exercÃ­cio na UnB a ter criado seu registro na plataforma Lattes.
+Para um melhor entendimento é importante saber como os dados estão dispostos para algum número de ocorrência.
 
 ```{r}
+### Usando glimpse
 glimpse(unb.prof[[1]], width = 30)
 ```
 
-Uma breve inspeÃ§Ã£o visual dos atributos anteriormente apresentados permite inferir que o pesquisador sob anÃ¡lise:
+Podemos inferir que:
 
-* Atua predominantemente na Ã¡rea de matemÃ¡tica.
-* Trabalha no Instituto de CiÃªncias Exatas da UnB.
-* Possui trÃªs artigos recentes publicados, alÃ©m de um aceito para publicaÃ§Ã£o.
-* Possui uma orientaÃ§Ã£o de doutorado em andamento, iniciada em 2014.
-* Foi classificado com senioridade 5.
+* Que o professor não é da área da engenharia elétrica, por formação, mas acabou por aderir a subárea engenharia biomédica.
+* Não é nativo da UnB, sendo formado no UFG.
+* Atualmente trabalha na UnB do Gama.
+* Sua senioridade é de 9.
 
-####Potencial de utilizaÃ§Ã£o dos dados do perfil dos docentes
+####Potencial de utilização dos dados do perfil dos docentes
 
-Esses dados terÃ£o potencial para responder Ã s questÃµes de _data mining_?
-O que Ã© possÃ­vel gerar a partir desses dados, para o conjunto dos 1592 docentes da UnB?
-A fim de compreender a relevÃ¢ncia dos dados para a avaliaÃ§Ã£o da produÃ§Ã£o acadÃªmica nas pÃ³s-graduaÃ§Ãµes brasileiras pode-se recorrer a trabalhos como os seguintes:
-
-* Leite (2018) apresenta, em suas "ConsideraÃ§Ãµes bÃ¡sicas sobre  a AvaliaÃ§Ã£o do Sistema  Nacional de PÃ³s-GraduaÃ§Ã£o", o conjunto dos itens que sÃ£o tÃ³picos de avaliaÃ§Ã£o das pÃ³s-graduaÃ§Ãµes pela CAPES, e que envolvem, entre outros:
-    + AvaliaÃ§Ã£o do corpo docente, com 20% a 30% de peso na avaliaÃ§Ã£o total do programa, a depender do seu tipo. Analisando-se de forma mais detalhada os critÃ©rios de avaliaÃ§Ã£o do corpo docente, indicados por Leite, o que Ã© possÃ­vel gerar com base nos dados disponÃ­veis em unb.prof? HÃ¡ dados que permitam identificar o perfil do docente, como proposto pela CAPES, inclusive no documento de Ã¡rea especÃ­fica na qual atua o pesquisador? Que outros aspectos relevantes para a CAPES podem ser levantados com base nos dados dessa fonte?
-    + AvaliaÃ§Ã£o do corpo discente, Teses e dissertaÃ§Ãµes, com 30% a 20% de peso na avaliaÃ§Ã£o total do programa, a depender de seu tipo. Os dados sobre orientaÃ§Ã£o permitem fazer quais tipos de avaliaÃ§Ãµes do corpo discente?
-    + AvaliaÃ§Ã£o da produÃ§Ã£o intelectual, com 40% de peso na avaliaÃ§Ã£o total. Qual a relevÃ¢ncia dos dados em unb.prof para essa avaliaÃ§Ã£o? Que outros arquivos podem melhor subsidiar essa avaliaÃ§Ã£o?
-* Em busca de considerar outros fatores relevantes para a avaliaÃ§Ã£o da pÃ³s-graduaÃ§Ã£o, nÃ£o considerados no modelo da CAPES, pode-se recorrer ao trabalho de Kalpazidou Schmidt e Graversen (2018), que apresentam um conjunto de fatores persistentes que facilitam a existÃªncia de ambientes de pesquisa inovadores e dinÃ¢micos, dentre os quais se destaca:
-    + Atividade em pesquisas com elevado grau de impacto social;
-    + PromoÃ§Ã£o de elevado grau de autonomia individual, tanto do ponto de vista teÃ³rico quanto metodolÃ³gico;
-    + Possuem um bom clima de trabalho, baseado no trabalho em times;
-    + SÃ£o internacioinalmente bem conhecidas etc.
-    
-    Estariam esses fatores contemplados, de alguma forma, memso que parcialmente, nos dados presentes em unb.prof? Ou em qualquer outros dos arquivos? Cabe explorar.
-
-###DescriÃ§Ã£o dos dados de orientaÃ§Ãµes
+###Descrição dos dados de orientações
 
 ```{r}
 unb.adv <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
@@ -196,7 +181,7 @@ head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing 
 ```
 
 
-###DescriÃ§Ã£o dos dados de produÃ§Ã£o bibliogrÃ¡fica
+###Descrição dos dados de produção bibliográfica
 ```{r}
 unb.pub <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
 names(unb.pub)
@@ -206,74 +191,74 @@ head(sort(table(unb.pub$LIVRO$`2015`$nome_da_editora), decreasing = TRUE), 10)
 ```
 
 
-###DescriÃ§Ã£o dos dados de agregaÃ§Ã£o de docentes por Ã¡rea
+###Descrição dos dados de agregação de docentes por área
 ```{r}
 
 ```
 
 
-###DescriÃ§Ã£o dos dados de redes de colaboraÃ§Ã£o
+###Descrição dos dados de redes de colaboração
 
 
-##CRISP-DM Fase.Atividade 2.3 - AnÃ¡lise exploratÃ³ria dos dados
+##CRISP-DM Fase.Atividade 2.3 - Análise exploratória dos dados
 
-Como jÃ¡ informado, a anÃ¡lise exploratÃ³ria dos dados possibilita um entendimento mais profundo da relaÃ§Ã£o estatÃ­stica existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para os objetivos do projeto. 
+Como já informado, a análise exploratória dos dados possibilita um entendimento mais profundo da relação estatìstica existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para os objetivos do projeto. 
 
-Como jÃ¡ informado, a anÃ¡lise exploratÃ³ria dos dados Ã© responsabilidade parcial dos alunos, tendo em vista que este relatÃ³rio apresenta uma anÃ¡lise exploratÃ³ria preliminar.
-O relatÃ³rio final deve conter anÃ¡lises exploratÃ³rias dos dados que sejam significativas e aprofundadas.
+Como já informado, a análise exploratória dos dados é responsabilidade parcial dos alunos, tendo em vista que este relatório apresenta uma análise exploratória preliminar.
+O relatório final deve conter análises exploratórias dos dados que sejam significativas e aprofundadas.
 
 ###Arquivo Profile
 
 ```{r}
 # jsonedit(unb.prof)
-# NÃºmero de Ã¡reas de atuaÃ§Ã£o cumulativo
+# NÃºmero de áreas de atuação cumulativo
 sum(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao)))
-# NÃºmero de Ã¡reas de atuaÃ§Ã£o por pessoa
+# NÃºmero de áreas de atuação por pessoa
 table(unlist(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao))))
 # NÃºmero de pessoas por grande area
 table(unlist(sapply(unb.prof, function(x) (x$areas_de_atuacao$grande_area))))
-# NÃºmero de pessoas que produziram os especÃ­ficos tipos de produÃ§Ã£o
+# NÃºmero de pessoas que produziram os especìficos tipos de produção
 table(unlist(sapply(unb.prof, function(x) names(x$producao_bibiografica))))
-# NÃºmero de publicaÃ§Ãµes por tipo
+# NÃºmero de publicações por tipo
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano)))
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
-# NÃºmero de pessoas por quantitativo de produÃ§Ãµes por pessoa 0 = 1; 1 = 2...
+# NÃºmero de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-# NÃºmero de produÃ§Ãµes por ano
+# NÃºmero de produções por ano
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-# NÃºmero de pessoas que realizaram diferentes tipos de orientaÃ§Ãµes
+# NÃºmero de pessoas que realizaram diferentes tipos de orientações
 length(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
-# NÃºmero de pessoas por tipo de orientaÃ§Ã£o
+# NÃºmero de pessoas por tipo de orientação
 table(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
-#NÃºmero de orientaÃ§Ãµes concluidas
+#NÃºmero de orientações concluidas
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
 
-# NÃºmero de pessoas por quantitativo de orientaÃ§Ãµes por pessoa 0 = 1; 1 = 2...
+# NÃºmero de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
-# NÃºmero de orientaÃ§Ãµes por ano
+# NÃºmero de orientações por ano
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
 ```
 
-###Arquivo PublicaÃ§Ã£o
+###Arquivo Publicação
 ```{r}
 # Visualizar a estrutura do arquivo de Publicacao
 #jsonedit(unb.pub)
@@ -291,12 +276,12 @@ glimpse(unb.pub.df)
 
 ```
 
-###Arquivo OrientaÃ§Ã£o
+###Arquivo Orientação
 ```{r}
-#OrientaÃ§Ã£o
+#Orientação
 #Visualizar a estrutura do json no painel Viewer
 #jsonedit(unb.adv)
-#Reunir todos os anos e orientaÃ§Ãµes concluidas em um mesmo data-frame
+#Reunir todos os anos e orientações concluidas em um mesmo data-frame
 unb.adv.tipo.df <- data.frame(); unb.adv.df <- data.frame()
 for (i in 1:length(unb.adv[[1]]))
   unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
@@ -321,33 +306,33 @@ head(sort(table(rbind(unb.adv.df$ori1, unb.adv.df$ori2)), decreasing = TRUE), 20
 ```
 
 
-##CRISP-DM Fase.Atividade 2.4 - VerificaÃ§Ã£o da qualidade dos dados. 
+##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
 
-Como jÃ¡ informado, a verificaÃ§Ã£o da qualidade dos dados envolve responder se os dados disponÃ­veis estÃ£o realmente completos. 
+Como já informado, a verificação da qualidade dos dados envolve responder se os dados disponìveis estão realmente completos. 
 
-As informaÃ§Ãµes disponÃ­veis sÃ£o suficientes para o trabalho proposto? 
+As informações disponìveis são suficientes para o trabalho proposto? 
 
-Neste projeto, a verificaÃ§Ã£o da qualidade dos dados Ã© responsabilidade dos alunos.
+Neste projeto, a verificação da qualidade dos dados é responsabilidade dos alunos.
 
-#CRISP-DM Fase 3 -  __PreparaÃ§Ã£o dos Dados__
+#CRISP-DM Fase 3 -  __Preparação dos Dados__
 
-Como jÃ¡ informado, na fase de __PreparaÃ§Ã£o dos Dados__ os _datasets_ que serÃ£o utilizados em todo o trabalho sÃ£o construÃ­dos a partir dos dados brutos. Aqui os dados sÃ£o â€œfiltradosâ€ retirando-se partes que nÃ£o interessam e selecionando-se os â€œcamposâ€ necessÃ¡rios para o trabalho de mineraÃ§Ã£o. 
+Como já informado, na fase de __Preparação dos Dados__ os _datasets_ que serão utilizados em todo o trabalho são construìdos a partir dos dados brutos. Aqui os dados são â€œfiltradosâ€ retirando-se partes que não interessam e selecionando-se os â€œcamposâ€ necessários para o trabalho de mineração. 
 
-SÃ£o 5 as atividades genÃ©ricas nesta fase de preparaÃ§Ã£o dos dados, a seguir divididas em subseÃ§Ãµes
+São 5 as atividades genéricas nesta fase de preparação dos dados, a seguir divididas em subseções
 
-##CRISP-DM Fase.Atividade 3.1 - SeleÃ§Ã£o dos dados. 
+##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
 
-Como jÃ¡ informado, a seleÃ§Ã£o dos dados envolve identificar quais dados, da nossa "montanha de dados", serÃ£o realmente utilizados. 
+Como já informado, a seleção dos dados envolve identificar quais dados, da nossa "montanha de dados", serão realmente utilizados. 
 
-Quais variÃ¡veis dos dados brutos serÃ£o convertidas para o _dataset_? 
+Quais variáveis dos dados brutos serão convertidas para o _dataset_? 
 
-NÃ£o Ã© raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contÃ©m a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruÃ­do (Silver, Nate. The Signal and the Noise: Why so many predictions fail â€” but some donâ€™t. USA: The Penguin Press HC, 2012.). 
+Não é raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contém a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruìdo (Silver, Nate. The Signal and the Noise: Why so many predictions fail â€” but some donâ€™t. USA: The Penguin Press HC, 2012.). 
 
 ##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
 
-##CRISP-DM Fase.Atividade 3.3 - ConstruÃ§Ã£o dos dados
+##CRISP-DM Fase.Atividade 3.3 - Construção dos dados
 
-Como jÃ¡ informado, a construÃ§Ã£o dos dados envolve a criaÃ§Ã£o de novas variÃ¡veis a partir de outras presentes nos _datasets_.
+Como já informado, a construção dos dados envolve a criação de novas variáveis a partir de outras presentes nos _datasets_.
 ```{r}
 # Funcoes 
 
@@ -549,7 +534,7 @@ extrai_areas_atuacao <- function(jsonProfessores){
 }
 ########################### Inicio 
 
-# colocar o diretorio onde estÃ¡ o arquivo json de perfis a serem lidos 
+# colocar o diretorio onde está o arquivo json de perfis a serem lidos 
 unb.prof.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
 unb.prof.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
@@ -572,7 +557,7 @@ unb.prof.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof)
 save(unb.prof.df.professores, unb.prof.df.publicacoes,
      unb.prof.df.orientacoes, unb.prof.df.areas.de.atuacao, file = "dataframes.Rda")
 
-#cria arquivo para anÃ¡lise
+#cria arquivo para análise
 unb.prof.df <- data.frame()
 unb.prof.df <- unb.prof.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -609,102 +594,102 @@ glimpse(unb.prof.df)
 ```
 
 
-##CRISP-DM Fase.Atividade 3.4 - IntegraÃ§Ã£o dos dados
+##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
 
-Como jÃ¡ informado, a integraÃ§Ã£o dos dados envolve a uniÃ£o (merge) de diferentes tabelas para criar um Ãºnico _dataset_ para ser utilizado no R, por exemplo.
+Como já informado, a integração dos dados envolve a união (merge) de diferentes tabelas para criar um Ãºnico _dataset_ para ser utilizado no R, por exemplo.
 
-##CRISP-DM Fase.Atividade 3.5 -  FormataÃ§Ã£o dos dados
+##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
 
-Como jÃ¡ informado, a formataÃ§Ã£o de dados envolve a realizaÃ§Ã£o de pequenas alteraÃ§Ãµes na estrutura dos dados, como a ordem das variÃ¡veis, para permitir a execuÃ§Ã£o de determinado mÃ©todo de data mining.
+Como já informado, a formatação de dados envolve a realização de pequenas alterações na estrutura dos dados, como a ordem das variáveis, para permitir a execução de determinado método de data mining.
 
 #CRISP-DM Fase 4 - __Modelagem__
 
-Como jÃ¡ informado, na fase de __Modelagem__ no CRISP-DM ocorre a construÃ§Ã£o e avaliaÃ§Ã£o de modelos estatÃ­sticos ou computacionais, podendo ser realizada em quatro atividades genÃ©ricas, a seguir organizadas na forma de seÃ§Ãµes
+Como já informado, na fase de __Modelagem__ no CRISP-DM ocorre a construção e avaliação de modelos estatìsticos ou computacionais, podendo ser realizada em quatro atividades genéricas, a seguir organizadas na forma de seções
 
-##CRISP-DM Fase.Atividade 4.1 - SeleÃ§Ã£o das tÃ©cnicas de modelagem
+##CRISP-DM Fase.Atividade 4.1 - Seleção das técnicas de modelagem
 
-##CRISP-DM Fase.Atividade 4.2 -  RealizaÃ§Ã£o de testes de modelagem
+##CRISP-DM Fase.Atividade 4.2 -  Realização de testes de modelagem
 
-Como jÃ¡ informado, na realizaÃ§Ã£o de testes de modelagem diferentes modelos estatÃ­sticos ou computacionais sÃ£o previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construÃ§Ã£o de modelos, e outra pequena parte para validar  e avaliar a eficiÃªncia de cada modelo criado atÃ© se chegar ao mais â€œeficienteâ€. 
+Como já informado, na realização de testes de modelagem diferentes modelos estatìsticos ou computacionais são previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construção de modelos, e outra pequena parte para validar  e avaliar a eficiência de cada modelo criado até se chegar ao mais â€œeficienteâ€. 
 
-##CRISP-DM Fase.Atividade 4.3 -  ConstruÃ§Ã£o do modelo definitivo
+##CRISP-DM Fase.Atividade 4.3 -  Construção do modelo definitivo
 
-Como jÃ¡ informado, a construÃ§ao do modelo definitivo Ã© realizada com base na melhor experiÃªncia do passo anterior.
+Como já informado, a construÃ§ao do modelo definitivo é realizada com base na melhor experiência do passo anterior.
 
-##CRISP-DM Fase.Atividade 4.4 - AvaliaÃ§Ã£o do modelo
+##CRISP-DM Fase.Atividade 4.4 - Avaliação do modelo
 
-#CRISP-DM Fase 5 - __AvaliaÃ§Ã£o__
+#CRISP-DM Fase 5 - __Avaliação__
 
-Como jÃ¡ informado, na fase de __AvaliaÃ§Ã£o__ do CRISP-DM os resultados nÃ£o sÃ£o apenas avaliados, mas se verifica se existem questÃµes relacionadas Ã  organizaÃ§Ã£o que nÃ£o foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum â€œefeito colateralâ€ para a organizaÃ§Ã£o. 
+Como já informado, na fase de __Avaliação__ do CRISP-DM os resultados não são apenas avaliados, mas se verifica se existem questÃµes relacionadas Ã  organização que não foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum â€œefeito colateralâ€ para a organização. 
 
-Como jÃ¡ informado, nesta fase, pode-se trabalhar com 3 atividades genÃ©ricas, a seguir distribuÃ­das em seÃ§Ãµes.
+Como já informado, nesta fase, pode-se trabalhar com 3 atividades genéricas, a seguir distribuìdas em seções.
 
-##CRISP-DM Fase.Atividade 5.1 - AvaliaÃ§Ã£o dos resultados
+##CRISP-DM Fase.Atividade 5.1 - Avaliação dos resultados
 
-##CRISP-DM Fase.Atividade 5.2 - RevisÃ£o do processo
+##CRISP-DM Fase.Atividade 5.2 - Revisão do processo
 
-Como jÃ¡ informado, durante a revisÃ£o do processo verifica-se se o modelo foi construÃ­do adequadamente. As variÃ¡veis (passadas) para construir o modelo estarÃ£o disponÃ­veis no futuro?
+Como já informado, durante a revisão do processo verifica-se se o modelo foi construìdo adequadamente. As variáveis (passadas) para construir o modelo estarão disponìveis no futuro?
 
-##CRISP-DM Fase.Atividade 5.3 -  DeterminaÃ§Ã£o dos etapas seguintes
+##CRISP-DM Fase.Atividade 5.3 -  Determinação dos etapas seguintes
 
-Como jÃ¡ informado, pode ser necessÃ¡rio decidir-se por finalizar o projeto, passar Ã  etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
+Como já informado, pode ser necessário decidir-se por finalizar o projeto, passar Ã  etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
 
-#CRISP-DM Fase 6 - __ImplantaÃ§Ã£o__ (_deployment_)
+#CRISP-DM Fase 6 - __Implantação__ (_deployment_)
 
-Como jÃ¡ informado, na fase de __ImplantaÃ§Ã£o__ (_deployment_) se realiza o planejamento de implantaÃ§Ã£o dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenÃ§Ã£o do sistema (script) desenvolvido. A fase de implantaÃ§Ã£o concluir com a produÃ§Ã£o e apresentaÃ§Ã£o do relatÃ³rio final com os resultados do projeto.
+Como já informado, na fase de __Implantação__ (_deployment_) se realiza o planejamento de implantação dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenção do sistema (script) desenvolvido. A fase de implantação concluir com a produção e apresentação do relatório final com os resultados do projeto.
 
-Como jÃ¡ informado, sÃ£o seis as atividades genÃ©ricas na fase de __implantaÃ§Ã£o__, a seguir apresentadas na forma de seÃ§Ãµes.
+Como já informado, são seis as atividades genéricas na fase de __implantação__, a seguir apresentadas na forma de seções.
 
-##CRISP-DM Fase.Atividade 6.1 -  Planejamento da transiÃ§Ã£o 
+##CRISP-DM Fase.Atividade 6.1 -  Planejamento da transição 
 
-De que forma os produtos desenvolvidos pelo grupo poderiam ser colocados em uso prÃ¡tico regular, na organizaÃ§Ã£o cliente?
+De que forma os produtos desenvolvidos pelo grupo poderiam ser colocados em uso prático regular, na organização cliente?
 
 ##CRISP-DM Fase.Atividade 6.2 -  Planejamento do monitoramento dos produtos 
 
-De que forma seria possÃ­vel realizar o monitoramento do funcionamento dos produtos em utilizaÃ§Ã£o no ambiente operacional?
+De que forma seria possìvel realizar o monitoramento do funcionamento dos produtos em utilização no ambiente operacional?
 
-##CRISP-DM Fase.Atividade 6.3 -  Planejamento de manuteÃ§Ã£o 
+##CRISP-DM Fase.Atividade 6.3 -  Planejamento de manuteção 
 
-que manutenÃ§Ãµes, ajustes, mudanÃ§as, poderia ter que ser eventualmente realizadas no produto (scripts), quando em uso no ambiente operacional do cliente?
+que manutenções, ajustes, mudanÃ§as, poderia ter que ser eventualmente realizadas no produto (scripts), quando em uso no ambiente operacional do cliente?
 
-##CRISP-DM Fase.Atividade 6.4 -  ProduÃ§Ã£o do relatÃ³rio final
+##CRISP-DM Fase.Atividade 6.4 -  Produção do relatório final
 
-A entrega do relatÃ³rio do grupo, tomando como base este aqui, reflete  a execuÃ§Ã£o desta etapa.
+A entrega do relatório do grupo, tomando como base este aqui, reflete  a execução desta etapa.
 
-##CRISP-DM Fase.Atividade 6.5 -  ApresentaÃ§Ã£o do relatÃ³rio final
+##CRISP-DM Fase.Atividade 6.5 -  Apresentação do relatório final
 
-Como jÃ¡ informado, nÃ£o serÃ¡ feita apresentaÃ§Ã£o do relatÃ³rio, mas esperamos que publicaÃ§Ãµes cientÃ­ficas possam ser geradas com pelo seu grupo, com o apoio dos professores da disciplina.
+Como já informado, não será feita apresentação do relatório, mas esperamos que publicações cientìficas possam ser geradas com pelo seu grupo, com o apoio dos professores da disciplina.
 
-##CRISP-DM Fase.Atividade 6.6 -  RevisÃ£o sobre a execuÃ§Ã£o do projeto
+##CRISP-DM Fase.Atividade 6.6 -  Revisão sobre a execução do projeto
 
-Deve-se fazer aqui o registro de liÃ§Ãµes aprendidas, bem como traÃ§adas perspectivas futuras de aprimoramento deste trabalho, da disciplina de CiÃªncia de Dados para Todos etc.
+Deve-se fazer aqui o registro de lições aprendidas, bem como traÃ§adas perspectivas futuras de aprimoramento deste trabalho, da disciplina de Ciência de Dados para Todos etc.
 
-# ReferÃªncias
+# Referências
 
-* Azevedo, MÃ¡rio Luiz Neves de, JoÃ£o Ferreira de Oliveira, e AfrÃ¢nio Mendes Catani. â€œO Sistema Nacional de PÃ³s-GraduaÃ§Ã£o (SNPG) e o Plano Nacional de EducaÃ§Ã£o (PNE 2014-2024): regulaÃ§Ã£o, avaliaÃ§Ã£o e financiamentoâ€. Revista Brasileira de PolÃ­tica e AdministraÃ§Ã£o da EducaÃ§Ã£o 32, nÂº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
+* Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e AfrÃ¢nio Mendes Catani. â€œO Sistema Nacional de Pós-Graduação (SNPG) e o Plano Nacional de Educação (PNE 2014-2024): regulação, avaliação e financiamentoâ€. Revista Brasileira de Polìtica e Administração da Educação 32, nÂº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
 * Can, Fazli, Tansel Ã–zyer, e Faruk Polat, orgs. State of the Art Applications of Social Network Analysis. Lecture Notes in Social Networks. Switzerland: Springer International Publishing, 2014.
 * CAPES. â€œDocumentos de Ãreaâ€. CAPES.gov.br. Acessado 12 de junho de 2018. http://avaliacaoquadrienal.capes.gov.br/documentos-de-area.
-* â€”â€”â€”. â€œPlano Nacional de PÃ³s-GraduaÃ§Ã£o - PNPG 2011/2020 Vol. 1â€. BrasÃ­lia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/Livros-PNPG-Volume-I-Mont.pdf.
-* â€”â€”â€”. â€œPlano Nacional de PÃ³s-GraduaÃ§Ã£o - PNPG 2011/2020 Vol. 2â€. BrasÃ­lia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/PNPG_Miolo_V2.pdf.
-* â€”â€”â€”. â€œSucupira: coleta de dados, docentes de pÃ³s-graduaÃ§Ã£o stricto sensu no Brasil 2015â€. CAPES - Banco de Metadados, 16 de marÃ§o de 2016. http://metadados.capes.gov.br/index.php/catalog/63.
+* â€”â€”â€”. â€œPlano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 1â€. Brasìlia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/Livros-PNPG-Volume-I-Mont.pdf.
+* â€”â€”â€”. â€œPlano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 2â€. Brasìlia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/PNPG_Miolo_V2.pdf.
+* â€”â€”â€”. â€œSucupira: coleta de dados, docentes de pós-graduação stricto sensu no Brasil 2015â€. CAPES - Banco de Metadados, 16 de marÃ§o de 2016. http://metadados.capes.gov.br/index.php/catalog/63.
 * Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e RÃ¼diger Wirth. â€œCRISP-DM 1.0: Step-by-Step Data Mining Guideâ€. USA: CRISP-DM Consortium, 2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
 * Datacamp. â€œMachine Learning with R (Skill Track)â€. Datacamp, 2018. https://www.datacamp.com/tracks/machine-learning.
 * Fernandes, Jorge H C, e Ricardo Barros Sampaio. â€œDataScienceForAllâ€. Zotero, 13 de junho de 2018. https://www.zotero.org/groups/2197167/datascienceforall.
-* â€”â€”â€”. â€œEspecificaÃ§Ã£o do Trabalho Final da Disciplina de CiÃªncia de Dados para Todos 2017.2: Estudo sobre a visibilidade internacional da produÃ§Ã£o cientÃ­fica das pÃ³s-graduaÃ§Ãµes vinculadas Ã s Ã¡reas de conhecimento da CAPES, na Universidade de BrasÃ­lia (ComunicaÃ§Ã£o Interna)â€. Disciplina 116297 - TÃ³picos AvanÃ§ados em Computadores, turma D, do semestre 2017.2, do Departamento de CiÃªncia da ComputaÃ§Ã£o do Instituto de CiÃªncias Exatas da Universidade de BrasÃ­lia, 28 de novembro de 2017. https://aprender.ead.unb.br/pluginfile.php/474549/mod_resource/content/1/Estudo%20da%20Cie%CC%82ncia.pdf.
-* Fernandes, Jorge H C, Ricardo Barros Sampaio, e JoÃ£o Ribas de Moura. â€œCiÃªncia de Dados para Todos (Data Science   For All) - 2018.1 - AnÃ¡lise da ProduÃ§Ã£o CientÃ­fica e AcadÃªmica da Universidade de BrasÃ­lia - Modelo de RelatÃ³rio Final da Disciplina - Departamento de CiÃªncia da ComputaÃ§Ã£o da UnBâ€. Disciplina 116297 - TÃ³picos AvanÃ§ados em Computadores, turma D, do semestre 2018.1, do Departamento de CiÃªncia da ComputaÃ§Ã£o do Instituto de CiÃªncias Exatas da Universidade de BrasÃ­lia, 13 de junho de 2018.
+* â€”â€”â€”. â€œEspecificação do Trabalho Final da Disciplina de Ciência de Dados para Todos 2017.2: Estudo sobre a visibilidade internacional da produção cientìfica das pós-graduações vinculadas Ã s áreas de conhecimento da CAPES, na Universidade de Brasìlia (Comunicação Interna)â€. Disciplina 116297 - Tópicos AvanÃ§ados em Computadores, turma D, do semestre 2017.2, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasìlia, 28 de novembro de 2017. https://aprender.ead.unb.br/pluginfile.php/474549/mod_resource/content/1/Estudo%20da%20Cie%CC%82ncia.pdf.
+* Fernandes, Jorge H C, Ricardo Barros Sampaio, e João Ribas de Moura. â€œCiência de Dados para Todos (Data Science   For All) - 2018.1 - Análise da Produção Cientìfica e Acadêmica da Universidade de Brasìlia - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnBâ€. Disciplina 116297 - Tópicos AvanÃ§ados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasìlia, 13 de junho de 2018.
 * Frickel, Scott, e Kelly Moore. The New Political Sociology of Science: Institutions, Networks, and Power. Science and technology in society. USA: The University of Wisconsin Press, 2006.
 * Graduate Prospects Ltd. â€œJob profile: Higher education lecturerâ€, 2018. https://www.prospects.ac.uk/job-profiles/higher-education-lecturer.
 * Kalpazidou Schmidt, Evanthia, e Ebbe Krogh Graversen. â€œPersistent factors facilitating excellence in research environmentsâ€. Higher Education 75, nÂº 2 (1Âº de fevereiro de 2018): 341â€“63. https://doi.org/10.1007/s10734-017-0142-0.
 * Kilduff, Martin, e Wenpin Tsai. Social Networks and Organizations. UK: Sage Publications, 2003.
-* Kolaczyk, Eric D., e GÃ¡bor CsÃ¡rdi. Statistical Analysis of Network Data with R. USA: Springer, 2014.
+* Kolaczyk, Eric D., e Gábor Csárdi. Statistical Analysis of Network Data with R. USA: Springer, 2014.
 * Kuhn, Max, Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, et al. â€œPackage â€˜Caretâ€™ - Classification and Regression Trainingâ€, 27 de maio de 2018. https://cran.r-project.org/web/packages/caret/caret.pdf.
-* Leite, Fernando CÃ©sar Lima. â€œConsideraÃ§Ãµes bÃ¡sicas sobre  a AvaliaÃ§Ã£o do Sistema  Nacional de PÃ³s-GraduaÃ§Ã£oâ€. ComunicaÃ§Ã£o Pessoal (slides). Universidade de BrasÃ­lia, abril de 2018. https://aprender.ead.unb.br/pluginfile.php/502250/mod_resource/content/1/Considera%C3%A7%C3%B5es%20b%C3%A1sicas%20sobre%20a%20Avalia%C3%A7%C3%A3o%20do%20Sistema%20Nacional.pdf.
+* Leite, Fernando César Lima. â€œConsiderações básicas sobre  a Avaliação do Sistema  Nacional de Pós-Graduaçãoâ€. Comunicação Pessoal (slides). Universidade de Brasìlia, abril de 2018. https://aprender.ead.unb.br/pluginfile.php/502250/mod_resource/content/1/Considera%C3%A7%C3%B5es%20b%C3%A1sicas%20sobre%20a%20Avalia%C3%A7%C3%A3o%20do%20Sistema%20Nacional.pdf.
 * Lusher, Dean, Johan Koskinen, e Garry Robins, orgs. Exponential Random Graph Models for Social Networks: Theory, methods, and applications. Structural Analysis in the Social Sciences. USA: Cambridge University Press, 2013.
-* Mariscal, Gonzalo, Ã“scar MarbÃ¡n, e Covadonga FernÃ¡ndez. â€œA survey of data mining and knowledge discovery process models and methodologiesâ€. The Knowledge Engineering Review 25, nÂº 2 (2010): 137â€“66. https://doi.org/10.1017/S0269888910000032.
-* Nery, Guilherme, Ana Paula Bragaglia, FlÃ¡via Clemente, e Suzana Barbosa. â€œNem tudo parece o que Ã©: Entenda o que Ã© plÃ¡gioâ€. Instituto de Arte e ComunicaÃ§Ã£o Social da UFF, 2009. http://www.noticias.uff.br/arquivos/cartilha-sobre-plagio-academico.pdf.
+* Mariscal, Gonzalo, Ã“scar Marbán, e Covadonga Fernández. â€œA survey of data mining and knowledge discovery process models and methodologiesâ€. The Knowledge Engineering Review 25, nÂº 2 (2010): 137â€“66. https://doi.org/10.1017/S0269888910000032.
+* Nery, Guilherme, Ana Paula Bragaglia, Flávia Clemente, e Suzana Barbosa. â€œNem tudo parece o que é: Entenda o que é plágioâ€. Instituto de Arte e Comunicação Social da UFF, 2009. http://www.noticias.uff.br/arquivos/cartilha-sobre-plagio-academico.pdf.
 * Nooy, Wouter de, Andrej Mrvar, e Vladimir Batagelj. Exploratory Social Network Analysis with Pajek. Structural Analysis in the Social Sciences. USA: Routldge, 2005.
-* PÃ¡taro, Cristina SaitÃª de Oliveira, e Frank Antonio Mezzomo. â€œSistema Nacional de PÃ³s-GraduaÃ§Ã£o no Brasil: estrutura, resultados e desafios para polÃ­tica de Estado - LÃ­vio Amaralâ€. Revista EducaÃ§Ã£o e Linguagens 2, nÂº 3 (julho de 2013): 11â€“17.
-* Schwartzman, Simon. â€œA CiÃªncia da CiÃªnciaâ€. CiÃªncia Hoje 2, nÂº 11 (marÃ§o de 1984): 54â€“59.
+* Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. â€œSistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desafios para polìtica de Estado - Lìvio Amaralâ€. Revista Educação e Linguagens 2, nÂº 3 (julho de 2013): 11â€“17.
+* Schwartzman, Simon. â€œA Ciência da Ciênciaâ€. Ciência Hoje 2, nÂº 11 (marÃ§o de 1984): 54â€“59.
 * Silver, Nate. The Signal and the Noise: Why so many predictions fail â€” but some donâ€™t. USA: The Penguin Press HC, 2012.
 * Vicari, Donatella, Akinori Okada, Giancarlo Ragozini, e Claus Wiehs. Analysis and Modeling of Complex Data in Behavioral and Social Sciences. Studies in Classifi cation, Data Analysis, and Knowledge Organization. Switzerland: Springer, 2014.
 * Wickham, Hadley, e Garrett Grolemund. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. USA: Oâ€™Reilly, 2016.
