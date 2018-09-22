@@ -183,7 +183,8 @@ head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing
 #Sabendo suas instituições
 head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
-str(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores)
+data_orienM <- capture.output(str(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
+unique(data_orienM)
 ############## MESTRADO 2017
 #Buscando cursos que mais produziram mestrados.
 head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
@@ -191,9 +192,42 @@ head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decre
 #Sabendo suas instituições
 head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
-str(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores)
+data_orien <- capture.output(str(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
+unique(data_orien)
+```
+
+Como se pode perceber apenas u, professor que orientou doutorado concluido em 2017 ( "Marilia Miranda Forte Gomes") também fez parte dos professores que orientaram no mestrado: 
+
+* "Georges Daniel Amvame Nze"
+* "Jose Felicio da Silva"
+* "Lourdes Mattos Brasil"
+* "Marcelino Monteiro de Andrade"
+* "Marilia Miranda Forte Gomes"
+* "Ronni Geraldo Gomes de Amorim"
+
+Sendo o professor "Marcus Vinícius Chaffim Costa" responsável apenas por orientação de doutorado em 2017.
+
+###Descrição dos dados list.json
+
+```{r}
+unb.list <- fromJSON("dados-2018-2/engenharia-biomedica/279.list.json")
+#analisando a quantidade de elementos presente em list.json
+length(unb.list$fiocruz$id)
+# Mostrando alguns id, verificar que eles são diferentes       
+d_listID <- unb.list$fiocruz$id
+unique(d_listID)
+#Mostrando nome sempre igual ""
+d_listNO <- unb.list$fiocruz$nome
+unique(d_listNO)
+#Mostrando periodo sempre igual 2010-2017 
+d_listDT <- unb.list$fiocruz$periodo
+unique(d_listDT)
+
 
 ```
+
+Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como inútil, haja visto que não dá para obter quaisquer dado plaúsivel, somente os id.
+
 
 
 ###Descrição dos dados de produção bibliográfica
