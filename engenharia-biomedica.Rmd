@@ -173,11 +173,26 @@ Podemos inferir que:
 
 ```{r}
 unb.adv <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
+# Mostrando as listas presentes neste arquivo.
 names(unb.adv)
+# Explorando um nível de detalhe de Orientações de doutorados concluídas
 names(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO)
-length(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2016`$natureza)
+############## DOUTORADO 2017
+#Buscando cursos que mais produziram doutorados.
 head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+#Sabendo suas instituições
+head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+str(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores)
+############## MESTRADO 2017
+#Buscando cursos que mais produziram mestrados.
 head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo suas instituições
+head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+str(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores)
+
 ```
 
 
