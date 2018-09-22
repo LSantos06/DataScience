@@ -233,10 +233,17 @@ Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (ob
 ###Descrição dos dados de produção bibliográfica
 ```{r}
 unb.pub <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
+# Verificando os tipos de produções que existe.
 names(unb.pub)
+#Analisando o qual tipo de informação se tem em periódicos no ano 2012.
 names(unb.pub$PERIODICO$`2012`)
+#Nomes dos periódicos em que tiveram mais publicações na área de engenharia biomédica.
 head(sort(table(unb.pub$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
-head(sort(table(unb.pub$LIVRO$`2015`$nome_da_editora), decreasing = TRUE), 10)
+#Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia biomédica da UnB no 2017.
+head(sort(table(unb.pub$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
+#Nomes dos autores que produziram um tipo de produção que não estava contemplada .
+head(sort(table(unb.pub$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
+
 ```
 
 
