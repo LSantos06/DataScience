@@ -947,33 +947,6 @@ theme_minimal()
 
 #CRISP-DM Fase 6 - __Implantação__ (_deployment_)
 
-Como já informado, na fase de __Implantação__ (_deployment_) se realiza o planejamento de implantação dos produtos desenvolvidos (scripts, no caso do executado nesta disciplina) para o ambiente operacional, para seu uso repetitivo, envolvendo atividades de monitoramento e manutenção do sistema (script) desenvolvido. A fase de implantação concluir com a produção e apresentação do relatório final com os resultados do projeto.
-
-Como já informado, são seis as atividades genéricas na fase de __implantação__, a seguir apresentadas na forma de seções.
-
-##CRISP-DM Fase.Atividade 6.1 -  Planejamento da transição 
-
-De que forma os produtos desenvolvidos pelo grupo poderiam ser colocados em uso prático regular, na organização cliente?
-
-##CRISP-DM Fase.Atividade 6.2 -  Planejamento do monitoramento dos produtos 
-
-De que forma seria possìvel realizar o monitoramento do funcionamento dos produtos em utilização no ambiente operacional?
-
-##CRISP-DM Fase.Atividade 6.3 -  Planejamento de manuteção 
-
-que manutenções, ajustes, mudanÃ§as, poderia ter que ser eventualmente realizadas no produto (scripts), quando em uso no ambiente operacional do cliente?
-
-##CRISP-DM Fase.Atividade 6.4 -  Produção do relatório final
-
-A entrega do relatório do grupo, tomando como base este aqui, reflete  a execução desta etapa.
-
-##CRISP-DM Fase.Atividade 6.5 -  Apresentação do relatório final
-
-Como já informado, não será feita apresentação do relatório, mas esperamos que publicações cientìficas possam ser geradas com pelo seu grupo, com o apoio dos professores da disciplina.
-
-##CRISP-DM Fase.Atividade 6.6 -  Revisão sobre a execução do projeto
-
-Deve-se fazer aqui o registro de lições aprendidas, bem como traÃ§adas perspectivas futuras de aprimoramento deste trabalho, da disciplina de Ciência de Dados para Todos etc.
 
 # Referências
 
