@@ -247,13 +247,21 @@ head(sort(table(unb.pub$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), 
 ```
 
 
-###Descrição dos dados de agregação de docentes por área
-```{r}
-
-```
-
-
 ###Descrição dos dados de redes de colaboração
+
+```{r}
+unb.graph <- fromJSON("dados-2018-2/engenharia-biomedica/279.graph.json")
+# Suas variáveis
+names(unb.graph)
+# Quantidade de nós
+length(unb.graph$nodes$id)
+# Quantidade de links de fonte 
+length(unb.graph$links$source)
+# Quantidade de links de chegada 
+length(unb.graph$links$target)
+#exemplos de pesos da aresta
+str(unb.graph$links$weigth)
+```
 
 
 ##CRISP-DM Fase.Atividade 2.3 - Análise exploratória dos dados
