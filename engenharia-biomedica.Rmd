@@ -351,8 +351,11 @@ unb.pub.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.df$`autores-end
 glimpse(unb.pub.df)
 
 ### ARQUIVO PROCESSADO E LIMPO 
+## Publicações 2010 até 2017
+table(unb.pub.df$ano)
+## Publicações por periódico, mostrando o top 5
+head((table(unb.pub.df$periodico)),n=10)
 
-names(unb.pub.df)
 
 ```
 
