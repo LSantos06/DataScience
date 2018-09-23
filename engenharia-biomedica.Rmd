@@ -350,14 +350,24 @@ unb.pub.df$`autores-endogeno` <- gsub(",", ";", unb.pub.df$`autores-endogeno`)
 unb.pub.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.df$`autores-endogeno`)
 glimpse(unb.pub.df)
 
+
 ### ARQUIVO PROCESSADO E LIMPO 
+## Publicações por natureza - todas foram completas
+table(unb.pub.df$natureza)
+
 ## Publicações 2010 até 2017
 table(unb.pub.df$ano)
-## Publicações por periódico, mostrando o top 5
-head((table(unb.pub.df$periodico)),n=10)
+## Publicações por periódico, mostrando os top-5 na área de biomédica
+d <- table(unb.pub.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
 
-
+## Mostrando os autores que tiveram mais publicação
+### Neste caso é importante mostra que como a não uniformidade de como se escreve acaba por tornar este dado defasado
+head(sort(table(toupper(unlist(strsplit(unb.pub.df$autores,";")))),decreasing = TRUE),n=10)
+## Mostrando os autores-endogeno que tiveram mais publicação
+head(sort(table(unlist(unb.pub.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
+
 
 ###Arquivo Orientação
 ```{r}
@@ -381,11 +391,30 @@ unb.adv.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$nome_orientad
 unb.adv.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$id_lattes_orientadores)
 #Separar as colunas com dois orientadores
 unb.adv.df <- separate(unb.adv.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.df$ori2))
 unb.adv.df <- separate(unb.adv.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.df$idLattes2))
 #Numero de orientacoes por ano
 table(unb.adv.df$ano)
+#Numero de instituições 
+sort(table(unb.adv.df$instituicao),decreasing = TRUE)
+#Cursos que estão envolvido na pós-graduação de engenharia biomédica
+sort(table(unb.adv.df$curso), decreasing = TRUE)
+table(unb.adv.df$codigo_do_curso)
+#Quantidas de natureza dos trabalhos orientado
+table(unb.adv.df$natureza)
 #Tabela com nome de professor e numero de orientacoes
 head(sort(table(rbind(unb.adv.df$ori1, unb.adv.df$ori2)), decreasing = TRUE), 20)
+# Tabela com nome dos alunos que mais foram orientados
+head(sort(table(toupper(unb.adv.df$nome_aluno)),decreasing = TRUE),n=10)
+# Quantidade de alunos que não são bolsistas 
+sum(unb.adv.df$bolsa == 'NAO')
+# Quantidade de alunos que são bolsistas 
+sum(unb.adv.df$bolsa == 'SIM')
+# Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
+table(unb.adv.df$agencia_financiadora)
 ```
 
 
