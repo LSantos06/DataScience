@@ -350,6 +350,10 @@ unb.pub.df$`autores-endogeno` <- gsub(",", ";", unb.pub.df$`autores-endogeno`)
 unb.pub.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.df$`autores-endogeno`)
 glimpse(unb.pub.df)
 
+### ARQUIVO PROCESSADO E LIMPO 
+
+names(unb.pub.df)
+
 ```
 
 ###Arquivo Orientação
