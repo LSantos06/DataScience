@@ -266,56 +266,69 @@ str(unb.graph$links$weigth)
 
 ##CRISP-DM Fase.Atividade 2.3 - Análise exploratória dos dados
 
-Como já informado, a análise exploratória dos dados possibilita um entendimento mais profundo da relação estatìstica existente entre os dados dos _datasets_ para um melhor entendimento da qualidade daqueles dados para os objetivos do projeto. 
-
-Como já informado, a análise exploratória dos dados é responsabilidade parcial dos alunos, tendo em vista que este relatório apresenta uma análise exploratória preliminar.
-O relatório final deve conter análises exploratórias dos dados que sejam significativas e aprofundadas.
-
 ###Arquivo Profile
 
 ```{r}
-# jsonedit(unb.prof)
-# NÃºmero de áreas de atuação cumulativo
+# Total de áreas de atuação de todos profissionais
 sum(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao)))
-# NÃºmero de áreas de atuação por pessoa
-table(unlist(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao))))
-# NÃºmero de pessoas por grande area
+# Número de pessoas por grande area
 table(unlist(sapply(unb.prof, function(x) (x$areas_de_atuacao$grande_area))))
-# NÃºmero de pessoas que produziram os especìficos tipos de produção
+# Número de pessoas que produziram os tipos de produção específico
 table(unlist(sapply(unb.prof, function(x) names(x$producao_bibiografica))))
-# NÃºmero de publicações por tipo
+# Número de publicações por tipo
+#####ARTIGO ACEITO###############
 sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
-# NÃºmero de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+
+#####CAPITULO DE LIVRO###############
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+
+#####LIVRO###############
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+
+#####PERIÓDICO###############
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+
+#####TEXTO EM JORNAIS###############
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-# NÃºmero de produções por ano
+
+#####DEMAIS TIPOS###############
+sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
+# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
+
+
+
+# Número de produções por ano
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-# NÃºmero de pessoas que realizaram diferentes tipos de orientações
+# Número de pessoas que realizaram diferentes tipos de orientações
 length(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
-# NÃºmero de pessoas por tipo de orientação
+# Número de pessoas por tipo de orientação
 table(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
-#NÃºmero de orientações concluidas
+#Número de orientações concluidas
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
 
-# NÃºmero de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
+# Número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
-# NÃºmero de orientações por ano
+# Número de orientações por ano
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
@@ -324,8 +337,7 @@ table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_C
 
 ###Arquivo Publicação
 ```{r}
-# Visualizar a estrutura do arquivo de Publicacao
-#jsonedit(unb.pub)
+
 #Criando um data-frame com todos os anos
 unb.pub.df <- data.frame()
 for (i in 1:length(unb.pub[[1]]))
@@ -660,7 +672,7 @@ glimpse(unb.prof.df)
 
 ##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
 
-Como já informado, a integração dos dados envolve a união (merge) de diferentes tabelas para criar um Ãºnico _dataset_ para ser utilizado no R, por exemplo.
+Como já informado, a integração dos dados envolve a união (merge) de diferentes tabelas para criar um único _dataset_ para ser utilizado no R, por exemplo.
 
 ##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
 
