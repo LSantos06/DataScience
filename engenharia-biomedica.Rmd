@@ -401,7 +401,9 @@ table(unb.adv.df$ano)
 #Numero de instituições 
 sort(table(unb.adv.df$instituicao),decreasing = TRUE)
 #Cursos que estão envolvido na pós-graduação de engenharia biomédica
-sort(table(unb.adv.df$curso), decreasing = TRUE)
+cursos_d <- sort(table(unb.adv.df$curso), decreasing = TRUE)
+cursos_d
+cursos_d5<-head(cursos_d,5)
 table(unb.adv.df$codigo_do_curso)
 #Quantidas de natureza dos trabalhos orientado
 table(unb.adv.df$natureza)
@@ -420,34 +422,25 @@ table(unb.adv.df$agencia_financiadora)
 
 ##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
 
-Como já informado, a verificação da qualidade dos dados envolve responder se os dados disponìveis estão realmente completos. 
-
-As informações disponìveis são suficientes para o trabalho proposto? 
-
-Neste projeto, a verificação da qualidade dos dados é responsabilidade dos alunos.
+Para o levantamento de informação os dados em geral são preciso, como por exemplo saber quais os professores mais envolvido em orientações, quantos artigos foram concluidos, informações por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou qualquer análise. 
 
 #CRISP-DM Fase 3 -  __Preparação dos Dados__
 
-Como já informado, na fase de __Preparação dos Dados__ os _datasets_ que serão utilizados em todo o trabalho são construìdos a partir dos dados brutos. Aqui os dados são â€œfiltradosâ€ retirando-se partes que não interessam e selecionando-se os â€œcamposâ€ necessários para o trabalho de mineração. 
-
-São 5 as atividades genéricas nesta fase de preparação dos dados, a seguir divididas em subseções
 
 ##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
 
-Como já informado, a seleção dos dados envolve identificar quais dados, da nossa "montanha de dados", serão realmente utilizados. 
-
-Quais variáveis dos dados brutos serão convertidas para o _dataset_? 
-
-Não é raro cometer o erro de selecionar dados para um modelo preditivo com base em uma falsa ideia de que aqueles dados contém a resposta para o modelo que se quer construir. Surge o cuidado de se separar o sinal do ruìdo (Silver, Nate. The Signal and the Noise: Why so many predictions fail â€” but some donâ€™t. USA: The Penguin Press HC, 2012.). 
+Para a principal utilização dos dados foi definidos os __data frames__ unb.adv.df, que neste caso contêm alguns informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. Também foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.df, que já está limpo, com as principais colunas definidas.
 
 ##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
 
+Esta etapa se mistura com a próxima pelo fato de limpar e preparar o dado, ou seja, já construir.
+
 ##CRISP-DM Fase.Atividade 3.3 - Construção dos dados
 
-Como já informado, a construção dos dados envolve a criação de novas variáveis a partir de outras presentes nos _datasets_.
+Construindo e limpando alguns dados de interesse.
 ```{r}
-# Funcoes 
-
+# Funcoes auxiliares que serão usados
+# estas funções foram disponibilizada pelo professor da disciplina
 # converte as colunas de um dataframe tipo lista em tipo character
 cv_tplista2tpchar <- function( df  ) { 
   for( variavel in names(df)) {
@@ -644,9 +637,9 @@ extrai_areas_atuacao <- function(jsonProfessores){
   df_saida <- df_saida %>% filter( !is.na(idLattes))
   return(df_saida)   
 }
-########################### Inicio 
+########################### Inicio ###############################
+#### Começo da preparação dos dados referente a profile
 
-# colocar o diretorio onde está o arquivo json de perfis a serem lidos 
 unb.prof.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
 unb.prof.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
@@ -703,48 +696,254 @@ unb.prof.df <- unb.prof.df.professores %>%
     by = "idLattes")
 
 glimpse(unb.prof.df)
+head(unb.prof.df,3)
+## Mostrando dados processados referente ao arquivo 279.publication.json
+glimpse(unb.pub.df)
+#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+head(unb.pub.df,3)
+## Mostrando dados processados referente ao arquivo 279.advise.json
+glimpse(unb.adv.df)
+#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+head(unb.adv.df,3)
+###################### Os arquivos 
+###### 279.graph.json - usado para mostrar correlações
+#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
+
+
 ```
 
 
 ##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
 
-Como já informado, a integração dos dados envolve a união (merge) de diferentes tabelas para criar um único _dataset_ para ser utilizado no R, por exemplo.
+Neste presente trabalho, não se viu a necessidade de fazer merge entres os datas frames.
 
 ##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
 
-Como já informado, a formatação de dados envolve a realização de pequenas alterações na estrutura dos dados, como a ordem das variáveis, para permitir a execução de determinado método de data mining.
+As formatações de dados necessária já foram feitas, como por exemplo "orientadores" virou "orie1" e "orie2", fazendo com que cada variável contenha apenas um elemento, e não mais uma lista de orientadores. 
 
 #CRISP-DM Fase 4 - __Modelagem__
 
-Como já informado, na fase de __Modelagem__ no CRISP-DM ocorre a construção e avaliação de modelos estatìsticos ou computacionais, podendo ser realizada em quatro atividades genéricas, a seguir organizadas na forma de seções
-
-##CRISP-DM Fase.Atividade 4.1 - Seleção das técnicas de modelagem
-
-##CRISP-DM Fase.Atividade 4.2 -  Realização de testes de modelagem
-
-Como já informado, na realização de testes de modelagem diferentes modelos estatìsticos ou computacionais são previamente testados e avaliados. Pode-se dividir o _dataset_ criado na etapa anterior para se ter uma base de treino na construção de modelos, e outra pequena parte para validar  e avaliar a eficiência de cada modelo criado até se chegar ao mais â€œeficienteâ€. 
-
-##CRISP-DM Fase.Atividade 4.3 -  Construção do modelo definitivo
-
-Como já informado, a construÃ§ao do modelo definitivo é realizada com base na melhor experiência do passo anterior.
-
-##CRISP-DM Fase.Atividade 4.4 - Avaliação do modelo
+Nesta fase, após ter feito limpeza e preparação dos dados, tem-se que se decidir qual ferramenta usar : computacionais, matemáticas ou estátistica. Esta fase, por enquanto, será omitida.
 
 #CRISP-DM Fase 5 - __Avaliação__
 
-Como já informado, na fase de __Avaliação__ do CRISP-DM os resultados não são apenas avaliados, mas se verifica se existem questÃµes relacionadas Ã  organização que não foram suficientemente abordadas. Deve-se refletir se o uso arepetido do modelo criado pode trazer algum â€œefeito colateralâ€ para a organização. 
+Será exposto em forma de gráficos certos dados que se acharam convenientes e interessante.
 
-Como já informado, nesta fase, pode-se trabalhar com 3 atividades genéricas, a seguir distribuìdas em seções.
+Aqui visa-se ver as quantidades de publicações feitas por anos na área de engenharia de biomédica. 
+```{r}
+unb.adv.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
 
-##CRISP-DM Fase.Atividade 5.1 - Avaliação dos resultados
+Agora verificando a quantidade separada por tipo de publicação.
 
-##CRISP-DM Fase.Atividade 5.2 - Revisão do processo
+```{r}
+unb.adv.df %>%
+group_by(natureza) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = natureza, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
 
-Como já informado, durante a revisão do processo verifica-se se o modelo foi construìdo adequadamente. As variáveis (passadas) para construir o modelo estarão disponìveis no futuro?
+Verificando os cursos mais presentes.
 
-##CRISP-DM Fase.Atividade 5.3 -  Determinação dos etapas seguintes
+```{r}
+cursos_d5
+pie(cursos_d5,clockwise=TRUE,main="Cursos mais presentes")
 
-Como já informado, pode ser necessário decidir-se por finalizar o projeto, passar Ã  etapa de desenvolvimento, ou rever algumas fases anteriores para a melhoria do projeto.
+```
+Quantos bolsistas tem ?
+
+```{r}
+unb.adv.df %>%
+group_by(bolsa) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = bolsa, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Assim, estes gráficos permitem verificar alguns aspectos importantes sobre as orientações.
+
+Verificando, agora, o arquivo 279.publication.json, contendo informações sobre as publicações.
+
+```{r}
+pie(table(unb.pub.df$natureza),main="Natureza das publicações",col = "cyan")
+
+```
+
+Separando por ano e depois por periódico.
+
+```{r}
+unb.pub.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+```{r}
+
+d <- table(unb.pub.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+
+```
+
+Mostrando os autores que mais participaram de publicações. 
+
+```{r}
+
+
+head(sort(table(toupper(unlist(strsplit(unb.pub.df$autores,";")))),decreasing = TRUE),n=10)
+
+```
+
+Assim, vemos que há algumas incoerência neste dado acima, isto se dá pela falta de uniformidade.
+
+Analisando o arquivo 279.profile.json.
+
+```{r}
+unb.prof.df %>%
+group_by(senioridade) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = senioridade, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de orientações concluídas no doutorado por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO ))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de orientações concluídas no mestrado por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de orientações concluídas no pós doutorado por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_POS_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_POS_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de orientações concluídas em outros tipos por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%  
+ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de eventos ido por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(EVENTO))%>%  
+ggplot(aes(x = nome, y = EVENTO)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de periódicos por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(PERIODICO))%>%  
+ggplot(aes(x = nome, y = PERIODICO)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de livro por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(LIVRO))%>%  
+ggplot(aes(x = nome, y = LIVRO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quandidade de texto em jornais por professor.
+
+```{r}
+unb.prof.df %>%
+group_by(nome) %>%
+filter(!is.na(TEXTO_EM_JORNAIS))%>%  
+ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
+geom_bar(position = "stack",stat = "identity", fill = "black")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
+
+```{r}
+unb.prof.df %>%
+group_by(`n_distinct(area)`) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = `n_distinct(area)`, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+
+Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
+
+```{r}
+unb.prof.df %>%
+group_by(`n_distinct(AreaPos)`) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = `n_distinct(AreaPos)`, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "grey")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+
 
 #CRISP-DM Fase 6 - __Implantação__ (_deployment_)
 
