@@ -4,10 +4,10 @@ title:  Ciência de Dados para Todos (Data Science
 author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -946,35 +946,15 @@ theme_minimal()
 
 
 #CRISP-DM Fase 6 - __Implantação__ (_deployment_)
+ 
+ No caso deste presente trabalho, é basicamente os scripts desenvolvido ao decorrer do mesmo.
+ 
+#Conclusão
 
+Ao final deste trabalho, podemos chegar a conclusão que com a "ferramenta" CRISP-DM foi possível realizar uma análise de dados apartir de vários arquivos __JSON__, assim, foi possível perceber como funciona - pelo menos de maneira simplória - a vida de cientista de dados, como se deve preparar os dados, como se deve buscar informações úteis, analisar determinadas informações, plotar gráficos para um efeito mais visual, ver a dificuldade que falta de padronização causa, ainda mais quando se tem os mais diversos arquivos para analisar das mais diversas fontes.
+
+O trabalho usou como base o arquivo disponibilizado pelo professor, no qual continha as explicações de todas as fase do CRISP-DM, seguindo o modelo passado pelo professor, tentou-se ir descorrendo sobre o script em R que se vinha fazendo e correlacionando com alguma fase do CRISP-DM, mas tal divisão não pode ser considerada totalmente fidedigna, haja visto que muitas vezes há mistura de fases e não apenas fases totalmente isoladas, sem influência de outras, procurou-se explicar de maneira simples como se encaixava cada fase.
+
+Por fim, podemos chegar a alguns resultados valorosos ,como por exemplo : as revistas que tem mais publicações advindas da pós-graduação em engenharia biómedica, mas nem tudo são flores, algumas dificuldades vieram em decorrência da falta de uniformidade, porém podemos aprender bastante com este trabalho e nos interar de como começar a fazer análise de dados.
 
 # Referências
-
-* Azevedo, Mário Luiz Neves de, João Ferreira de Oliveira, e AfrÃ¢nio Mendes Catani. â€œO Sistema Nacional de Pós-Graduação (SNPG) e o Plano Nacional de Educação (PNE 2014-2024): regulação, avaliação e financiamentoâ€. Revista Brasileira de Polìtica e Administração da Educação 32, nÂº 3 (2016). http://dx.doi.org/10.21573/vol32n32016.68576.
-* Can, Fazli, Tansel Ã–zyer, e Faruk Polat, orgs. State of the Art Applications of Social Network Analysis. Lecture Notes in Social Networks. Switzerland: Springer International Publishing, 2014.
-* CAPES. â€œDocumentos de Ãreaâ€. CAPES.gov.br. Acessado 12 de junho de 2018. http://avaliacaoquadrienal.capes.gov.br/documentos-de-area.
-* â€”â€”â€”. â€œPlano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 1â€. Brasìlia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/Livros-PNPG-Volume-I-Mont.pdf.
-* â€”â€”â€”. â€œPlano Nacional de Pós-Graduação - PNPG 2011/2020 Vol. 2â€. Brasìlia - DF, dezembro de 2010. http://www.capes.gov.br/images/stories/download/PNPG_Miolo_V2.pdf.
-* â€”â€”â€”. â€œSucupira: coleta de dados, docentes de pós-graduação stricto sensu no Brasil 2015â€. CAPES - Banco de Metadados, 16 de marÃ§o de 2016. http://metadados.capes.gov.br/index.php/catalog/63.
-* Chapman, Pete, Julian Clinton, Randy Kerber, Thomas Khabaza, Thomas Reinartz, Colin Shearer, e RÃ¼diger Wirth. â€œCRISP-DM 1.0: Step-by-Step Data Mining Guideâ€. USA: CRISP-DM Consortium, 2000. https://www.the-modeling-agency.com/crisp-dm.pdf.
-* Datacamp. â€œMachine Learning with R (Skill Track)â€. Datacamp, 2018. https://www.datacamp.com/tracks/machine-learning.
-* Fernandes, Jorge H C, e Ricardo Barros Sampaio. â€œDataScienceForAllâ€. Zotero, 13 de junho de 2018. https://www.zotero.org/groups/2197167/datascienceforall.
-* â€”â€”â€”. â€œEspecificação do Trabalho Final da Disciplina de Ciência de Dados para Todos 2017.2: Estudo sobre a visibilidade internacional da produção cientìfica das pós-graduações vinculadas Ã s áreas de conhecimento da CAPES, na Universidade de Brasìlia (Comunicação Interna)â€. Disciplina 116297 - Tópicos AvanÃ§ados em Computadores, turma D, do semestre 2017.2, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasìlia, 28 de novembro de 2017. https://aprender.ead.unb.br/pluginfile.php/474549/mod_resource/content/1/Estudo%20da%20Cie%CC%82ncia.pdf.
-* Fernandes, Jorge H C, Ricardo Barros Sampaio, e João Ribas de Moura. â€œCiência de Dados para Todos (Data Science   For All) - 2018.1 - Análise da Produção Cientìfica e Acadêmica da Universidade de Brasìlia - Modelo de Relatório Final da Disciplina - Departamento de Ciência da Computação da UnBâ€. Disciplina 116297 - Tópicos AvanÃ§ados em Computadores, turma D, do semestre 2018.1, do Departamento de Ciência da Computação do Instituto de Ciências Exatas da Universidade de Brasìlia, 13 de junho de 2018.
-* Frickel, Scott, e Kelly Moore. The New Political Sociology of Science: Institutions, Networks, and Power. Science and technology in society. USA: The University of Wisconsin Press, 2006.
-* Graduate Prospects Ltd. â€œJob profile: Higher education lecturerâ€, 2018. https://www.prospects.ac.uk/job-profiles/higher-education-lecturer.
-* Kalpazidou Schmidt, Evanthia, e Ebbe Krogh Graversen. â€œPersistent factors facilitating excellence in research environmentsâ€. Higher Education 75, nÂº 2 (1Âº de fevereiro de 2018): 341â€“63. https://doi.org/10.1007/s10734-017-0142-0.
-* Kilduff, Martin, e Wenpin Tsai. Social Networks and Organizations. UK: Sage Publications, 2003.
-* Kolaczyk, Eric D., e Gábor Csárdi. Statistical Analysis of Network Data with R. USA: Springer, 2014.
-* Kuhn, Max, Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, et al. â€œPackage â€˜Caretâ€™ - Classification and Regression Trainingâ€, 27 de maio de 2018. https://cran.r-project.org/web/packages/caret/caret.pdf.
-* Leite, Fernando César Lima. â€œConsiderações básicas sobre  a Avaliação do Sistema  Nacional de Pós-Graduaçãoâ€. Comunicação Pessoal (slides). Universidade de Brasìlia, abril de 2018. https://aprender.ead.unb.br/pluginfile.php/502250/mod_resource/content/1/Considera%C3%A7%C3%B5es%20b%C3%A1sicas%20sobre%20a%20Avalia%C3%A7%C3%A3o%20do%20Sistema%20Nacional.pdf.
-* Lusher, Dean, Johan Koskinen, e Garry Robins, orgs. Exponential Random Graph Models for Social Networks: Theory, methods, and applications. Structural Analysis in the Social Sciences. USA: Cambridge University Press, 2013.
-* Mariscal, Gonzalo, Ã“scar Marbán, e Covadonga Fernández. â€œA survey of data mining and knowledge discovery process models and methodologiesâ€. The Knowledge Engineering Review 25, nÂº 2 (2010): 137â€“66. https://doi.org/10.1017/S0269888910000032.
-* Nery, Guilherme, Ana Paula Bragaglia, Flávia Clemente, e Suzana Barbosa. â€œNem tudo parece o que é: Entenda o que é plágioâ€. Instituto de Arte e Comunicação Social da UFF, 2009. http://www.noticias.uff.br/arquivos/cartilha-sobre-plagio-academico.pdf.
-* Nooy, Wouter de, Andrej Mrvar, e Vladimir Batagelj. Exploratory Social Network Analysis with Pajek. Structural Analysis in the Social Sciences. USA: Routldge, 2005.
-* Pátaro, Cristina Saitê de Oliveira, e Frank Antonio Mezzomo. â€œSistema Nacional de Pós-Graduação no Brasil: estrutura, resultados e desafios para polìtica de Estado - Lìvio Amaralâ€. Revista Educação e Linguagens 2, nÂº 3 (julho de 2013): 11â€“17.
-* Schwartzman, Simon. â€œA Ciência da Ciênciaâ€. Ciência Hoje 2, nÂº 11 (marÃ§o de 1984): 54â€“59.
-* Silver, Nate. The Signal and the Noise: Why so many predictions fail â€” but some donâ€™t. USA: The Penguin Press HC, 2012.
-* Vicari, Donatella, Akinori Okada, Giancarlo Ragozini, e Claus Wiehs. Analysis and Modeling of Complex Data in Behavioral and Social Sciences. Studies in Classifi cation, Data Analysis, and Knowledge Organization. Switzerland: Springer, 2014.
-* Wickham, Hadley, e Garrett Grolemund. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. USA: Oâ€™Reilly, 2016.
-
