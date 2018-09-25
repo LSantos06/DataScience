@@ -1,81 +1,81 @@
 ---
-title:  Ciência de Dados para Todos (Data Science
-  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica
-author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
+title:  Ci?ncia de Dados para Todos (Data Science
+  For All) - 2018.2 - An?lise da Produ??o Cient?fica e Acad?mica da Universidade de Bras?lia - Engenharia Biom?dica
+author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Arag?o"
 date: "20/09/2018"
 output:
-  pdf_document: 
-    latex_engine: xelatex
   html_document:
     df_print: paged
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_knit$set(root.dir = getwd())
 ```
 
-# Introdução
+# Introdu??o
 
-O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia biomédica, engenharia elétrica em seus dois ramos (53001010059P8 e 53001010080P7) e engenharia de sistemas eletrônicos e de automação em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
+O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da p?s-gradua??o em engenharia biom?dica, engenharia el?trica em seus dois ramos (53001010059P8 e 53001010080P7) e engenharia de sistemas eletr?nicos e de automa??o em m?os busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
 
 #Metodologia
 
 Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto usado pelo CRISP-DM.
 
-O ciclo é basicamente definido pelas seguintes fases:
+O ciclo ? basicamente definido pelas seguintes fases:
 
-* **Entendimento do negócio** : primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
+* **Entendimento do neg?cio** : primeiramente deve-se entender o que se busca encontrar, haja visto que n?o faz sentido fazer uma an?lise de dados sem saber o que se busca.
 
 * **Entendimento dos dados** : Busca-se entender os dados de forma mais superficial primeiramente.
 
-* **Preparação de dados ** : Então limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
+* **Prepara??o de dados ** : Ent?o limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
 
 * **Modelagem ** : Faz a modelagem do dado.
-* **Avaliação ** : Avalia-se o resultado da modelagem.
-* **Implantação ** : Faz uso dos dados.
+* **Avalia??o ** : Avalia-se o resultado da modelagem.
+* **Implanta??o ** : Faz uso dos dados.
 
-As fases não são independentes entre si, mas possuem certa comunicação, depedendo das fases, além de não ser estritamente sequencial, sendo melhor visualizado na figura abaixo.
+As fases n?o s?o independentes entre si, mas possuem certa comunica??o, depedendo das fases, al?m de n?o ser estritamente sequencial, sendo melhor visualizado na figura abaixo.
 
-![Ciclo do CRISP-DM que será usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
+![Ciclo do CRISP-DM que ser? usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
 
-Por esta imagem consegue-se perceber que o entendimento do negócio e do dado pode muitas vezes ser alternada, indo e voltando.
+Por esta imagem consegue-se perceber que o entendimento do neg?cio e do dado pode muitas vezes ser alternada, indo e voltando.
 
-## Delimitações iniciais
+## Delimita??es iniciais
 
 
-###Domínio de Aplicação do projeto
-O domínio de aplicação do projeto é  produção científica ou produção acadêmica de um subgrupo de pesquisadores vinculados à Universidade de Brasília, sendo vinculado ao subtema __engenharia biomédica__, tais arquivos foram pegos na plataforma elattes.
+###Dom?nio de Aplica??o do projeto
+O dom?nio de aplica??o do projeto ?  produ??o cient?fica ou produ??o acad?mica de um subgrupo de pesquisadores vinculados ? Universidade de Bras?lia, sendo vinculado ao subtema __engenharia biom?dica__, tais arquivos foram pegos na plataforma elattes.
 
 ###Problema abordado
 
-Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatástica, que permitam caracterizar como, porque e também para que ocorre a produção científica e acadêmica na Área de engenharia biomédica.
+Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estat?stica, que permitam caracterizar como, porque e tamb?m para que ocorre a produ??o cient?fica e acad?mica na ?rea de engenharia biom?dica.
 
-# CRISP-DM Fase 1 - Entendimento do Negócio
+# CRISP-DM Fase 1 - Entendimento do Neg?cio
 
-A Universidade de Brasília é uma das grandes universidades federais, sendo responsável pela produção de artigos visando artigos acadêmicos, este presente trabalho de como programas :
+A Universidade de Bras?lia ? uma das grandes universidades federais, sendo respons?vel pela produ??o de artigos visando artigos acad?micos, este presente trabalho de como programas :
 
-## Programas de Pós-Graduação Grupo 15
-| Ids           | Área de Avaliação | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
+## Programas de P?s-Gradua??o Grupo 15
+| Ids           | ?rea de Avalia??o | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
 |---------------|------------------:|---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
-| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
-| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA ELÉTRICA                               | [ENGENHARIA ELÉTRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
-| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO | [ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
-| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOMÉDICA                              | [ENGENHARIA BIOMÉDICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
+| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA EL?TRICA                               | [ENGENHARIA EL?TRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
+| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA EL?TRICA                               | [ENGENHARIA EL?TRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
+| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETR?NICOS E DE AUTOMA??O | [ENGENHARIA DE SISTEMAS ELETR?NICOS E DE AUTOMA??O (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
+| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOM?DICA                              | [ENGENHARIA BIOM?DICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
 
-Sendo o enfoque principal os dados referente a engenharia biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de biomédica e demais áreas representadas acima.
+Sendo o enfoque principal os dados referente a engenharia biom?dica, que por sua vez tem sua pesquisa muitas voltada a novas solu??es na ?rea de biom?dica e demais ?reas representadas acima.
 
-##Avaliação das Circunstancias
+##Avalia??o das Circunstancias
 
-Este trabalho terá o limite que os próprios dados gerado pela plataforma elattes tem, já que se os dados fornecidos delimitariam o escopo do projeto e até pode-se ir, ou melhor, até onde os dados permitem uma análise fidedgina. 
+Este trabalho ter? o limite que os pr?prios dados gerado pela plataforma elattes tem, j? que se os dados fornecidos delimitariam o escopo do projeto e at? pode-se ir, ou melhor, at? onde os dados permitem uma an?lise fidedgina. 
 
 #CRISP-DM Fase 2 - Entendimento dos Dados
 
 ##CRISP-DM Fase.Atividade 2.1 - Coleta inicial dos dados
 
-Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores responsáveis pela disciplina, através da plataforma elattes. Os dados foram gerados no mês de setembro de 2018, data em que o presente grupo começou a realizar o trabalho e compilam informações entre os anos de 2010 e 2017, das áreas expostas na seção anterior. 
-Os arquivos estão no formato JSON, sendo todos fornecidos pelos docentes responsável por esta disciplina.
+Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores respons?veis pela disciplina, atrav?s da plataforma elattes. Os dados foram gerados no m?s de setembro de 2018, data em que o presente grupo come?ou a realizar o trabalho e compilam informa??es entre os anos de 2010 e 2017, das ?reas expostas na se??o anterior. 
+Os arquivos est?o no formato JSON, sendo todos fornecidos pelos docentes respons?vel por esta disciplina.
 
-###Perfil profissional dos docentes vinculados às pós-graduações
+###Perfil profissional dos docentes vinculados ?s p?s-gradua??es
 
 ```{r}
 
@@ -84,16 +84,16 @@ file.info(json.perfil.biomed)
 json.perfil.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.profile.json"
 file.info(json.perfil.auto)
 json.perfil.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.profile.json"
-file.info(json.perfil.ele_p7)
+file.info(json.perfil.ele_p8)
 json.perfil.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.profile.json"
 file.info(json.perfil.ele_p7)
 
 ```
 
-Os arquivos `r json.perfil.biomed, json.perfil.auto, json.perfil.ele_p7, json.perfil.ele_p8 ` apresentam dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, automação, engenharia elétrica (p7 e p8), da UnB, entre 2010 e 2017. 
+Os arquivos `r json.perfil.biomed`, `r json.perfil.auto`, `r json.perfil.ele_p7`, `r json.perfil.ele_p8 ` apresentam dados sobre o perfil de todos os docentes vinculados a programas de p?s-gradua??o, em engenharia biom?dia, automa??o, engenharia el?trica (p7 e p8), da UnB, entre 2010 e 2017. 
 
 
-###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
+###Orienta??es de mestrado e doutorado realizadas pelos docentes vinculados ?s p?s-gradua??es
 
 ```{r}
 json.advise.biomed <- "dados-2018-2/engenharia-biomedica/279.advise.json"
@@ -102,15 +102,15 @@ json.advise.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.advise.js
 file.info(json.advise.auto)
 json.advise.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.advise.json"
 file.info(json.advise.ele_p8)
-json.advise.ele_p8 <- "dados-2018-2/engenharia-eletrica-p7/282.advise.json"
+json.advise.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.advise.json"
 file.info(json.advise.ele_p7)
 
 ```
 
-Os arquivos `r json.advise.biomed, json.advise.auto, json.advise.ele_p7, json.advise.ele_p8 ` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica e demais, da UnB, entre 2010 e 2017. 
+Os arquivos `r json.advise.biomed`, `r json.advise.auto`, `r json.advise.ele_p7`, `r json.advise.ele_p8 ` apresenta dados sobre o orienta??es de mestrado e doutorado feitas por todos os docentes vinculados a programas de p?s-gradua??o em engenharia biom?dica e demais, da UnB, entre 2010 e 2017. 
 
 
-###Produção bibliográfica gerada pelos docentes vinculados às pós-graduações
+###Produ??o bibliogr?fica gerada pelos docentes vinculados ?s p?s-gradua??es
 
 ```{r}
 json.producao.bibliografica.biomed <- "dados-2018-2/engenharia-biomedica/279.publication.json"
@@ -123,9 +123,9 @@ json.producao.bibliografica.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.p
 file.info(json.producao.bibliografica.ele_p7) 
 ```
 
-Os arquivos `r json.producao.bibliografica.biomed, json.producao.bibliografica.auto, json.producao.bibliografica.ele_p7 e json.producao.bibliografica.ele_p8 ` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia elétrica p7 e também as demais, da UnB, entre 2010 e 2017. 
+Os arquivos `r json.producao.bibliografica.biomed`, `r json.producao.bibliografica.auto`, `r json.producao.bibliografica.ele_p7` e `r json.producao.bibliografica.ele_p8 ` apresenta dados sobre a produ??o bibliogr?fica gerada por todos os docentes vinculados a programas de p?s-gradua??o, em engenharia el?trica p7 e tamb?m as demais, da UnB, entre 2010 e 2017. 
 
-###ID's dos docentes participantes e o que contêm o arquivo list.json
+###ID's dos docentes participantes e o que cont?m o arquivo list.json
 
 ```{r}
 json.list.biomed <- "dados-2018-2/engenharia-biomedica/279.list.json"
@@ -138,12 +138,12 @@ json.list.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.list.json"
 file.info(json.list.ele_p7)
 ```
 
-Os arquivos `r json.list.biomed` apresenta o id de todos docentes vinculados a programas de pós-graduação descritos acima da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
+Os arquivos `r json.list.biomed` apresenta o id de todos docentes vinculados a programas de p?s-gradua??o descritos acima da UnB, entre 2010 e 2017.Por?m tal arquivo se mostra in?til, haja visto que s? cont?m o id e que as outras vari?veis como __"nome"__ sempre tem seu valor igual a __""__. 
 
 
 
 
-###Redes de colaboração entre docentes
+###Redes de colabora??o entre docentes
 
 ```{r}
 json.graph.biomed<-'dados-2018-2/engenharia-biomedica/279.graph.json'
@@ -156,11 +156,11 @@ json.graph.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.graph.json"
 file.info(json.graph.ele_p7)
 ```
 
-Os arquivos `r json.graph.biomed, json.graph.ele_p7, json.graph.ele_p8 e json.graph.auto` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
+Os arquivos `r json.graph.biomed`,  `r json.graph.ele_p7`, `r json.graph.ele_p8` e `r json.graph.auto` apresenta redes de colabora??o na co-autoria de artigos cient?ficos, feitas entre os docentes vinculados a programas de p?s-gradua??o da UnB, entre 2010 e 2017.
 
-##CRISP-DM Fase.Atividade 2.2 - Descrição dos Dados
+##CRISP-DM Fase.Atividade 2.2 - Descri??o dos Dados
 
-Para ler e manipular inicialmente esses dados, serão usadas primordialmente as bibliotecas seguintes 
+Para ler e manipular inicialmente esses dados, ser?o usadas primordialmente as bibliotecas seguintes 
 
 ```{r library-load}
 library(jsonlite)
@@ -174,22 +174,22 @@ library(stringr)
 library(igraph)
 ```
 
-Com estas bibliotecas seremos capazes de responder e determinar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc..
+Com estas bibliotecas seremos capazes de responder e determinar qual o volume de dados, a estrutura dos dados (tipos), codifica??es usadas, etc..
 
-###Descrição dos dados do perfil
+###Descri??o dos dados do perfil
 
-#### Verificando engenharia biomédica
+#### Verificando engenharia biom?dica
 
 ```{r}
 unb.prof.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
 ```
 
-A quantidade de docentes sob análise é apresentada a seguir.
+A quantidade de docentes sob an?lise ? apresentada a seguir.
 ```{r}
 length(unb.prof.biomed)
 ```
 
-Para um melhor entendimento é importante saber como os dados estão dispostos para algum número de ocorrência.
+Para um melhor entendimento ? importante saber como os dados est?o dispostos para algum n?mero de ocorr?ncia.
 
 ```{r}
 ### Usando glimpse
@@ -198,20 +198,20 @@ glimpse(unb.prof.biomed[[1]], width = 30)
 
 Podemos inferir que:
 
-* Que o professor não é da área da engenharia elétrica, por formação, mas acabou por aderir a subárea engenharia biomédica.
-* Não é nativo da UnB, sendo formado no UFG.
+* Que o professor n?o ? da ?rea da engenharia el?trica, por forma??o, mas acabou por aderir a sub?rea engenharia biom?dica.
+* N?o ? nativo da UnB, sendo formado no UFG.
 * Atualmente trabalha na UnB do Gama.
-* Sua senioridade é de 9.
+* Sua senioridade ? de 9.
 
-#### Verificando engenharia de sistemas eletrônicos e de automação
+#### Verificando engenharia de sistemas eletr?nicos e de automa??o
 
-Fazendo processo similar para as outras áreas.
+Fazendo processo similar para as outras ?reas.
 
 ```{r}
 unb.prof.auto <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.profile.json")
 ```
 
-A quantidade de docentes sob análise é apresentada a seguir.
+A quantidade de docentes sob an?lise ? apresentada a seguir.
 ```{r}
 length(unb.prof.auto)
 ```
@@ -222,13 +222,13 @@ glimpse(unb.prof.auto[[3]], width = 30)
 ```
 
 
-#### Verificando engenharia elétrica p8
+#### Verificando engenharia el?trica p8
 
 ```{r}
 unb.prof.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.profile.json")
 ```
 
-A quantidade de docentes sob análise é apresentada a seguir.
+A quantidade de docentes sob an?lise ? apresentada a seguir.
 ```{r}
 length(unb.prof.ele_p8)
 ```
@@ -238,36 +238,36 @@ Verificando oitavo elemento.
 glimpse(unb.prof.ele_p8[[8]], width = 30)
 ```
 
-#### Verificando engenharia elétrica p7
+#### Verificando engenharia el?trica p7
 
 ```{r}
-unb.prof.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
+unb.prof.ele_p7 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
 ```
 
-A quantidade de docentes sob análise é apresentada a seguir.
+A quantidade de docentes sob an?lise ? apresentada a seguir.
 ```{r}
 length(unb.prof.ele_p7)
 ```
-Verificando sétimo elemento.
+Verificando s?timo elemento.
 ```{r}
 ### Usando glimpse
 glimpse(unb.prof.ele_p7[[7]], width = 30)
 
 
-####Potencial de utilização dos dados do perfil dos docentes
+####Potencial de utiliza??o dos dados do perfil dos docentes
 
-###Descrição dos dados de orientações
+###Descri??o dos dados de orienta??es
 
 ```{r}
 unb.adv.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
 # Mostrando as listas presentes neste arquivo.
 names(unb.adv.biomed)
-# Explorando um nível de detalhe de Orientações de doutorados concluídas
+# Explorando um n?vel de detalhe de Orienta??es de doutorados conclu?das
 names(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO)
 ############## DOUTORADO 2017
 #Buscando cursos que mais produziram doutorados.
 head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
-#Sabendo suas instituições
+#Sabendo suas institui??es
 head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
 data_orienM <- capture.output(str(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
@@ -276,14 +276,14 @@ unique(data_orienM)
 #Buscando cursos que mais produziram mestrados.
 head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
 head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
-#Sabendo suas instituições
+#Sabendo suas institui??es
 head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
 data_orien <- capture.output(str(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
 unique(data_orien)
 ```
 
-Como se pode perceber apenas u, professor que orientou doutorado concluido em 2017 ( "Marilia Miranda Forte Gomes") também fez parte dos professores que orientaram no mestrado: 
+Como se pode perceber apenas u, professor que orientou doutorado concluido em 2017 ( "Marilia Miranda Forte Gomes") tamb?m fez parte dos professores que orientaram no mestrado: 
 
 * "Georges Daniel Amvame Nze"
 * "Jose Felicio da Silva"
@@ -292,15 +292,15 @@ Como se pode perceber apenas u, professor que orientou doutorado concluido em 20
 * "Marilia Miranda Forte Gomes"
 * "Ronni Geraldo Gomes de Amorim"
 
-Sendo o professor "Marcus Vinícius Chaffim Costa" responsável apenas por orientações de doutorado em 2017.
+Sendo o professor "Marcus Vin?cius Chaffim Costa" respons?vel apenas por orienta??es de doutorado em 2017.
 
-###Descrição dos dados list.json
+###Descri??o dos dados list.json
 
 ```{r}
 unb.list.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.list.json")
 #analisando a quantidade de elementos presente em list.json
 length(unb.list.biomed$fiocruz$id)
-# Mostrando alguns id, verificar que eles são diferentes       
+# Mostrando alguns id, verificar que eles s?o diferentes       
 d_listID <- unb.list.biomed$fiocruz$id
 unique(d_listID)
 #Mostrando nome sempre igual ""
@@ -313,34 +313,34 @@ unique(d_listDT)
 
 ```
 
-Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como inútil, haja visto que não dá para obter quaisquer dado plaúsivel, somente os id.
+Feito a an?lise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como in?til, haja visto que n?o d? para obter quaisquer dado pla?sivel, somente os id.
 
 
 
-###Descrição dos dados de produção bibliográfica
+###Descri??o dos dados de produ??o bibliogr?fica
 ```{r}
 unb.pub.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
-# Verificando os tipos de produções que existe.
+# Verificando os tipos de produ??es que existe.
 names(unb.pub.biomed)
-#Analisando o qual tipo de informação se tem em periódicos no ano 2012.
+#Analisando o qual tipo de informa??o se tem em peri?dicos no ano 2012.
 names(unb.pub.biomed$PERIODICO$`2012`)
-#Nomes dos periódicos em que tiveram mais publicações na área de engenharia biomédica.
+#Nomes dos peri?dicos em que tiveram mais publica??es na ?rea de engenharia biom?dica.
 head(sort(table(unb.pub.biomed$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
-#Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia biomédica da UnB no 2017.
+#Nomes dos peri?dicos em que tiveram mais publica??es de artigos aceitos na ?rea de engenharia biom?dica da UnB no 2017.
 head(sort(table(unb.pub.biomed$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
-#Nomes dos autores que produziram um tipo de produção que não estava contemplada .
+#Nomes dos autores que produziram um tipo de produ??o que n?o estava contemplada .
 head(sort(table(unb.pub.biomed$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
 
 ```
 
 
-###Descrição dos dados de redes de colaboração
+###Descri??o dos dados de redes de colabora??o
 
 ```{r}
 unb.graph.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.graph.json")
-# Suas variáveis
+# Suas vari?veis
 names(unb.graph.biomed)
-# Quantidade de nós
+# Quantidade de n?s
 length(unb.graph.biomed$nodes$id)
 # Quantidade de links de fonte 
 length(unb.graph.biomed$links$source)
@@ -351,78 +351,78 @@ str(unb.graph.biomed$links$weigth)
 ```
 
 
-##CRISP-DM Fase.Atividade 2.3 - Análise exploratória dos dados
+##CRISP-DM Fase.Atividade 2.3 - An?lise explorat?ria dos dados
 
 ###Arquivo Profile
 
 ```{r}
-# Total de áreas de atuação de todos profissionais
+# Total de ?reas de atua??o de todos profissionais
 sum(sapply(unb.prof.biomed, function(x) nrow(x$areas_de_atuacao)))
-# Número de pessoas por grande area
+# N?mero de pessoas por grande area
 table(unlist(sapply(unb.prof.biomed, function(x) (x$areas_de_atuacao$grande_area))))
-# Número de pessoas que produziram os tipos de produção específico
+# N?mero de pessoas que produziram os tipos de produ??o espec?fico
 table(unlist(sapply(unb.prof.biomed, function(x) names(x$producao_bibiografica))))
-# Número de publicações por tipo
+# N?mero de publica??es por tipo
 #####ARTIGO ACEITO###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 
 #####CAPITULO DE LIVRO###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 
 #####LIVRO###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$LIVRO$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 
-#####PERIÓDICO###############
+#####PERI?DICO###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 
 #####TEXTO EM JORNAIS###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
 
 #####DEMAIS TIPOS###############
 sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
-# Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de produ??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
 
 
 
-# Número de produções por ano
+# N?mero de produ??es por ano
 table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$LIVRO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$PERIODICO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
-# Número de pessoas que realizaram diferentes tipos de orientações
+# N?mero de pessoas que realizaram diferentes tipos de orienta??es
 length(unlist(sapply(unb.prof.biomed, function(x) names(x$orientacoes_academicas))))
-# Número de pessoas por tipo de orientação
+# N?mero de pessoas por tipo de orienta??o
 table(unlist(sapply(unb.prof.biomed, function(x) names(x$orientacoes_academicas))))
-#Número de orientações concluidas
+#N?mero de orienta??es concluidas
 sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
 sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
 sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
 
-# Número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
+# N?mero de pessoas por quantitativo de orienta??es por pessoa 0 = 1; 1 = 2...
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
-# Número de orientações por ano
+# N?mero de orienta??es por ano
 table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
 table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
 ```
 
-###Arquivo Publicação
+###Arquivo Publica??o
 ```{r}
 
 #Criando um data-frame com todos os anos
@@ -439,29 +439,29 @@ glimpse(unb.pub.biomed.df)
 
 
 ### ARQUIVO PROCESSADO E LIMPO 
-## Publicações por natureza - todas foram completas
+## Publica??es por natureza - todas foram completas
 table(unb.pub.biomed.df$natureza)
 
-## Publicações 2010 até 2017
+## Publica??es 2010 at? 2017
 table(unb.pub.biomed.df$ano)
-## Publicações por periódico, mostrando os top-5 na área de biomédica
+## Publica??es por peri?dico, mostrando os top-5 na ?rea de biom?dica
 d <- table(unb.pub.biomed.df$periodico)
 head(sort(d,decreasing = TRUE),n=5)
 
-## Mostrando os autores que tiveram mais publicação
-### Neste caso é importante mostra que como a não uniformidade de como se escreve acaba por tornar este dado defasado
+## Mostrando os autores que tiveram mais publica??o
+### Neste caso ? importante mostra que como a n?o uniformidade de como se escreve acaba por tornar este dado defasado
 head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decreasing = TRUE),n=10)
-## Mostrando os autores-endogeno que tiveram mais publicação
+## Mostrando os autores-endogeno que tiveram mais publica??o
 head(sort(table(unlist(unb.pub.biomed.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
 
 
-###Arquivo Orientação
+###Arquivo Orienta??o
 ```{r}
-#Orientação
+#Orienta??o
 #Visualizar a estrutura do json no painel Viewer
 #jsonedit(unb.adv.biomed)
-#Reunir todos os anos e orientações concluidas em um mesmo data-frame
+#Reunir todos os anos e orienta??es concluidas em um mesmo data-frame
 unb.adv.biomed.tipo.df <- data.frame(); unb.adv.biomed.df <- data.frame()
 for (i in 1:length(unb.adv.biomed[[1]]))
   unb.adv.biomed.tipo.df <- rbind(unb.adv.biomed.tipo.df, unb.adv.biomed$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
@@ -485,9 +485,9 @@ unb.adv.biomed.df <- separate(unb.adv.biomed.df, id_lattes_orientadores, into = 
 sum(is.na(unb.adv.biomed.df$idLattes2))
 #Numero de orientacoes por ano
 table(unb.adv.biomed.df$ano)
-#Numero de instituições 
+#Numero de institui??es 
 sort(table(unb.adv.biomed.df$instituicao),decreasing = TRUE)
-#Cursos que estão envolvido na pós-graduação de engenharia biomédica
+#Cursos que est?o envolvido na p?s-gradua??o de engenharia biom?dica
 cursos_d <- sort(table(unb.adv.biomed.df$curso), decreasing = TRUE)
 cursos_d
 cursos_d5<-head(cursos_d,5)
@@ -498,36 +498,36 @@ table(unb.adv.biomed.df$natureza)
 head(sort(table(rbind(unb.adv.biomed.df$ori1, unb.adv.biomed.df$ori2)), decreasing = TRUE), 20)
 # Tabela com nome dos alunos que mais foram orientados
 head(sort(table(toupper(unb.adv.biomed.df$nome_aluno)),decreasing = TRUE),n=10)
-# Quantidade de alunos que não são bolsistas 
+# Quantidade de alunos que n?o s?o bolsistas 
 sum(unb.adv.biomed.df$bolsa == 'NAO')
-# Quantidade de alunos que são bolsistas 
+# Quantidade de alunos que s?o bolsistas 
 sum(unb.adv.biomed.df$bolsa == 'SIM')
-# Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
+# Reparar que a maioria n?o tem ag?ncia financiadora por tr?s e h? dois alunos que tem bolsa mas que n?o tem/declararam ag?ncia financiadora.
 table(unb.adv.biomed.df$agencia_financiadora)
 ```
 
 
-##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
+##CRISP-DM Fase.Atividade 2.4 - Verifica??o da qualidade dos dados. 
 
-Para o levantamento de informação os dados em geral são preciso, como por exemplo saber quais os professores mais envolvido em orientações, quantos artigos foram concluidos, informações por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou qualquer análise. 
+Para o levantamento de informa??o os dados em geral s?o preciso, como por exemplo saber quais os professores mais envolvido em orienta??es, quantos artigos foram concluidos, informa??es por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que n?o foi encontrado um padr?o, dificultou qualquer an?lise. 
 
-#CRISP-DM Fase 3 -  __Preparação dos Dados__
+#CRISP-DM Fase 3 -  __Prepara??o dos Dados__
 
 
-##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
+##CRISP-DM Fase.Atividade 3.1 - Sele??o dos dados. 
 
-Para a principal utilização dos dados foi definidos os __data frames__ unb.adv.biomed.df, que neste caso contêm alguns informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. Também foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.biomed.df, que já está limpo, com as principais colunas definidas.
+Para a principal utiliza??o dos dados foi definidos os __data frames__ unb.adv.biomed.df, que neste caso cont?m alguns informa??es de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. Tamb?m foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.biomed.df, que j? est? limpo, com as principais colunas definidas.
 
 ##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
 
-Esta etapa se mistura com a próxima pelo fato de limpar e preparar o dado, ou seja, já construir.
+Esta etapa se mistura com a pr?xima pelo fato de limpar e preparar o dado, ou seja, j? construir.
 
-##CRISP-DM Fase.Atividade 3.3 - Construção dos dados
+##CRISP-DM Fase.Atividade 3.3 - Constru??o dos dados
 
 Construindo e limpando alguns dados de interesse.
 ```{r}
-# Funcoes auxiliares que serão usados
-# estas funções foram disponibilizada pelo professor da disciplina
+# Funcoes auxiliares que ser?o usados
+# estas fun??es foram disponibilizada pelo professor da disciplina
 # converte as colunas de um dataframe tipo lista em tipo character
 cv_tplista2tpchar <- function( df  ) { 
   for( variavel in names(df)) {
@@ -725,7 +725,7 @@ extrai_areas_atuacao <- function(jsonProfessores){
   return(df_saida)   
 }
 ########################### Inicio ###############################
-#### Começo da preparação dos dados referente a profile
+#### Come?o da prepara??o dos dados referente a profile
 
 unb.prof.biomed.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
 unb.prof.biomed.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
@@ -749,7 +749,7 @@ unb.prof.biomed.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.biomed)
 save(unb.prof.biomed.df.professores, unb.prof.biomed.df.publicacoes,
      unb.prof.biomed.df.orientacoes, unb.prof.biomed.df.areas.de.atuacao, file = "dataframes.Rda")
 
-#cria arquivo para análise
+#cria arquivo para an?lise
 unb.prof.biomed.df <- data.frame()
 unb.prof.biomed.df <- unb.prof.biomed.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -786,37 +786,37 @@ glimpse(unb.prof.biomed.df)
 head(unb.prof.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.publication.json
 glimpse(unb.pub.biomed.df)
-#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+#Podemos ver que cont?m natureza, titulo, periodico , autores .... 
 head(unb.pub.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.advise.json
 glimpse(unb.adv.biomed.df)
-#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+#Podemos ver que cont?m natureza, titulo, autores, ano, nome aluno, orientadores .... 
 head(unb.adv.biomed.df,3)
 ###################### Os arquivos 
-###### 279.graph.json - usado para mostrar correlações
-#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
+###### 279.graph.json - usado para mostrar correla??es
+#### 279.list.json - Como explicado este arquivo n?o contem nenhuma informa??o interessante.
 
 
 ```
 
 
-##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
+##CRISP-DM Fase.Atividade 3.4 - Integra??o dos dados
 
-Neste presente trabalho, não se viu a necessidade de fazer merge entres os datas frames.
+Neste presente trabalho, n?o se viu a necessidade de fazer merge entres os datas frames.
 
-##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
+##CRISP-DM Fase.Atividade 3.5 -  Formata??o dos dados
 
-As formatações de dados necessária já foram feitas, como por exemplo "orientadores" virou "orie1" e "orie2", fazendo com que cada variável contenha apenas um elemento, e não mais uma lista de orientadores. 
+As formata??es de dados necess?ria j? foram feitas, como por exemplo "orientadores" virou "orie1" e "orie2", fazendo com que cada vari?vel contenha apenas um elemento, e n?o mais uma lista de orientadores. 
 
 #CRISP-DM Fase 4 - __Modelagem__
 
-Nesta fase, após ter feito limpeza e preparação dos dados, tem-se que se decidir qual ferramenta usar : computacionais, matemáticas ou estátistica. Esta fase, por enquanto, será omitida.
+Nesta fase, ap?s ter feito limpeza e prepara??o dos dados, tem-se que se decidir qual ferramenta usar : computacionais, matem?ticas ou est?tistica. Esta fase, por enquanto, ser? omitida.
 
-#CRISP-DM Fase 5 - __Avaliação__
+#CRISP-DM Fase 5 - __Avalia??o__
 
-Será exposto em forma de gráficos certos dados que se acharam convenientes e interessante.
+Ser? exposto em forma de gr?ficos certos dados que se acharam convenientes e interessante.
 
-Aqui visa-se ver as quantidades de publicações feitas por anos na área de engenharia de biomédica. 
+Aqui visa-se ver as quantidades de publica??es feitas por anos na ?rea de engenharia de biom?dica. 
 ```{r}
 unb.adv.biomed.df %>%
 group_by(ano) %>%
@@ -827,7 +827,7 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Agora verificando a quantidade separada por tipo de publicação.
+Agora verificando a quantidade separada por tipo de publica??o.
 
 ```{r}
 unb.adv.biomed.df %>%
@@ -858,16 +858,16 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Assim, estes gráficos permitem verificar alguns aspectos importantes sobre as orientações.
+Assim, estes gr?ficos permitem verificar alguns aspectos importantes sobre as orienta??es.
 
-Verificando, agora, o arquivo 279.publication.json, contendo informações sobre as publicações.
+Verificando, agora, o arquivo 279.publication.json, contendo informa??es sobre as publica??es.
 
 ```{r}
-pie(table(unb.pub.biomed.df$natureza),main="Natureza das publicações",col = "cyan")
+pie(table(unb.pub.biomed.df$natureza),main="Natureza das publica??es",col = "cyan")
 
 ```
 
-Separando por ano e depois por periódico.
+Separando por ano e depois por peri?dico.
 
 ```{r}
 unb.pub.biomed.df %>%
@@ -886,7 +886,7 @@ head(sort(d,decreasing = TRUE),n=5)
 
 ```
 
-Mostrando os autores que mais participaram de publicações. 
+Mostrando os autores que mais participaram de publica??es. 
 
 ```{r}
 
@@ -895,7 +895,7 @@ head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decrea
 
 ```
 
-Assim, vemos que há algumas incoerência neste dado acima, isto se dá pela falta de uniformidade.
+Assim, vemos que h? algumas incoer?ncia neste dado acima, isto se d? pela falta de uniformidade.
 
 Analisando o arquivo 279.profile.json.
 
@@ -909,7 +909,7 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de orientações concluídas no doutorado por professor.
+Analisando quandidade de orienta??es conclu?das no doutorado por professor.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -921,7 +921,7 @@ geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de orientações concluídas no mestrado por professor.
+Analisando quandidade de orienta??es conclu?das no mestrado por professor.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -933,7 +933,7 @@ geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de orientações concluídas no pós doutorado por professor.
+Analisando quandidade de orienta??es conclu?das no p?s doutorado por professor.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -945,7 +945,7 @@ geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de orientações concluídas em outros tipos por professor.
+Analisando quandidade de orienta??es conclu?das em outros tipos por professor.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -969,7 +969,7 @@ geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de periódicos por professor.
+Analisando quandidade de peri?dicos por professor.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -1005,7 +1005,7 @@ geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
+Analisando quantidade de professor por major ?rea e posteriormente o ?rea p?s-gradua??o.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -1018,7 +1018,7 @@ theme_minimal()
 ```
 
 
-Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
+Analisando quantidade de professor por major ?rea e posteriormente o ?rea p?s-gradua??o.
 
 ```{r}
 unb.prof.biomed.df %>%
@@ -1030,18 +1030,29 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
+#Teste grafos 
+```{r}
+unb.graph.biomed$links$source
+unb.graph.biomed$links$target
+list_biomed <- c(rbind(unb.graph.biomed$links$source,unb.graph.biomed$links$target))
+list_biomed
 
+g_biomed<-graph(list_biomed, directed=FALSE)
+length(g_biomed)
+g_biomed
+plot(g_biomed)
+```
 
-#CRISP-DM Fase 6 - __Implantação__ (_deployment_)
+#CRISP-DM Fase 6 - __Implanta??o__ (_deployment_)
  
- No caso deste presente trabalho, é basicamente os scripts desenvolvido ao decorrer do mesmo.
+ No caso deste presente trabalho, ? basicamente os scripts desenvolvido ao decorrer do mesmo.
  
-#Conclusão
+#Conclus?o
 
-Ao final deste trabalho, podemos chegar a conclusão que com a "ferramenta" CRISP-DM foi possível realizar uma análise de dados apartir de vários arquivos __JSON__, assim, foi possível perceber como funciona - pelo menos de maneira simplória - a vida de cientista de dados, como se deve preparar os dados, como se deve buscar informações úteis, analisar determinadas informações, plotar gráficos para um efeito mais visual, ver a dificuldade que falta de padronização causa, ainda mais quando se tem os mais diversos arquivos para analisar das mais diversas fontes.
+Ao final deste trabalho, podemos chegar a conclus?o que com a "ferramenta" CRISP-DM foi poss?vel realizar uma an?lise de dados apartir de v?rios arquivos __JSON__, assim, foi poss?vel perceber como funciona - pelo menos de maneira simpl?ria - a vida de cientista de dados, como se deve preparar os dados, como se deve buscar informa??es ?teis, analisar determinadas informa??es, plotar gr?ficos para um efeito mais visual, ver a dificuldade que falta de padroniza??o causa, ainda mais quando se tem os mais diversos arquivos para analisar das mais diversas fontes.
 
-O trabalho usou como base o arquivo disponibilizado pelo professor, no qual continha as explicações de todas as fase do CRISP-DM, seguindo o modelo passado pelo professor, tentou-se ir descorrendo sobre o script em R que se vinha fazendo e correlacionando com alguma fase do CRISP-DM, mas tal divisão não pode ser considerada totalmente fidedigna, haja visto que muitas vezes há mistura de fases e não apenas fases totalmente isoladas, sem influência de outras, procurou-se explicar de maneira simples como se encaixava cada fase.
+O trabalho usou como base o arquivo disponibilizado pelo professor, no qual continha as explica??es de todas as fase do CRISP-DM, seguindo o modelo passado pelo professor, tentou-se ir descorrendo sobre o script em R que se vinha fazendo e correlacionando com alguma fase do CRISP-DM, mas tal divis?o n?o pode ser considerada totalmente fidedigna, haja visto que muitas vezes h? mistura de fases e n?o apenas fases totalmente isoladas, sem influ?ncia de outras, procurou-se explicar de maneira simples como se encaixava cada fase.
 
-Por fim, podemos chegar a alguns resultados valorosos ,como por exemplo : as revistas que tem mais publicações advindas da pós-graduação em engenharia biómedica, mas nem tudo são flores, algumas dificuldades vieram em decorrência da falta de uniformidade, porém podemos aprender bastante com este trabalho e nos interar de como começar a fazer análise de dados.
+Por fim, podemos chegar a alguns resultados valorosos ,como por exemplo : as revistas que tem mais publica??es advindas da p?s-gradua??o em engenharia bi?medica, mas nem tudo s?o flores, algumas dificuldades vieram em decorr?ncia da falta de uniformidade, por?m podemos aprender bastante com este trabalho e nos interar de como come?ar a fazer an?lise de dados.
 
-# Referências
+# Refer?ncias
