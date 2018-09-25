@@ -78,40 +78,40 @@ Os arquivos estão no formato JSON, sendo todos fornecidos pelos docentes respons
 ###Perfil profissional dos docentes vinculados às pós-graduações
 
 ```{r}
-json.perfil <- "dados-2018-2/engenharia-biomedica/279.profile.json"
-file.info(json.perfil)
+json.perfil.biomed <- "dados-2018-2/engenharia-biomedica/279.profile.json"
+file.info(json.perfil.biomed)
 ```
 
-O arquivo `r json.perfil` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, da UnB, entre 2010 e 2017. 
+O arquivo `r json.perfil.biomed` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, da UnB, entre 2010 e 2017. 
 
 
 ###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
 
 ```{r}
-json.advise <- "dados-2018-2/engenharia-biomedica/279.advise.json"
-file.info(json.advise)
+json.advise.biomed <- "dados-2018-2/engenharia-biomedica/279.advise.json"
+file.info(json.advise.biomed)
 ```
 
-O arquivo `r json.advise` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica, da UnB, entre 2010 e 2017. 
+O arquivo `r json.advise.biomed` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica, da UnB, entre 2010 e 2017. 
 
 
 ###Produção bibliográfica gerada pelos docentes vinculados Ã s pós-graduações
 
 ```{r}
-json.producao.bibliografica <- "dados-2018-2/engenharia-biomedica/279.publication.json"
-file.info(json.producao.bibliografica) 
+json.producao.bibliografica.biomed <- "dados-2018-2/engenharia-biomedica/279.publication.json"
+file.info(json.producao.bibliografica.biomed) 
 ```
 
-O arquivo `r json.producao.bibliografica` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017. 
+O arquivo `r json.producao.bibliografica.biomed` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017. 
 
 ###ID's dos docentes participantes e o que contêm o arquivo list.json
 
 ```{r}
-json.list <- "dados-2018-2/engenharia-biomedica/279.list.json"
-file.info(json.list) 
+json.list.biomed <- "dados-2018-2/engenharia-biomedica/279.list.json"
+file.info(json.list.biomed) 
 ```
 
-O arquivo `r json.list` apresenta o id de todos docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
+O arquivo `r json.list.biomed` apresenta o id de todos docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
 
 
 
@@ -119,11 +119,11 @@ O arquivo `r json.list` apresenta o id de todos docentes vinculados a programas 
 ###Redes de colaboração entre docentes
 
 ```{r}
-json.graph<-'dados-2018-2/engenharia-biomedica/279.graph.json'
-file.info(json.graph)
+json.graph.biomed<-'dados-2018-2/engenharia-biomedica/279.graph.json'
+file.info(json.graph.biomed)
 ```
 
-O arquivo `r json.graph` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
+O arquivo `r json.graph.biomed` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
 
 ##CRISP-DM Fase.Atividade 2.2 - Descrição dos Dados
 
@@ -145,19 +145,19 @@ Com estas bibliotecas seremos capazes de responder e determinar qual o volume de
 ###Descrição dos dados do perfil
 
 ```{r}
-unb.prof <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
+unb.prof.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
 ```
 
 A quantidade de docentes sob análise é apresentada a seguir.
 ```{r}
-length(unb.prof)
+length(unb.prof.biomed)
 ```
 
 Para um melhor entendimento é importante saber como os dados estão dispostos para algum número de ocorrência.
 
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof[[1]], width = 30)
+glimpse(unb.prof.biomed[[1]], width = 30)
 ```
 
 Podemos inferir que:
@@ -172,27 +172,27 @@ Podemos inferir que:
 ###Descrição dos dados de orientações
 
 ```{r}
-unb.adv <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
+unb.adv.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
 # Mostrando as listas presentes neste arquivo.
-names(unb.adv)
+names(unb.adv.biomed)
 # Explorando um nível de detalhe de Orientações de doutorados concluídas
-names(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO)
+names(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO)
 ############## DOUTORADO 2017
 #Buscando cursos que mais produziram doutorados.
-head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
 #Sabendo suas instituições
-head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
+head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
-data_orienM <- capture.output(str(unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
+data_orienM <- capture.output(str(unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
 unique(data_orienM)
 ############## MESTRADO 2017
 #Buscando cursos que mais produziram mestrados.
-head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
-head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo suas instituições
-head(sort(table(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+head(sort(table(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
 #Sabendo seus orientadores
-data_orien <- capture.output(str(unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
+data_orien <- capture.output(str(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
 unique(data_orien)
 ```
 
@@ -205,22 +205,22 @@ Como se pode perceber apenas u, professor que orientou doutorado concluido em 20
 * "Marilia Miranda Forte Gomes"
 * "Ronni Geraldo Gomes de Amorim"
 
-Sendo o professor "Marcus Vinícius Chaffim Costa" responsável apenas por orientação de doutorado em 2017.
+Sendo o professor "Marcus Vinícius Chaffim Costa" responsável apenas por orientações de doutorado em 2017.
 
 ###Descrição dos dados list.json
 
 ```{r}
-unb.list <- fromJSON("dados-2018-2/engenharia-biomedica/279.list.json")
+unb.list.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.list.json")
 #analisando a quantidade de elementos presente em list.json
-length(unb.list$fiocruz$id)
+length(unb.list.biomed$fiocruz$id)
 # Mostrando alguns id, verificar que eles são diferentes       
-d_listID <- unb.list$fiocruz$id
+d_listID <- unb.list.biomed$fiocruz$id
 unique(d_listID)
 #Mostrando nome sempre igual ""
-d_listNO <- unb.list$fiocruz$nome
+d_listNO <- unb.list.biomed$fiocruz$nome
 unique(d_listNO)
 #Mostrando periodo sempre igual 2010-2017 
-d_listDT <- unb.list$fiocruz$periodo
+d_listDT <- unb.list.biomed$fiocruz$periodo
 unique(d_listDT)
 
 
@@ -232,17 +232,17 @@ Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (ob
 
 ###Descrição dos dados de produção bibliográfica
 ```{r}
-unb.pub <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
+unb.pub.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.publication.json")
 # Verificando os tipos de produções que existe.
-names(unb.pub)
+names(unb.pub.biomed)
 #Analisando o qual tipo de informação se tem em periódicos no ano 2012.
-names(unb.pub$PERIODICO$`2012`)
+names(unb.pub.biomed$PERIODICO$`2012`)
 #Nomes dos periódicos em que tiveram mais publicações na área de engenharia biomédica.
-head(sort(table(unb.pub$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
+head(sort(table(unb.pub.biomed$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
 #Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia biomédica da UnB no 2017.
-head(sort(table(unb.pub$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
+head(sort(table(unb.pub.biomed$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
 #Nomes dos autores que produziram um tipo de produção que não estava contemplada .
-head(sort(table(unb.pub$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
+head(sort(table(unb.pub.biomed$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
 
 ```
 
@@ -250,17 +250,17 @@ head(sort(table(unb.pub$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), 
 ###Descrição dos dados de redes de colaboração
 
 ```{r}
-unb.graph <- fromJSON("dados-2018-2/engenharia-biomedica/279.graph.json")
+unb.graph.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.graph.json")
 # Suas variáveis
-names(unb.graph)
+names(unb.graph.biomed)
 # Quantidade de nós
-length(unb.graph$nodes$id)
+length(unb.graph.biomed$nodes$id)
 # Quantidade de links de fonte 
-length(unb.graph$links$source)
+length(unb.graph.biomed$links$source)
 # Quantidade de links de chegada 
-length(unb.graph$links$target)
+length(unb.graph.biomed$links$target)
 #exemplos de pesos da aresta
-str(unb.graph$links$weigth)
+str(unb.graph.biomed$links$weigth)
 ```
 
 
@@ -270,68 +270,68 @@ str(unb.graph$links$weigth)
 
 ```{r}
 # Total de áreas de atuação de todos profissionais
-sum(sapply(unb.prof, function(x) nrow(x$areas_de_atuacao)))
+sum(sapply(unb.prof.biomed, function(x) nrow(x$areas_de_atuacao)))
 # Número de pessoas por grande area
-table(unlist(sapply(unb.prof, function(x) (x$areas_de_atuacao$grande_area))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$areas_de_atuacao$grande_area))))
 # Número de pessoas que produziram os tipos de produção específico
-table(unlist(sapply(unb.prof, function(x) names(x$producao_bibiografica))))
+table(unlist(sapply(unb.prof.biomed, function(x) names(x$producao_bibiografica))))
 # Número de publicações por tipo
 #####ARTIGO ACEITO###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 
 #####CAPITULO DE LIVRO###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
 
 #####LIVRO###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$LIVRO$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$LIVRO$ano))))
 
 #####PERIÓDICO###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
 
 #####TEXTO EM JORNAIS###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
 
 #####DEMAIS TIPOS###############
-sum(sapply(unb.prof, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
 # Número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
 
 
 
 # Número de produções por ano
-table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$LIVRO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$PERIODICO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
 # Número de pessoas que realizaram diferentes tipos de orientações
-length(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
+length(unlist(sapply(unb.prof.biomed, function(x) names(x$orientacoes_academicas))))
 # Número de pessoas por tipo de orientação
-table(unlist(sapply(unb.prof, function(x) names(x$orientacoes_academicas))))
+table(unlist(sapply(unb.prof.biomed, function(x) names(x$orientacoes_academicas))))
 #Número de orientações concluidas
-sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
-sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
-sum(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
 
 # Número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
-table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(unb.prof, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
 # Número de orientações por ano
-table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
-table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 
 ```
 
@@ -339,33 +339,33 @@ table(unlist(sapply(unb.prof, function(x) (x$orientacoes_academicas$ORIENTACAO_C
 ```{r}
 
 #Criando um data-frame com todos os anos
-unb.pub.df <- data.frame()
-for (i in 1:length(unb.pub[[1]]))
-  unb.pub.df <- rbind(unb.pub.df, unb.pub$PERIODICO[[i]])
-glimpse(unb.pub.df)
+unb.pub.biomed.df <- data.frame()
+for (i in 1:length(unb.pub.biomed[[1]]))
+  unb.pub.biomed.df <- rbind(unb.pub.biomed.df, unb.pub.biomed$PERIODICO[[i]])
+glimpse(unb.pub.biomed.df)
 # Limpando o data-frame de listas
-unb.pub.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.df$autores)
-unb.pub.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.df$autores)
-unb.pub.df$`autores-endogeno` <- gsub(",", ";", unb.pub.df$`autores-endogeno`)
-unb.pub.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.df$`autores-endogeno`)
-glimpse(unb.pub.df)
+unb.pub.biomed.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.biomed.df$autores)
+unb.pub.biomed.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.biomed.df$autores)
+unb.pub.biomed.df$`autores-endogeno` <- gsub(",", ";", unb.pub.biomed.df$`autores-endogeno`)
+unb.pub.biomed.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.biomed.df$`autores-endogeno`)
+glimpse(unb.pub.biomed.df)
 
 
 ### ARQUIVO PROCESSADO E LIMPO 
 ## Publicações por natureza - todas foram completas
-table(unb.pub.df$natureza)
+table(unb.pub.biomed.df$natureza)
 
 ## Publicações 2010 até 2017
-table(unb.pub.df$ano)
+table(unb.pub.biomed.df$ano)
 ## Publicações por periódico, mostrando os top-5 na área de biomédica
-d <- table(unb.pub.df$periodico)
+d <- table(unb.pub.biomed.df$periodico)
 head(sort(d,decreasing = TRUE),n=5)
 
 ## Mostrando os autores que tiveram mais publicação
 ### Neste caso é importante mostra que como a não uniformidade de como se escreve acaba por tornar este dado defasado
-head(sort(table(toupper(unlist(strsplit(unb.pub.df$autores,";")))),decreasing = TRUE),n=10)
+head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decreasing = TRUE),n=10)
 ## Mostrando os autores-endogeno que tiveram mais publicação
-head(sort(table(unlist(unb.pub.df$`autores-endogeno`)),decreasing = TRUE),n=10)
+head(sort(table(unlist(unb.pub.biomed.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
 
 
@@ -373,50 +373,50 @@ head(sort(table(unlist(unb.pub.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```{r}
 #Orientação
 #Visualizar a estrutura do json no painel Viewer
-#jsonedit(unb.adv)
+#jsonedit(unb.adv.biomed)
 #Reunir todos os anos e orientações concluidas em um mesmo data-frame
-unb.adv.tipo.df <- data.frame(); unb.adv.df <- data.frame()
-for (i in 1:length(unb.adv[[1]]))
-  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
-unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df); unb.adv.tipo.df <- data.frame()
-for (i in 1:length(unb.adv[[1]]))
-  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_DOUTORADO[[i]])
-unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df); unb.adv.tipo.df <- data.frame()
-for (i in 1:length(unb.adv[[1]]))
-  unb.adv.tipo.df <- rbind(unb.adv.tipo.df, unb.adv$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
-unb.adv.df <- rbind(unb.adv.df, unb.adv.tipo.df)
-glimpse(unb.adv.df)
+unb.adv.biomed.tipo.df <- data.frame(); unb.adv.biomed.df <- data.frame()
+for (i in 1:length(unb.adv.biomed[[1]]))
+  unb.adv.biomed.tipo.df <- rbind(unb.adv.biomed.tipo.df, unb.adv.biomed$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
+unb.adv.biomed.df <- rbind(unb.adv.biomed.df, unb.adv.biomed.tipo.df); unb.adv.biomed.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.biomed[[1]]))
+  unb.adv.biomed.tipo.df <- rbind(unb.adv.biomed.tipo.df, unb.adv.biomed$ORIENTACAO_CONCLUIDA_DOUTORADO[[i]])
+unb.adv.biomed.df <- rbind(unb.adv.biomed.df, unb.adv.biomed.tipo.df); unb.adv.biomed.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.biomed[[1]]))
+  unb.adv.biomed.tipo.df <- rbind(unb.adv.biomed.tipo.df, unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
+unb.adv.biomed.df <- rbind(unb.adv.biomed.df, unb.adv.biomed.tipo.df)
+glimpse(unb.adv.biomed.df)
 #Transformar as colunas de listas em caracteres eliminando c("")
-unb.adv.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$nome_orientadores)
-unb.adv.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.df$id_lattes_orientadores)
+unb.adv.biomed.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.biomed.df$nome_orientadores)
+unb.adv.biomed.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.biomed.df$id_lattes_orientadores)
 #Separar as colunas com dois orientadores
-unb.adv.df <- separate(unb.adv.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+unb.adv.biomed.df <- separate(unb.adv.biomed.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
 # Contando quem tem apenas 1 orientador
-sum(is.na(unb.adv.df$ori2))
-unb.adv.df <- separate(unb.adv.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+sum(is.na(unb.adv.biomed.df$ori2))
+unb.adv.biomed.df <- separate(unb.adv.biomed.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
 # Contando quem tem apenas 1 orientador
-sum(is.na(unb.adv.df$idLattes2))
+sum(is.na(unb.adv.biomed.df$idLattes2))
 #Numero de orientacoes por ano
-table(unb.adv.df$ano)
+table(unb.adv.biomed.df$ano)
 #Numero de instituições 
-sort(table(unb.adv.df$instituicao),decreasing = TRUE)
+sort(table(unb.adv.biomed.df$instituicao),decreasing = TRUE)
 #Cursos que estão envolvido na pós-graduação de engenharia biomédica
-cursos_d <- sort(table(unb.adv.df$curso), decreasing = TRUE)
+cursos_d <- sort(table(unb.adv.biomed.df$curso), decreasing = TRUE)
 cursos_d
 cursos_d5<-head(cursos_d,5)
-table(unb.adv.df$codigo_do_curso)
+table(unb.adv.biomed.df$codigo_do_curso)
 #Quantidas de natureza dos trabalhos orientado
-table(unb.adv.df$natureza)
+table(unb.adv.biomed.df$natureza)
 #Tabela com nome de professor e numero de orientacoes
-head(sort(table(rbind(unb.adv.df$ori1, unb.adv.df$ori2)), decreasing = TRUE), 20)
+head(sort(table(rbind(unb.adv.biomed.df$ori1, unb.adv.biomed.df$ori2)), decreasing = TRUE), 20)
 # Tabela com nome dos alunos que mais foram orientados
-head(sort(table(toupper(unb.adv.df$nome_aluno)),decreasing = TRUE),n=10)
+head(sort(table(toupper(unb.adv.biomed.df$nome_aluno)),decreasing = TRUE),n=10)
 # Quantidade de alunos que não são bolsistas 
-sum(unb.adv.df$bolsa == 'NAO')
+sum(unb.adv.biomed.df$bolsa == 'NAO')
 # Quantidade de alunos que são bolsistas 
-sum(unb.adv.df$bolsa == 'SIM')
+sum(unb.adv.biomed.df$bolsa == 'SIM')
 # Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
-table(unb.adv.df$agencia_financiadora)
+table(unb.adv.biomed.df$agencia_financiadora)
 ```
 
 
@@ -429,7 +429,7 @@ Para o levantamento de informação os dados em geral são preciso, como por exempl
 
 ##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
 
-Para a principal utilização dos dados foi definidos os __data frames__ unb.adv.df, que neste caso contêm alguns informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. Também foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.df, que já está limpo, com as principais colunas definidas.
+Para a principal utilização dos dados foi definidos os __data frames__ unb.adv.biomed.df, que neste caso contêm alguns informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. Também foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.biomed.df, que já está limpo, com as principais colunas definidas.
 
 ##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
 
@@ -640,34 +640,34 @@ extrai_areas_atuacao <- function(jsonProfessores){
 ########################### Inicio ###############################
 #### Começo da preparação dos dados referente a profile
 
-unb.prof.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
-unb.prof.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
+unb.prof.biomed.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
+unb.prof.biomed.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
-unb.prof <- fromJSON(unb.prof.json)
-length(unb.prof)
+unb.prof.biomed <- fromJSON(unb.prof.biomed.json)
+length(unb.prof.biomed)
 
 # extrai perfis dos professores 
-unb.prof.df.professores <- extrai_perfis(unb.prof)
+unb.prof.biomed.df.professores <- extrai_perfis(unb.prof.biomed)
 
 # extrai producao bibliografica de todos os professores 
-unb.prof.df.publicacoes <- extrai_producoes(unb.prof)
+unb.prof.biomed.df.publicacoes <- extrai_producoes(unb.prof.biomed)
 
 #extrai orientacoes 
-unb.prof.df.orientacoes <- extrai_orientacoes(unb.prof)
+unb.prof.biomed.df.orientacoes <- extrai_orientacoes(unb.prof.biomed)
 
 #extrai areas de atuacao 
-unb.prof.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof)
+unb.prof.biomed.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.biomed)
 
 #salva os daframes 
-save(unb.prof.df.professores, unb.prof.df.publicacoes,
-     unb.prof.df.orientacoes, unb.prof.df.areas.de.atuacao, file = "dataframes.Rda")
+save(unb.prof.biomed.df.professores, unb.prof.biomed.df.publicacoes,
+     unb.prof.biomed.df.orientacoes, unb.prof.biomed.df.areas.de.atuacao, file = "dataframes.Rda")
 
 #cria arquivo para análise
-unb.prof.df <- data.frame()
-unb.prof.df <- unb.prof.df.professores %>% 
+unb.prof.biomed.df <- data.frame()
+unb.prof.biomed.df <- unb.prof.biomed.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
   left_join(
-    unb.prof.df.orientacoes %>% 
+    unb.prof.biomed.df.orientacoes %>% 
       select(orientacao, idLattes) %>% 
       filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
       group_by(idLattes) %>% 
@@ -675,7 +675,7 @@ unb.prof.df <- unb.prof.df.professores %>%
       spread(key = orientacao, value = n), 
     by = "idLattes") %>% 
   left_join(
-    unb.prof.df.publicacoes %>% 
+    unb.prof.biomed.df.publicacoes %>% 
       select(tipo_producao, idLattes) %>% 
       filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
       group_by(idLattes) %>% 
@@ -683,28 +683,28 @@ unb.prof.df <- unb.prof.df.professores %>%
       spread(key = tipo_producao, value = n), 
     by = "idLattes") %>% 
   left_join(
-    unb.prof.df.areas.de.atuacao %>% 
+    unb.prof.biomed.df.areas.de.atuacao %>% 
       select(area, idLattes) %>% 
       group_by(idLattes) %>% 
       summarise(n_distinct(area)), 
     by = "idLattes") %>% 
   left_join(
-    unb.prof.df.capes %>% 
+    unb.prof.biomed.df.capes %>% 
       select(AreaPos, idLattes) %>% 
       group_by(idLattes) %>% 
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
 
-glimpse(unb.prof.df)
-head(unb.prof.df,3)
+glimpse(unb.prof.biomed.df)
+head(unb.prof.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.publication.json
-glimpse(unb.pub.df)
+glimpse(unb.pub.biomed.df)
 #Podemos ver que contêm natureza, titulo, periodico , autores .... 
-head(unb.pub.df,3)
+head(unb.pub.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.advise.json
-glimpse(unb.adv.df)
+glimpse(unb.adv.biomed.df)
 #Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
-head(unb.adv.df,3)
+head(unb.adv.biomed.df,3)
 ###################### Os arquivos 
 ###### 279.graph.json - usado para mostrar correlações
 #### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
@@ -731,7 +731,7 @@ Será exposto em forma de gráficos certos dados que se acharam convenientes e int
 
 Aqui visa-se ver as quantidades de publicações feitas por anos na área de engenharia de biomédica. 
 ```{r}
-unb.adv.df %>%
+unb.adv.biomed.df %>%
 group_by(ano) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = ano, y = Quantidade)) +
@@ -743,7 +743,7 @@ theme_minimal()
 Agora verificando a quantidade separada por tipo de publicação.
 
 ```{r}
-unb.adv.df %>%
+unb.adv.biomed.df %>%
 group_by(natureza) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = natureza, y = Quantidade)) +
@@ -762,7 +762,7 @@ pie(cursos_d5,clockwise=TRUE,main="Cursos mais presentes")
 Quantos bolsistas tem ?
 
 ```{r}
-unb.adv.df %>%
+unb.adv.biomed.df %>%
 group_by(bolsa) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = bolsa, y = Quantidade)) +
@@ -776,14 +776,14 @@ Assim, estes gráficos permitem verificar alguns aspectos importantes sobre as or
 Verificando, agora, o arquivo 279.publication.json, contendo informações sobre as publicações.
 
 ```{r}
-pie(table(unb.pub.df$natureza),main="Natureza das publicações",col = "cyan")
+pie(table(unb.pub.biomed.df$natureza),main="Natureza das publicações",col = "cyan")
 
 ```
 
 Separando por ano e depois por periódico.
 
 ```{r}
-unb.pub.df %>%
+unb.pub.biomed.df %>%
 group_by(ano) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = ano, y = Quantidade)) +
@@ -794,7 +794,7 @@ theme_minimal()
 
 ```{r}
 
-d <- table(unb.pub.df$periodico)
+d <- table(unb.pub.biomed.df$periodico)
 head(sort(d,decreasing = TRUE),n=5)
 
 ```
@@ -804,7 +804,7 @@ Mostrando os autores que mais participaram de publicações.
 ```{r}
 
 
-head(sort(table(toupper(unlist(strsplit(unb.pub.df$autores,";")))),decreasing = TRUE),n=10)
+head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decreasing = TRUE),n=10)
 
 ```
 
@@ -813,7 +813,7 @@ Assim, vemos que há algumas incoerência neste dado acima, isto se dá pela falta 
 Analisando o arquivo 279.profile.json.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(senioridade) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = senioridade, y = Quantidade)) +
@@ -825,7 +825,7 @@ theme_minimal()
 Analisando quandidade de orientações concluídas no doutorado por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO ))%>%  
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
@@ -837,7 +837,7 @@ theme_minimal()
 Analisando quandidade de orientações concluídas no mestrado por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%  
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
@@ -849,7 +849,7 @@ theme_minimal()
 Analisando quandidade de orientações concluídas no pós doutorado por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(ORIENTACAO_CONCLUIDA_POS_DOUTORADO))%>%  
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_POS_DOUTORADO)) +
@@ -861,7 +861,7 @@ theme_minimal()
 Analisando quandidade de orientações concluídas em outros tipos por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%  
 ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
@@ -873,7 +873,7 @@ theme_minimal()
 Analisando quandidade de eventos ido por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(EVENTO))%>%  
 ggplot(aes(x = nome, y = EVENTO)) +
@@ -885,7 +885,7 @@ theme_minimal()
 Analisando quandidade de periódicos por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(PERIODICO))%>%  
 ggplot(aes(x = nome, y = PERIODICO)) +
@@ -897,7 +897,7 @@ theme_minimal()
 Analisando quandidade de livro por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(LIVRO))%>%  
 ggplot(aes(x = nome, y = LIVRO)) +
@@ -909,7 +909,7 @@ theme_minimal()
 Analisando quandidade de texto em jornais por professor.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(nome) %>%
 filter(!is.na(TEXTO_EM_JORNAIS))%>%  
 ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
@@ -921,7 +921,7 @@ theme_minimal()
 Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(`n_distinct(area)`) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = `n_distinct(area)`, y = Quantidade)) +
@@ -934,7 +934,7 @@ theme_minimal()
 Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
 
 ```{r}
-unb.prof.df %>%
+unb.prof.biomed.df %>%
 group_by(`n_distinct(AreaPos)`) %>%
 summarise(Quantidade = n()) %>%
 ggplot(aes(x = `n_distinct(AreaPos)`, y = Quantidade)) +
