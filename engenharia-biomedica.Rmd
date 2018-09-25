@@ -16,7 +16,7 @@ knitr::opts_knit$set(root.dir = getwd())
 
 # Introdução
 
-O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia biomédica em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
+O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia biomédica, engenharia elétrica em seus dois ramos (53001010059P8 e 53001010080P7) e engenharia de sistemas eletrônicos e de automação em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
 
 #Metodologia
 
@@ -62,7 +62,7 @@ A Universidade de Brasília é uma das grandes universidades federais, sendo respo
 | 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO | [ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
 | 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA BIOMÉDICA                              | [ENGENHARIA BIOMÉDICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
 
-Sendo o enfoque principal os dados referente a engenharia biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de biomédica.
+Sendo o enfoque principal os dados referente a engenharia biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de biomédica e demais áreas representadas acima.
 
 ##Avaliação das Circunstancias
 
@@ -78,11 +78,19 @@ Os arquivos estão no formato JSON, sendo todos fornecidos pelos docentes respons
 ###Perfil profissional dos docentes vinculados às pós-graduações
 
 ```{r}
+
 json.perfil.biomed <- "dados-2018-2/engenharia-biomedica/279.profile.json"
 file.info(json.perfil.biomed)
+json.perfil.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.profile.json"
+file.info(json.perfil.auto)
+json.perfil.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.profile.json"
+file.info(json.perfil.ele_p7)
+json.perfil.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.profile.json"
+file.info(json.perfil.ele_p7)
+
 ```
 
-O arquivo `r json.perfil.biomed` apresenta dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, da UnB, entre 2010 e 2017. 
+Os arquivos `r json.perfil.biomed, json.perfil.auto, json.perfil.ele_p7, json.perfil.ele_p8 ` apresentam dados sobre o perfil de todos os docentes vinculados a programas de pós-graduação, em engenharia biomédia, automação, engenharia elétrica (p7 e p8), da UnB, entre 2010 e 2017. 
 
 
 ###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduações
@@ -90,28 +98,47 @@ O arquivo `r json.perfil.biomed` apresenta dados sobre o perfil de todos os doce
 ```{r}
 json.advise.biomed <- "dados-2018-2/engenharia-biomedica/279.advise.json"
 file.info(json.advise.biomed)
+json.advise.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.advise.json"
+file.info(json.advise.auto)
+json.advise.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.advise.json"
+file.info(json.advise.ele_p8)
+json.advise.ele_p8 <- "dados-2018-2/engenharia-eletrica-p7/282.advise.json"
+file.info(json.advise.ele_p7)
+
 ```
 
-O arquivo `r json.advise.biomed` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica, da UnB, entre 2010 e 2017. 
+Os arquivos `r json.advise.biomed, json.advise.auto, json.advise.ele_p7, json.advise.ele_p8 ` apresenta dados sobre o orientações de mestrado e doutorado feitas por todos os docentes vinculados a programas de pós-graduação em engenharia biomédica e demais, da UnB, entre 2010 e 2017. 
 
 
-###Produção bibliográfica gerada pelos docentes vinculados Ã s pós-graduações
+###Produção bibliográfica gerada pelos docentes vinculados às pós-graduações
 
 ```{r}
 json.producao.bibliografica.biomed <- "dados-2018-2/engenharia-biomedica/279.publication.json"
-file.info(json.producao.bibliografica.biomed) 
+file.info(json.producao.bibliografica.biomed)
+json.producao.bibliografica.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.publication.json"
+file.info(json.producao.bibliografica.auto)
+json.producao.bibliografica.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.publication.json"
+file.info(json.producao.bibliografica.ele_p8)
+json.producao.bibliografica.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.publication.json"
+file.info(json.producao.bibliografica.ele_p7) 
 ```
 
-O arquivo `r json.producao.bibliografica.biomed` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017. 
+Os arquivos `r json.producao.bibliografica.biomed, json.producao.bibliografica.auto, json.producao.bibliografica.ele_p7 e json.producao.bibliografica.ele_p8 ` apresenta dados sobre a produção bibliográfica gerada por todos os docentes vinculados a programas de pós-graduação, em engenharia elétrica p7 e também as demais, da UnB, entre 2010 e 2017. 
 
 ###ID's dos docentes participantes e o que contêm o arquivo list.json
 
 ```{r}
 json.list.biomed <- "dados-2018-2/engenharia-biomedica/279.list.json"
-file.info(json.list.biomed) 
+file.info(json.list.biomed)
+json.list.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.list.json"
+file.info(json.list.auto)
+json.list.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.list.json"
+file.info(json.list.ele_p8)
+json.list.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.list.json"
+file.info(json.list.ele_p7)
 ```
 
-O arquivo `r json.list.biomed` apresenta o id de todos docentes vinculados a programas de pós-graduação, em engenharia biomédica, da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
+Os arquivos `r json.list.biomed` apresenta o id de todos docentes vinculados a programas de pós-graduação descritos acima da UnB, entre 2010 e 2017.Porém tal arquivo se mostra inútil, haja visto que só contém o id e que as outras variáveis como __"nome"__ sempre tem seu valor igual a __""__. 
 
 
 
@@ -121,9 +148,15 @@ O arquivo `r json.list.biomed` apresenta o id de todos docentes vinculados a pro
 ```{r}
 json.graph.biomed<-'dados-2018-2/engenharia-biomedica/279.graph.json'
 file.info(json.graph.biomed)
+json.graph.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.graph.json"
+file.info(json.graph.auto)
+json.graph.ele_p8 <- "dados-2018-2/engenharia-eletrica-p8/281.graph.json"
+file.info(json.graph.ele_p8)
+json.graph.ele_p7 <- "dados-2018-2/engenharia-eletrica-p7/282.graph.json"
+file.info(json.graph.ele_p7)
 ```
 
-O arquivo `r json.graph.biomed` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
+Os arquivos `r json.graph.biomed, json.graph.ele_p7, json.graph.ele_p8 e json.graph.auto` apresenta redes de colaboração na co-autoria de artigos científicos, feitas entre os docentes vinculados a programas de pós-graduação da UnB, entre 2010 e 2017.
 
 ##CRISP-DM Fase.Atividade 2.2 - Descrição dos Dados
 
@@ -138,11 +171,14 @@ library(readtext)
 library(ggplot2)
 library(tidyverse)
 library(stringr)
+library(igraph)
 ```
 
 Com estas bibliotecas seremos capazes de responder e determinar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc..
 
 ###Descrição dos dados do perfil
+
+#### Verificando engenharia biomédica
 
 ```{r}
 unb.prof.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.profile.json")
@@ -166,6 +202,57 @@ Podemos inferir que:
 * Não é nativo da UnB, sendo formado no UFG.
 * Atualmente trabalha na UnB do Gama.
 * Sua senioridade é de 9.
+
+#### Verificando engenharia de sistemas eletrônicos e de automação
+
+Fazendo processo similar para as outras áreas.
+
+```{r}
+unb.prof.auto <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.profile.json")
+```
+
+A quantidade de docentes sob análise é apresentada a seguir.
+```{r}
+length(unb.prof.auto)
+```
+Verificando terceiro elemento.
+```{r}
+### Usando glimpse
+glimpse(unb.prof.auto[[3]], width = 30)
+```
+
+
+#### Verificando engenharia elétrica p8
+
+```{r}
+unb.prof.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.profile.json")
+```
+
+A quantidade de docentes sob análise é apresentada a seguir.
+```{r}
+length(unb.prof.ele_p8)
+```
+Verificando oitavo elemento.
+```{r}
+### Usando glimpse
+glimpse(unb.prof.ele_p8[[8]], width = 30)
+```
+
+#### Verificando engenharia elétrica p7
+
+```{r}
+unb.prof.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
+```
+
+A quantidade de docentes sob análise é apresentada a seguir.
+```{r}
+length(unb.prof.ele_p7)
+```
+Verificando sétimo elemento.
+```{r}
+### Usando glimpse
+glimpse(unb.prof.ele_p7[[7]], width = 30)
+
 
 ####Potencial de utilização dos dados do perfil dos docentes
 
