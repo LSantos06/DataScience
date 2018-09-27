@@ -4,10 +4,10 @@ title:  Ci?ncia de Dados para Todos (Data Science
 author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Arag?o"
 date: "20/09/2018"
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -258,7 +258,6 @@ glimpse(unb.prof.ele_p7[[7]], width = 30)
 
 ###Descri??o dos dados de orienta??es
 
-```{r}
 unb.adv.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
 # Mostrando as listas presentes neste arquivo.
 names(unb.adv.biomed)
@@ -296,6 +295,8 @@ Sendo o professor "Marcus Vin?cius Chaffim Costa" respons?vel apenas por orienta
 
 ###Descri??o dos dados list.json
 
+####Descrição de biomedicina 
+
 ```{r}
 unb.list.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.list.json")
 #analisando a quantidade de elementos presente em list.json
@@ -314,6 +315,64 @@ unique(d_listDT)
 ```
 
 Feito a an?lise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como in?til, haja visto que n?o d? para obter quaisquer dado pla?sivel, somente os id.
+
+####Descrição de engenharia  de automação
+
+```{r}
+unb.list.auto <- fromJSON("dados-2018-2/engenharia-eletronicos-automacao/280.list.json")
+#analisando a quantidade de elementos presente em list.json
+length(unb.list.auto$fiocruz$id)
+# Mostrando alguns id, verificar que eles s?o diferentes       
+d_listID <- unb.list.auto$fiocruz$id
+unique(d_listID)
+#Mostrando nome sempre igual ""
+d_listNO <- unb.list.auto$fiocruz$nome
+unique(d_listNO)
+#Mostrando periodo sempre igual 2010-2017 
+d_listDT <- unb.list.auto$fiocruz$periodo
+unique(d_listDT)
+
+
+```
+
+####Descrição de engenharia elétrica p8
+
+```{r}
+unb.list.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.list.json")
+#analisando a quantidade de elementos presente em list.json
+length(unb.list.ele_p8$fiocruz$id)
+# Mostrando alguns id, verificar que eles s?o diferentes       
+d_listID <- unb.list.ele_p8$fiocruz$id
+unique(d_listID)
+#Mostrando nome sempre igual ""
+d_listNO <- unb.list.ele_p8$fiocruz$nome
+unique(d_listNO)
+#Mostrando periodo sempre igual 2010-2017 
+d_listDT <- unb.list.ele_p8$fiocruz$periodo
+unique(d_listDT)
+
+
+```
+
+
+####Descrição de engenharia elétrica p7
+
+```{r}
+unb.list.ele_p7 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.list.json")
+#analisando a quantidade de elementos presente em list.json
+length(unb.list.ele_p7$fiocruz$id)
+# Mostrando alguns id, verificar que eles s?o diferentes       
+d_listID <- unb.list.ele_p7$fiocruz$id
+unique(d_listID)
+#Mostrando nome sempre igual ""
+d_listNO <- unb.list.ele_p7$fiocruz$nome
+unique(d_listNO)
+#Mostrando periodo sempre igual 2010-2017 
+d_listDT <- unb.list.ele_p7$fiocruz$periodo
+unique(d_listDT)
+
+
+```
 
 
 
@@ -1037,9 +1096,8 @@ unb.graph.biomed$links$target
 list_biomed <- c(rbind(unb.graph.biomed$links$source,unb.graph.biomed$links$target))
 list_biomed
 
-g_biomed<-graph(list_biomed, directed=FALSE)
-length(g_biomed)
-g_biomed
+g_biomed<-graph(list_biomed, directed=TRUE)
+g_biomed[ 1:length(g_biomed) ]
 plot(g_biomed)
 ```
 
