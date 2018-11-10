@@ -1,6 +1,6 @@
 ---
 title:  Ciência de Dados para Todos (Data Science
-  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica
+  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica, engenharia eletrônicos e automação, engenharia elétrica p7 e  engenharia elétrica p8. 
 author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
