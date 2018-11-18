@@ -4,10 +4,10 @@ title:  Ciência de Dados para Todos (Data Science
 author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
