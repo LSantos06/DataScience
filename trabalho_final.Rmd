@@ -289,7 +289,7 @@ data_orien <- capture.output(str(unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO$`2
 unique(data_orien)
 ```
 
-Como se pode perceber apenas u, professor que orientou doutorado concluido em 2017 ( "Marilia Miranda Forte Gomes") também fez parte dos professores que orientaram no mestrado: 
+Como se pode perceber apenas um, professor que orientou doutorado concluido em 2017 ( "Marilia Miranda Forte Gomes") também fez parte dos professores que orientaram no mestrado: 
 
 * "Georges Daniel Amvame Nze"
 * "Jose Felicio da Silva"
@@ -927,7 +927,8 @@ head(unb.adv.biomed.df,3)
 ###################### Os arquivos 
 ###### 279.graph.json - usado para mostrar correlações
 #### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
-
+#numero de docentes
+unique(length(unb.prof.biomed.df.orientacoes$nome_aluno))
 
 ```
 
