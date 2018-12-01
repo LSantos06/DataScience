@@ -325,7 +325,7 @@ Para um melhor entendimento é importante saber como os dados estão dispostos p
 
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.biomed[[1]], width = 30)
+glimpse(unb.prof.biomed[[1]])
 ```
 
 Podemos inferir que:
@@ -350,10 +350,10 @@ length(unb.prof.auto)
 Verificando terceiro elemento.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.auto[[3]], width = 10)
+glimpse(unb.prof.auto[[3]])
 ```
 
-Professor, senioridade 9, Adson Rochaformado na UnB, em 1988, em engenharia elétrica.
+Professor, senioridade 9, Adson Rocha formado na UnB, em 1988, em engenharia elétrica.
 
 #### Verificando engenharia elétrica p8
 
@@ -368,7 +368,7 @@ length(unb.prof.ele_p8)
 Verificando oitavo elemento, para poder ter uma noção.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.ele_p8[[8]], width = 10)
+glimpse(unb.prof.ele_p8[[8]])
 ```
 
 Trata-se do professor Anderson Clayton Alves Nascimento, formado na UnB em 1998, em engenharia elétrica, sendo sua especialidade em criptografia e sua senioridade é 8.
@@ -386,7 +386,7 @@ length(unb.prof.ele_p7)
 Verificando sétimo elemento.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.ele_p7[[7]], width = 10)
+glimpse(unb.prof.ele_p7[[7]])
 ```
 
 É o professor Sébastien, membro senior do IEEE, tem interesse em matemática aplicada na computação e em telecomunicações, atualmente está na UnB do Gama.
@@ -468,10 +468,12 @@ unique(data_orien2)
 
 ```
 
-Mais uma vez, os dados mais atualizados são de 2017. Há apenas 3 doutorados concluidos em 2017, sendo duas na UnB e uma em conjunto com o Instituto de Computação. Os orientadores são :
+Mais uma vez, os dados mais atualizados são de 2017. Há apenas 3 doutorados concluidos em 2017, sendo duas na UnB e uma em conjunto com o Instituto de Computação. Os orientadores são:
+
 * "Anderson de Rezende Rocha"           
 * "Joao Paulo Carvalho Lustosa da Costa"
 * "Rafael Timóteo de Sousa Jr"
+
 Um dos trabalhos tem o título : "iSuper-resolution in low-quality videos for forensics, surveillance, and mobile applications".
 
 Já no mestrado, podemos ver um grande problema da ciência de dados, o tratamento dos mesmos.
@@ -500,7 +502,7 @@ unique(d_listDT)
 
 ```
 
-Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como inútil, haja visto que não matemática para obter quaisquer dado plaúsivel, somente os id.
+Feito a análise, percebe-se que apenas o campo id que muda, tanto __"nome"__ (obtendo sempre o valor "") e __"periodo"__(obtendo sempre o valor["2010","2017"]), por isso considera-se este arquivo JSON como inútil, haja visto que não há matemática para obter quaisquer dado plaúsivel, somente os id.
 
 ####Descrição de engenharia  de automação
 
@@ -521,7 +523,7 @@ unique(d_listDT)
 
 ```
 
-Novamente, considera-se este arquivo JSON como inútil, haja visto que não matemática para obter quaisquer dado plaúsivel, somente os id.
+Novamente, considera-se este arquivo JSON como inútil, haja visto que não tem matemática para obter quaisquer dado plaúsivel, somente os id.
 ####Descrição de engenharia elétrica p8
 
 ```{r}
@@ -541,7 +543,7 @@ unique(d_listDT)
 
 ```
 
-Sendo este arquivo JSON sem qualquer significado, haja visto que não matemática para obter quaisquer dado plaúsivel, somente os id.
+Sendo este arquivo JSON sem qualquer significado, haja visto que não há matemática para obter quaisquer dado plaúsivel, somente os id.
 
 ####Descrição de engenharia elétrica p7
 
@@ -562,7 +564,7 @@ unique(d_listDT)
 
 ```
 
-Novamente, arquivo JSON sem qualquer significado, haja visto que não matemática para obter quaisquer dado plaúsivel, somente os id.
+Novamente, arquivo JSON sem qualquer significado, haja visto que não tem matemática para obter quaisquer dado plaúsivel, somente os id.
 
 
 ###Descrição dos dados de Produção bibliográfica
@@ -602,7 +604,7 @@ names(unb.pub.ele_p8$PERIODICO$`2012`)
 head(sort(table(unb.pub.ele_p8$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
 #Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia Biomédica da UnB no 2017.
 head(sort(table(unb.pub.ele_p8$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
-#Nomes dos autores que produziram um tipo de Produção que não estava contemplada .
+#Nomes dos autores que produziram um tipo de Produção que não estava contemplada em 2011 .
 head(sort(table(unb.pub.ele_p8$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
 
 ```
@@ -618,8 +620,8 @@ names(unb.pub.ele_p7$PERIODICO$`2012`)
 head(sort(table(unb.pub.ele_p7$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
 #Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia Biomédica da UnB no 2017.
 head(sort(table(unb.pub.ele_p7$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
-#Nomes dos autores que produziram um tipo de Produção que não estava contemplada .
-head(sort(table(unb.pub.ele_p7$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
+#Nomes dos autores que produziram um tipo de Produção que não estava contemplada em 2014.
+head(sort(table(unb.pub.ele_p7$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2014`$autores), decreasing = TRUE), 10)
 
 ```
 
@@ -686,7 +688,6 @@ str(unb.graph.ele_p7$links$weigth)
 ###Arquivo Profile
 ####TODO LIST : VERIFICAR 
   *  Engenharia p7
-  *  Engenharia p8
   *  automação
   
 ####Verificando engenharia biomédica
@@ -757,11 +758,88 @@ table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIEN
 
 ```
 
+Pelos dados, a maioria dos profissionais atuam na área de engenharia (34). A maioria da produão científica é dada pela pubilicações em periódicos. Um fato interessante é que em 2015 houve um grande número de capítulos de livro publicado, fugindo do padrão de 4. Há apenas um texto em jornal publicado em 2010. Houve apeans dois pós-doutorado feito em biomédica na UnB em 2014 e 2017.
+
 ####Verificando engenharia automação
 
 
 ####Verificando engenharia elétrica p8
+```{r}
+# Total de áreas de atuação de todos profissionais
+sum(sapply(unb.prof.ele_p8, function(x) nrow(x$areas_de_atuacao)))
+# número de pessoas por grande area
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$areas_de_atuacao$grande_area))))
+# número de pessoas que produziram os tipos de Produção específico
+table(unlist(sapply(unb.prof.ele_p8, function(x) names(x$producao_bibiografica))))
+# número de publicações por tipo
+#####ARTIGO ACEITO###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
 
+#####CAPITULO DE LIVRO###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+
+#####LIVRO###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+
+#####periódico###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+
+#####TEXTO EM JORNAIS###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+#####DEMAIS TIPOS###############
+sum(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
+
+
+
+# número de produções por ano
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+# número de pessoas que realizaram diferentes tipos de orientações
+length(unlist(sapply(unb.prof.ele_p8, function(x) names(x$orientacoes_academicas))))
+# número de pessoas por tipo de orientação
+table(unlist(sapply(unb.prof.ele_p8, function(x) names(x$orientacoes_academicas))))
+#número de orientações concluidas
+sum(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+# número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+# número de orientações por ano
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+# números de orientações não concluidas por ano
+# Trabalho de mestrado em andamento
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_MESTRADO$ano))))
+# DOUTORADO em andamento
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_DOUTORADO$ano))))
+# Trabalho de Graduação em andamento
+table(unlist(sapply(unb.prof.ele_p8, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_GRADUACAO$ano))))
+
+```
+
+Em engenharia elétrica p8, tem uma boa divisão das grandes áreas dos orientadores, 20 para ciências exatas e da terra e 24 para engenharias, que é maioria de todas as pesquisas feitas. Houve 108 orientações concluidas de mestrado e apenas 17 doutorado, que não é tão diferente de pós-doutorados: 12. Há um doutorado de 2013 que não foi concluido ainda.
 
 ####Verificando engenharia elétrica p7
 
@@ -770,7 +848,6 @@ table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIEN
 ###Arquivo publicação
 ####TODO LIST : VERIFICAR 
   *  Engenharia p7
-  *  Engenharia p8
   *  automação
 
 
@@ -783,13 +860,13 @@ table(unlist(sapply(unb.prof.biomed, function(x) (x$orientacoes_academicas$ORIEN
 unb.pub.biomed.df <- data.frame()
 for (i in 1:length(unb.pub.biomed[[1]]))
   unb.pub.biomed.df <- rbind(unb.pub.biomed.df, unb.pub.biomed$PERIODICO[[i]])
-glimpse(unb.pub.biomed.df)
+#glimpse(unb.pub.biomed.df)
 # Limpando o data-frame de listas
 unb.pub.biomed.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.biomed.df$autores)
 unb.pub.biomed.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.biomed.df$autores)
 unb.pub.biomed.df$`autores-endogeno` <- gsub(",", ";", unb.pub.biomed.df$`autores-endogeno`)
 unb.pub.biomed.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.biomed.df$`autores-endogeno`)
-glimpse(unb.pub.biomed.df)
+#glimpse(unb.pub.biomed.df)
 
 
 ### ARQUIVO PROCESSADO E LIMPO 
@@ -808,6 +885,7 @@ head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decrea
 ## Mostrando os autores-endogeno que tiveram mais publicação
 head(sort(table(unlist(unb.pub.biomed.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
+Há 147 publicações completas, sendo a maioria começando a ocorrer a partir de 2013. A maioria da publicação Revista Brasileira de Engenharia Biomédica (Impresso), 7, e Global Journal of Engineering Science and Research Management, 6 publicações. Amorim é o autor com mais publicações.
 
 ####Verificando engenharia eletrônica e automação
 
@@ -820,13 +898,13 @@ head(sort(table(unlist(unb.pub.biomed.df$`autores-endogeno`)),decreasing = TRUE)
 unb.pub.ele_p8.df <- data.frame()
 for (i in 1:length(unb.pub.ele_p8[[1]]))
   unb.pub.ele_p8.df <- rbind(unb.pub.ele_p8.df, unb.pub.ele_p8$PERIODICO[[i]])
-glimpse(unb.pub.ele_p8.df)
+#glimpse(unb.pub.ele_p8.df)
 # Limpando o data-frame de listas
 unb.pub.ele_p8.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.ele_p8.df$autores)
 unb.pub.ele_p8.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p8.df$autores)
 unb.pub.ele_p8.df$`autores-endogeno` <- gsub(",", ";", unb.pub.ele_p8.df$`autores-endogeno`)
 unb.pub.ele_p8.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p8.df$`autores-endogeno`)
-glimpse(unb.pub.ele_p8.df)
+#glimpse(unb.pub.ele_p8.df)
 
 
 ### ARQUIVO PROCESSADO E LIMPO 
@@ -835,7 +913,7 @@ table(unb.pub.ele_p8.df$natureza)
 
 ## publicações 2010 até 2017
 table(unb.pub.ele_p8.df$ano)
-## publicações por periódico, mostrando os top-5 na área de Biomédica
+## publicações por periódico, mostrando os top-5 na área de Elétrica p8
 d <- table(unb.pub.ele_p8.df$periodico)
 head(sort(d,decreasing = TRUE),n=5)
 
@@ -846,6 +924,8 @@ head(sort(table(toupper(unlist(strsplit(unb.pub.ele_p8.df$autores,";")))),decrea
 head(sort(table(unlist(unb.pub.ele_p8.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
 
+Processando os dados, pode-se concluir que todas as publicações foram completas, a maioria foi publicada na revista "IEEE Transactions on Information Forensics and Security", 14 no total. O autor que teve mais publicação foi Anderson de Rezendo Rocha.
+
 ####Verificando engenharia elétrica p7
 
 
@@ -854,7 +934,6 @@ head(sort(table(unlist(unb.pub.ele_p8.df$`autores-endogeno`)),decreasing = TRUE)
 
 ####TODO LIST : VERIFICAR 
   *  Engenharia p7
-  *  Engenharia p8
   *  automação
 
 ####Verificando engenharia biomédica
@@ -873,12 +952,14 @@ unb.adv.biomed.df <- rbind(unb.adv.biomed.df, unb.adv.biomed.tipo.df); unb.adv.b
 for (i in 1:length(unb.adv.biomed[[1]]))
   unb.adv.biomed.tipo.df <- rbind(unb.adv.biomed.tipo.df, unb.adv.biomed$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
 unb.adv.biomed.df <- rbind(unb.adv.biomed.df, unb.adv.biomed.tipo.df)
-glimpse(unb.adv.biomed.df)
+#glimpse(unb.adv.biomed.df)
 #Transformar as colunas de listas em caracteres eliminando c("")
 unb.adv.biomed.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.biomed.df$nome_orientadores)
 unb.adv.biomed.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.biomed.df$id_lattes_orientadores)
 #Separar as colunas com dois orientadores
 unb.adv.biomed.df <- separate(unb.adv.biomed.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+#Os que tem 1 orientador pelo menos
+length(unb.adv.biomed.df$ori1)
 # Contando quem tem apenas 1 orientador
 sum(is.na(unb.adv.biomed.df$ori2))
 unb.adv.biomed.df <- separate(unb.adv.biomed.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
@@ -906,19 +987,71 @@ sum(unb.adv.biomed.df$bolsa == 'SIM')
 # Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
 table(unb.adv.biomed.df$agencia_financiadora)
 ```
-
+Das 123 orientações, apenas uma delas contém um segundo orientador. A maioria das orientações ocorrem na UnB - Darcy Ribeiro depois é unidade do Gama, na UnB.  Das 123, a maioria é dissertação de mestrado 109, Lourdes Matos Brasil é a professora com mais orientações. 46 alunos são bolsistas.
 ####Verificando engenharia automação
 
 
 ####Verificando engenharia elétrica p8
 
+```{r}
+#Orientação
+#Visualizar a estrutura do json no painel Viewer
+#jsonedit(unb.adv.biomed)
+#Reunir todos os anos e orientações concluidas em um mesmo data-frame
+unb.adv.ele_p8.tipo.df <- data.frame(); unb.adv.ele_p8.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p8[[1]]))
+  unb.adv.ele_p8.tipo.df <- rbind(unb.adv.ele_p8.tipo.df, unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
+unb.adv.ele_p8.df <- rbind(unb.adv.ele_p8.df, unb.adv.ele_p8.tipo.df); unb.adv.ele_p8.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p8[[1]]))
+  unb.adv.ele_p8.tipo.df <- rbind(unb.adv.ele_p8.tipo.df, unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_DOUTORADO[[i]])
+unb.adv.ele_p8.df <- rbind(unb.adv.ele_p8.df, unb.adv.ele_p8.tipo.df); unb.adv.ele_p8.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p8[[1]]))
+  unb.adv.ele_p8.tipo.df <- rbind(unb.adv.ele_p8.tipo.df, unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
+unb.adv.ele_p8.df <- rbind(unb.adv.ele_p8.df, unb.adv.ele_p8.tipo.df)
+#glimpse(unb.adv.ele_p8.df)
+#Transformar as colunas de listas em caracteres eliminando c("")
+unb.adv.ele_p8.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.ele_p8.df$nome_orientadores)
+unb.adv.ele_p8.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.ele_p8.df$id_lattes_orientadores)
+#Separar as colunas com dois orientadores
+unb.adv.ele_p8.df <- separate(unb.adv.ele_p8.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+#Os que tem 1 orientador pelo menos
+length(unb.adv.ele_p8.df$ori1)
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.ele_p8.df$ori2))
+unb.adv.ele_p8.df <- separate(unb.adv.ele_p8.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.ele_p8.df$idLattes2))
+#Numero de orientacoes por ano
+table(unb.adv.ele_p8.df$ano)
+#Numero de instituições 
+sort(table(unb.adv.ele_p8.df$instituicao),decreasing = TRUE)
+#Cursos que estão envolvido na pós-graduação de engenharia eletrica
+cursos_d <- sort(table(unb.adv.ele_p8.df$curso), decreasing = TRUE)
+cursos_d
+cursos_d5<-head(cursos_d,5)
+table(unb.adv.ele_p8.df$codigo_do_curso)
+#Quantidas de natureza dos trabalhos orientado
+table(unb.adv.ele_p8.df$natureza)
+#Tabela com nome de professor e numero de orientacoes
+head(sort(table(rbind(unb.adv.ele_p8.df$ori1, unb.adv.ele_p8.df$ori2)), decreasing = TRUE), 20)
+# Tabela com nome dos alunos que mais foram orientados
+head(sort(table(toupper(unb.adv.ele_p8.df$nome_aluno)),decreasing = TRUE),n=10)
+# Quantidade de alunos que não são bolsistas 
+sum(unb.adv.ele_p8.df$bolsa == 'NAO')
+# Quantidade de alunos que são bolsistas 
+sum(unb.adv.ele_p8.df$bolsa == 'SIM')
+# Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
+table(unb.adv.ele_p8.df$agencia_financiadora)
+```
+
+Das 135 orientações apenas 2 tem mais de um orientador. 2012 é o ano com mais orientação. A principal instituição é, sem novidades, UnB, seguindo pelo instituto de Computação - Universidade Estadual de Campinas. A maioria é dissertação de mestrado 106. Anderson Rocha e Rafael Sousa são os maiores colaboradores.  A maioria dos alunos não são bolsistas 83 de 135.
 
 ####Verificando engenharia elétrica p7
 
 
 ##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
 
-Para o levantamento de informação os dados em geral são preciso, como por exemplo saber quais os professores mais envolvido em orientações, quantos artigos foram concluidos, informações por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou qualquer análise. 
+Para o levantamento de informação os dados em geral são preciso, como por exemplo saber quais os professores mais envolvido em orientações, quantos artigos foram concluidos, informações por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou qualquer análise.
 
 #CRISP-DM Fase 3 -  __Preparação dos Dados__
 
