@@ -302,6 +302,10 @@ library(ggplot2)
 library(tidyverse)
 library(stringr)
 library(igraph)
+library(tm)
+library(wordcloud)
+library(RColorBrewer)
+library(SnowballC)
 ```
 
 Com estas bibliotecas seremos capazes de responder e determinar qual o volume de dados, a estrutura dos dados (tipos), codificações usadas, etc..
@@ -1347,8 +1351,84 @@ unique(length(unb.prof.biomed.df.orientacoes$nome_aluno))
 
 ####Verificando engenharia elétrica p8
 
+```{r}
+########################### Inicio ###############################
+#### Começo da Preparação dos dados referente a profile
+
+unb.prof.ele_p8.json <- read_file("dados-2018-2/engenharia-eletrica-p8/281.profile.json")
+unb.prof.ele_p8.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
+                              sep = ";", header = TRUE, colClasses = "character")
+unb.prof.ele_p8 <- fromJSON(unb.prof.ele_p8.json)
+length(unb.prof.ele_p8)
+
+# extrai perfis dos professores 
+unb.prof.ele_p8.df.professores <- extrai_perfis(unb.prof.ele_p8)
+
+# extrai producao bibliografica de todos os professores 
+unb.prof.ele_p8.df.publicacoes <- extrai_producoes(unb.prof.ele_p8)
+
+#extrai orientacoes 
+unb.prof.ele_p8.df.orientacoes <- extrai_orientacoes(unb.prof.ele_p8)
+
+#extrai areas de atuacao 
+unb.prof.ele_p8.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.ele_p8)
+
+#salva os daframes 
+save(unb.prof.ele_p8.df.professores, unb.prof.ele_p8.df.publicacoes,
+     unb.prof.ele_p8.df.orientacoes, unb.prof.ele_p8.df.areas.de.atuacao, file = "dataframes.Rda")
+
+#cria arquivo para análise
+unb.prof.ele_p8.df <- data.frame()
+unb.prof.ele_p8.df <- unb.prof.ele_p8.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    unb.prof.ele_p8.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p8.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p8.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p8.df.capes %>% 
+      select(AreaPos, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(AreaPos)), 
+    by = "idLattes")
+
+glimpse(unb.prof.ele_p8.df)
+head(unb.prof.ele_p8.df,3)
+## Mostrando dados processados referente ao arquivo 281.publication.json
+glimpse(unb.pub.ele_p8.df)
+#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+head(unb.pub.ele_p8.df,3)
+## Mostrando dados processados referente ao arquivo 281.advise.json
+glimpse(unb.adv.ele_p8.df)
+#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+head(unb.adv.ele_p8.df,3)
+###################### Os arquivos 
+###### 279.graph.json - usado para mostrar correlações
+#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
+#numero de docentes
+unique(length(unb.prof.ele_p8.df.orientacoes$nome_aluno))
+```
 
 ####Verificando engenharia elétrica p7
+
 
 
 ##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
@@ -1608,12 +1688,44 @@ Assim podemos ver algumas relações entre os professores. Abaixo segue o id do 
 c(rbind(unb.graph.biomed$nodes$id,unb.graph.biomed$nodes$properties$name))
 ```
 
+```{r}
+### nuvem de palavras do curriculum
+dificuldades = unb.prof.biomed.df$resumo_cv[length(unb.prof.biomed.df$resumo_cv)] %>% tolower %>% 
+  removePunctuation %>% removeWords(., c(stopwords("pt"),"engenharia","federal","faculdade","pósgraduação","universidade"))
+wordcloud(enc2native(dificuldades), min.freq=2,max.words=100, random.order=F,colors=brewer.pal(8,"Dark2"), use.r.layout=TRUE, rot.per= 0.5)
+```
+
+Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "nanotecnologia" e "biomédica".
+
 ####Expondo engenharia automação
 
 
 
 ####Expondo engenharia elétrica p8
 
+```{r}
+### nuvem de palavras do curriculum
+docs <- Corpus(VectorSource(unb.prof.ele_p8.df$resumo_cv))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, c("pósgraduação", "federal","elétrica","pósgraduação")) 
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+dtm <- TermDocumentMatrix(docs)
+dtm$dimnames$Terms <- enc2native(dtm$dimnames$Terms )
+m <- as.matrix(dtm)
+m
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "nanotecnologia" e "biomédica". Além de palavras comuns do português.
 
 ####Expondo engenharia elétrica p7
 
