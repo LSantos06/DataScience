@@ -1,13 +1,16 @@
 ---
 title:  Ciência de Dados para Todos (Data Science
-  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília - Engenharia Biomédica, engenharia eletrônicos e automação, engenharia elétrica p7 e  engenharia elétrica p8. 
+  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília 
+
+subtitle: Engenharia Biomédica, engenharia eletrônicos e automação, engenharia elétrica p7 e  engenharia elétrica p8. 
+
 author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
 date: "20/09/2018"
 output:
-  pdf_document: 
-    latex_engine: xelatex
   html_document:
     df_print: paged
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
@@ -184,6 +187,13 @@ A Universidade de Brasília é uma das grandes universidades federais, sendo res
 
 Sendo o enfoque principal os dados referente a engenharia Biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de Biomédica e demais áreas representadas acima.
 
+### Engenharia de Sistemas Eletrôniocs e de Automação
+
+### Engenharia Elétrica p7
+
+### Engenharia Elétrica p8
+
+
 ##Avaliação das Circunstâncias
 
 Este trabalho terá o limite que os próprios dados gerado pela plataforma elattes tem, já que se os dados fornecidos delimitariam o escopo do projeto e até pode-se ir, ou melhor, até onde os dados permitem uma análise fidedgina. 
@@ -298,11 +308,6 @@ Com estas bibliotecas seremos capazes de responder e determinar qual o volume de
 
 ###Descrição dos dados do perfil
 
-####TODO LIST : VERIFICAR 
-  *  Engenharia p7
-  *  Engenharia p8
-  *  automação
-  
 
 
 #### Verificando engenharia Biomédica
@@ -345,9 +350,10 @@ length(unb.prof.auto)
 Verificando terceiro elemento.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.auto[[3]], width = 30)
+glimpse(unb.prof.auto[[3]], width = 10)
 ```
 
+Professor, senioridade 9, Adson Rochaformado na UnB, em 1988, em engenharia elétrica.
 
 #### Verificando engenharia elétrica p8
 
@@ -359,11 +365,13 @@ A quantidade de docentes sob análise é apresentada a seguir.
 ```{r}
 length(unb.prof.ele_p8)
 ```
-Verificando oitavo elemento.
+Verificando oitavo elemento, para poder ter uma noção.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.ele_p8[[8]], width = 30)
+glimpse(unb.prof.ele_p8[[8]], width = 10)
 ```
+
+Trata-se do professor Anderson Clayton Alves Nascimento, formado na UnB em 1998, em engenharia elétrica, sendo sua especialidade em criptografia e sua senioridade é 8.
 
 #### Verificando engenharia elétrica p7
 
@@ -375,14 +383,19 @@ A quantidade de docentes sob análise é apresentada a seguir.
 ```{r}
 length(unb.prof.ele_p7)
 ```
-Verificando sótimo elemento.
+Verificando sétimo elemento.
 ```{r}
 ### Usando glimpse
-glimpse(unb.prof.ele_p7[[7]], width = 30)
+glimpse(unb.prof.ele_p7[[7]], width = 10)
+```
 
+É o professor Sébastien, membro senior do IEEE, tem interesse em matemática aplicada na computação e em telecomunicações, atualmente está na UnB do Gama.
 
-####Potencial de utilização dos dados do perfil dos docentes
+### Descrevendo dados de orientação 
 
+#### Engenharia biomédica
+
+```{r}
 ###Descrição dos dados de orientações
 
 unb.adv.biomed <- fromJSON("dados-2018-2/engenharia-biomedica/279.advise.json")
@@ -419,6 +432,52 @@ Como se pode perceber apenas um, professor que orientou doutorado concluido em 2
 * "Ronni Geraldo Gomes de Amorim"
 
 Sendo o professor "Marcus Vinícius Chaffim Costa" responsável apenas por orientações de doutorado em 2017.
+
+#### Engenharia eletrônicos e automação
+
+#### Engenharia Elétrica p8
+
+```{r}
+###Descrição dos dados de orientações
+
+unb.adv.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.advise.json")
+############## DOUTORADO 2017
+#Buscando cursos que mais produziram doutorados.
+head(sort(table(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+#Sabendo suas instituições
+head(sort(table(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+data_orienM <- capture.output(str(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
+unique(data_orienM)
+#Sabendo os nomes dos trabalhos
+data_orienM <- capture.output(str(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$titulo))
+unique(data_orienM)
+
+
+############## MESTRADO 2017
+#Buscando cursos que mais produziram mestrados.
+head(sort(table(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso), decreasing = TRUE), 10)
+head(sort(table(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+data_orien3 <- capture.output(str(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
+unique(data_orien3)
+#Sabendo seus orientados
+data_orien2 <- capture.output(str(unb.adv.ele_p8$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_aluno))
+unique(data_orien2)
+
+
+```
+
+Mais uma vez, os dados mais atualizados são de 2017. Há apenas 3 doutorados concluidos em 2017, sendo duas na UnB e uma em conjunto com o Instituto de Computação. Os orientadores são :
+* "Anderson de Rezende Rocha"           
+* "Joao Paulo Carvalho Lustosa da Costa"
+* "Rafael Timóteo de Sousa Jr"
+Um dos trabalhos tem o título : "iSuper-resolution in low-quality videos for forensics, surveillance, and mobile applications".
+
+Já no mestrado, podemos ver um grande problema da ciência de dados, o tratamento dos mesmos.
+
+#### Engenharia Elétrica p7
+
 
 ###Descrição dos dados list.json
 
@@ -509,8 +568,6 @@ Novamente, arquivo JSON sem qualquer significado, haja visto que não matemátic
 ###Descrição dos dados de Produção bibliográfica
 
 ####TODO LIST : VERIFICAR 
-  *  Engenharia p7
-  *  Engenharia p8
   *  automação
 
 ####Verificando engenharia biomédica
@@ -535,16 +592,42 @@ head(sort(table(unb.pub.biomed$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$aut
 
 ####Verificando engenharia elétrica p8
 
+```{r}
+unb.pub.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.publication.json")
+# Verificando os tipos de produções que existe.
+names(unb.pub.ele_p8)
+#Analisando o qual tipo de informação se tem em periódicos no ano 2012.
+names(unb.pub.ele_p8$PERIODICO$`2012`)
+#Nomes dos periódicos em que tiveram mais publicações na área de engenharia Biomédica.
+head(sort(table(unb.pub.ele_p8$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
+#Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia Biomédica da UnB no 2017.
+head(sort(table(unb.pub.ele_p8$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
+#Nomes dos autores que produziram um tipo de Produção que não estava contemplada .
+head(sort(table(unb.pub.ele_p8$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
+
+```
 
 ####Verificando engenharia elétrica p7
+```{r}
+unb.pub.ele_p7 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.publication.json")
+# Verificando os tipos de produções que existe.
+names(unb.pub.ele_p7)
+#Analisando o qual tipo de informação se tem em periódicos no ano 2012.
+names(unb.pub.ele_p7$PERIODICO$`2012`)
+#Nomes dos periódicos em que tiveram mais publicações na área de engenharia Biomédica.
+head(sort(table(unb.pub.ele_p7$PERIODICO$`2017`$periodico), decreasing = TRUE), 10)
+#Nomes dos periódicos em que tiveram mais publicações de artigos aceitos na área de engenharia Biomédica da UnB no 2017.
+head(sort(table(unb.pub.ele_p7$ARTIGO_ACEITO$`2017`$periodico), decreasing = TRUE), 10)
+#Nomes dos autores que produziram um tipo de Produção que não estava contemplada .
+head(sort(table(unb.pub.ele_p7$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2011`$autores), decreasing = TRUE), 10)
+
+```
 
 ###Descrição dos dados de redes de colaboração
 
 
 ####TODO LIST : VERIFICAR 
   *  biomed - explicar algo
-  *  Engenharia p7
-  *  Engenharia p8
   *  automação
 
 
@@ -561,6 +644,40 @@ length(unb.graph.biomed$links$source)
 length(unb.graph.biomed$links$target)
 #exemplos de pesos da aresta
 str(unb.graph.biomed$links$weigth)
+```
+
+#### Engenharia automação e eletrônica
+
+#### Engenharia elétrica p8
+
+```{r}
+unb.graph.ele_p8 <- fromJSON("dados-2018-2/engenharia-eletrica-p8/281.graph.json")
+# Suas variáveis
+names(unb.graph.ele_p8)
+# Quantidade de nós
+length(unb.graph.ele_p8$nodes$id)
+# Quantidade de links de fonte 
+length(unb.graph.ele_p8$links$source)
+# Quantidade de links de chegada 
+length(unb.graph.ele_p8$links$target)
+#exemplos de pesos da aresta
+str(unb.graph.ele_p8$links$weigth)
+```
+
+#### Engenharia elétrica p7
+
+```{r}
+unb.graph.ele_p7 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.graph.json")
+# Suas variáveis
+names(unb.graph.ele_p7)
+# Quantidade de nós
+length(unb.graph.ele_p7$nodes$id)
+# Quantidade de links de fonte 
+length(unb.graph.ele_p7$links$source)
+# Quantidade de links de chegada 
+length(unb.graph.ele_p7$links$target)
+#exemplos de pesos da aresta
+str(unb.graph.ele_p7$links$weigth)
 ```
 
 
@@ -691,6 +808,46 @@ head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decrea
 ## Mostrando os autores-endogeno que tiveram mais publicação
 head(sort(table(unlist(unb.pub.biomed.df$`autores-endogeno`)),decreasing = TRUE),n=10)
 ```
+
+####Verificando engenharia eletrônica e automação
+
+####Verificando engenharia elétrica p8
+
+
+
+```{r}
+#Criando um data-frame com todos os anos
+unb.pub.ele_p8.df <- data.frame()
+for (i in 1:length(unb.pub.ele_p8[[1]]))
+  unb.pub.ele_p8.df <- rbind(unb.pub.ele_p8.df, unb.pub.ele_p8$PERIODICO[[i]])
+glimpse(unb.pub.ele_p8.df)
+# Limpando o data-frame de listas
+unb.pub.ele_p8.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.ele_p8.df$autores)
+unb.pub.ele_p8.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p8.df$autores)
+unb.pub.ele_p8.df$`autores-endogeno` <- gsub(",", ";", unb.pub.ele_p8.df$`autores-endogeno`)
+unb.pub.ele_p8.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p8.df$`autores-endogeno`)
+glimpse(unb.pub.ele_p8.df)
+
+
+### ARQUIVO PROCESSADO E LIMPO 
+## publicações por natureza - todas foram completas
+table(unb.pub.ele_p8.df$natureza)
+
+## publicações 2010 até 2017
+table(unb.pub.ele_p8.df$ano)
+## publicações por periódico, mostrando os top-5 na área de Biomédica
+d <- table(unb.pub.ele_p8.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+
+## Mostrando os autores que tiveram mais publicação
+### Neste caso é importante mostra que como a não uniformidade de como se escreve acaba por tornar este dado defasado
+head(sort(table(toupper(unlist(strsplit(unb.pub.ele_p8.df$autores,";")))),decreasing = TRUE),n=10)
+## Mostrando os autores-endogeno que tiveram mais publicação
+head(sort(table(unlist(unb.pub.ele_p8.df$`autores-endogeno`)),decreasing = TRUE),n=10)
+```
+
+####Verificando engenharia elétrica p7
+
 
 
 ###Arquivo Orientação
