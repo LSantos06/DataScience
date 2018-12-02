@@ -1364,8 +1364,7 @@ Esta etapa se encorpora com a próxima etapa, que é a construção dos dados. D
 
 ## VI.3 - Construção dos Dados
 
-Código em R para limpeza e construção dos dados de interesse a serem analisados na próxima etapa da metodologia adotada:
-```{r}
+```{r echo=FALSE}
 ## Funcoes auxiliares disponibilizadas pelo professor da disciplina
 # converte as colunas de um dataframe tipo lista em tipo character
 cv_tplista2tpchar <- function( df  ) { 
@@ -1549,24 +1548,24 @@ extrai_areas_atuacao <- function(jsonProfessores){
 
 #### Engenharia Biomédica
 ```{r}
-#### Começo da Preparação dos dados referente a profile
+## Começo da Preparação dos dados referente a profile
 unb.prof.biomed.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
 unb.prof.biomed.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
 unb.prof.biomed <- fromJSON(unb.prof.biomed.json)
 length(unb.prof.biomed)
-# extrai perfis dos professores 
+# Extrai perfis dos professores 
 unb.prof.biomed.df.professores <- extrai_perfis(unb.prof.biomed)
-# extrai producao bibliografica de todos os professores 
+# Extrai producao bibliografica de todos os professores 
 unb.prof.biomed.df.publicacoes <- extrai_producoes(unb.prof.biomed)
-#extrai orientacoes 
+# Extrai orientacoes 
 unb.prof.biomed.df.orientacoes <- extrai_orientacoes(unb.prof.biomed)
-#extrai areas de atuacao 
+# Extrai areas de atuacao 
 unb.prof.biomed.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.biomed)
-#salva os daframes 
+# Salva os daframes 
 save(unb.prof.biomed.df.professores, unb.prof.biomed.df.publicacoes,
      unb.prof.biomed.df.orientacoes, unb.prof.biomed.df.areas.de.atuacao, file = "dataframes.Rda")
-#cria arquivo para análise
+# Cria arquivo para análise
 unb.prof.biomed.df <- data.frame()
 unb.prof.biomed.df <- unb.prof.biomed.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -1598,47 +1597,101 @@ unb.prof.biomed.df <- unb.prof.biomed.df.professores %>%
       group_by(idLattes) %>% 
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
-#glimpse(unb.prof.biomed.df)
+## Mostrando dados processados referente ao arquivo profile
 head(unb.prof.biomed.df,3)
-## Mostrando dados processados referente ao arquivo 279.publication.json
-#glimpse(unb.pub.biomed.df)
-#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+## Mostrando dados processados referente ao arquivo publication
 head(unb.pub.biomed.df,3)
-## Mostrando dados processados referente ao arquivo 279.advise.json
-#glimpse(unb.adv.biomed.df)
-#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+## Mostrando dados processados referente ao arquivo advise
 head(unb.adv.biomed.df,3)
-###################### Os arquivos 
-###### 279.graph.json - usado para mostrar correlações
-#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
-#numero de docentes
+# Numero de docentes
+length(unb.prof.ele_p8)
+# Numero de discentes
 unique(length(unb.prof.biomed.df.orientacoes$nome_aluno))
 ```
 
 #### Engenharia de Sistemas Eletrônicos e de Automação
-
+```{r}
+## Começo da Preparação dos dados referente a profile
+unb.prof.auto.json <- read_file("dados-2018-2/engenharia-eletronicos-automacao/280.profile.json")
+unb.prof.auto.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
+                              sep = ";", header = TRUE, colClasses = "character")
+unb.prof.auto <- fromJSON(unb.prof.auto.json)
+length(unb.prof.auto)
+# Extrai perfis dos professores 
+unb.prof.auto.df.professores <- extrai_perfis(unb.prof.auto)
+# Extrai producao bibliografica de todos os professores 
+unb.prof.auto.df.publicacoes <- extrai_producoes(unb.prof.auto)
+# Extrai orientacoes 
+unb.prof.auto.df.orientacoes <- extrai_orientacoes(unb.prof.auto)
+# Extrai areas de atuacao 
+unb.prof.auto.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.auto)
+# Salva os daframes 
+save(unb.prof.auto.df.professores, unb.prof.auto.df.publicacoes,
+     unb.prof.auto.df.orientacoes, unb.prof.auto.df.areas.de.atuacao, file = "dataframes.Rda")
+# Cria arquivo para análise
+unb.prof.auto.df <- data.frame()
+unb.prof.auto.df <- unb.prof.auto.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    unb.prof.auto.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.auto.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.auto.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.auto.df.capes %>% 
+      select(AreaPos, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(AreaPos)), 
+    by = "idLattes")
+## Mostrando dados processados referente ao arquivo profile
+head(unb.prof.auto.df,3)
+## Mostrando dados processados referente ao arquivo publication
+head(unb.pub.auto.df,3)
+## Mostrando dados processados referente ao arquivo advise
+head(unb.adv.auto.df,3)
+# Numero de docentes
+length(unb.prof.ele_p8)
+# Numero de discentes
+unique(length(unb.prof.auto.df.orientacoes$nome_aluno))
+```
 
 #### Engenharia Elétrica P8
-
 ```{r}
-#### Começo da Preparação dos dados referente a profile
+## Começo da Preparação dos dados referente a profile
 unb.prof.ele_p8.json <- read_file("dados-2018-2/engenharia-eletrica-p8/281.profile.json")
 unb.prof.ele_p8.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
 unb.prof.ele_p8 <- fromJSON(unb.prof.ele_p8.json)
 length(unb.prof.ele_p8)
-# extrai perfis dos professores 
+# Extrai perfis dos professores 
 unb.prof.ele_p8.df.professores <- extrai_perfis(unb.prof.ele_p8)
-# extrai producao bibliografica de todos os professores 
+# Extrai producao bibliografica de todos os professores 
 unb.prof.ele_p8.df.publicacoes <- extrai_producoes(unb.prof.ele_p8)
-#extrai orientacoes 
+# Extrai orientacoes 
 unb.prof.ele_p8.df.orientacoes <- extrai_orientacoes(unb.prof.ele_p8)
-#extrai areas de atuacao 
+# Extrai areas de atuacao 
 unb.prof.ele_p8.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.ele_p8)
-#salva os daframes 
+# Salva os daframes 
 save(unb.prof.ele_p8.df.professores, unb.prof.ele_p8.df.publicacoes,
      unb.prof.ele_p8.df.orientacoes, unb.prof.ele_p8.df.areas.de.atuacao, file = "dataframes.Rda")
-#cria arquivo para análise
+# Cria arquivo para análise
 unb.prof.ele_p8.df <- data.frame()
 unb.prof.ele_p8.df <- unb.prof.ele_p8.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -1670,46 +1723,40 @@ unb.prof.ele_p8.df <- unb.prof.ele_p8.df.professores %>%
       group_by(idLattes) %>% 
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
-#glimpse(unb.prof.ele_p8.df)
+## Mostrando dados processados referente ao arquivo profile
 head(unb.prof.ele_p8.df,3)
-## Mostrando dados processados referente ao arquivo 281.publication.json
-#glimpse(unb.pub.ele_p8.df)
-#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+## Mostrando dados processados referente ao arquivo publication
 head(unb.pub.ele_p8.df,3)
-## Mostrando dados processados referente ao arquivo 281.advise.json
-#glimpse(unb.adv.ele_p8.df)
-#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+## Mostrando dados processados referente ao arquivo advise
 head(unb.adv.ele_p8.df,3)
-###################### Os arquivos 
-###### 279.graph.json - usado para mostrar correlações
-#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
-#numero de docentes
+# Numero de docentes
+length(unb.prof.ele_p8)
+# Numero de discentes
 unique(length(unb.prof.ele_p8.df.orientacoes$nome_aluno))
 ```
 
 
 
 #### Engenharia Elétrica P7
-
 ```{r}
-#### Começo da Preparação dos dados referente a profile
+## Começo da Preparação dos dados referente a profile
 unb.prof.ele_p7.json <- read_file("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
 unb.prof.ele_p7.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
                               sep = ";", header = TRUE, colClasses = "character")
 unb.prof.ele_p7 <- fromJSON(unb.prof.ele_p7.json)
 length(unb.prof.ele_p7)
-# extrai perfis dos professores 
+# Extrai perfis dos professores 
 unb.prof.ele_p7.df.professores <- extrai_perfis(unb.prof.ele_p7)
-# extrai producao bibliografica de todos os professores 
+# Extrai producao bibliografica de todos os professores 
 unb.prof.ele_p7.df.publicacoes <- extrai_producoes(unb.prof.ele_p7)
-#extrai orientacoes 
+# Extrai orientacoes 
 unb.prof.ele_p7.df.orientacoes <- extrai_orientacoes(unb.prof.ele_p7)
-#extrai areas de atuacao 
+# Extrai areas de atuacao 
 unb.prof.ele_p7.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.ele_p7)
-#salva os daframes 
+# Salva os daframes 
 save(unb.prof.ele_p7.df.professores, unb.prof.ele_p7.df.publicacoes,
      unb.prof.ele_p7.df.orientacoes, unb.prof.ele_p7.df.areas.de.atuacao, file = "dataframes.Rda")
-#cria arquivo para análise
+# Cria arquivo para análise
 unb.prof.ele_p7.df <- data.frame()
 unb.prof.ele_p7.df <- unb.prof.ele_p7.df.professores %>% 
   select(idLattes, nome, resumo_cv, senioridade) %>% 
@@ -1741,37 +1788,32 @@ unb.prof.ele_p7.df <- unb.prof.ele_p7.df.professores %>%
       group_by(idLattes) %>% 
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
-glimpse(unb.prof.ele_p7.df)
+## Mostrando dados processados referente ao arquivo profile
 head(unb.prof.ele_p7.df,3)
-## Mostrando dados processados referente ao arquivo 281.publication.json
-glimpse(unb.pub.ele_p7.df)
-#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+## Mostrando dados processados referente ao arquivo publication
 head(unb.pub.ele_p7.df,3)
-## Mostrando dados processados referente ao arquivo 281.advise.json
-glimpse(unb.adv.ele_p7.df)
-#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+## Mostrando dados processados referente ao arquivo advise
 head(unb.adv.ele_p7.df,3)
-###################### Os arquivos 
-###### 279.graph.json - usado para mostrar correlações
-#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
-#numero de docentes
+# Numero de docentes
+length(unb.prof.ele_p7)
+# Numero de discentes
 unique(length(unb.prof.ele_p7.df.orientacoes$nome_aluno))
 ```
 
 
-##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
+## VI.4 - Integração dos dados
 
-Neste presente trabalho, não se viu a necessidade de fazer merge entres os datas frames.
+Neste presente trabalho, não se viu a necessidade de fazer integração entre os dados, sendo somente realizada a construção dos dataframes expostos acima.
 
-##CRISP-DM Fase.Atividade 3.5 -  Formatação dos dados
+## VI.5 - Formatação dos dados
 
-As formatações de dados necessória já foram feitas, como por exemplo "orientadores" virou "orie1" e "orie2", fazendo com que cada variável contenha apenas um elemento, e não mais uma lista de orientadores. 
+As formatações de dados necessárias já foram feitas, como por exemplo "orientadores" se tornou "orie1" e "orie2", fazendo com que cada variável contenha apenas um elemento, e não mais uma lista de orientadores. 
 
-#CRISP-DM Fase 4 - __Modelagem__
+# VII - Modelagem
 
-Nesta fase, após ter feito limpeza e Preparação dos dados, tem-se que se decidir qual ferramenta usar : computacionais, matemáticas ou estátistica. Esta fase, por enquanto, será omitida.
+Após a realização da limpeza e da preparação dos dados, a ferramenta que será utilizada para modelagem será computacional, para fins de visualização gráfica dos dados obtidos a partir dos dataframes criados.
 
-#CRISP-DM Fase 5 - __Avaliação__
+# VIII - Avaliação
 
 #####TODO LIST:
   * AUTOMAÇÃO
