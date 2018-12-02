@@ -484,6 +484,39 @@ Já no mestrado, podemos ver um grande problema da ciência de dados, o tratamen
 
 #### Engenharia Elétrica p7
 
+```{r}
+###Descrição dos dados de orientações
+
+unb.adv.ele_p7 <- fromJSON("dados-2018-2/engenharia-eletrica-p7/282.advise.json")
+############## DOUTORADO 2017
+#Buscando cursos que mais produziram doutorados.
+head(sort(table(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$curso), decreasing = TRUE), 10)
+#Sabendo suas instituições
+head(sort(table(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+data_orienM <- capture.output(str(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$nome_orientadores))
+unique(data_orienM)
+#Sabendo os nomes dos trabalhos
+data_orienM <- capture.output(str(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_DOUTORADO$`2017`$titulo))
+unique(data_orienM)
+
+
+############## MESTRADO 2017
+#Buscando cursos que mais produziram mestrados.
+head(sort(table(toupper(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$curso)), decreasing = TRUE), 10)
+head(sort(table(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$instituicao), decreasing = TRUE), 10)
+#Sabendo seus orientadores
+data_orien3 <- capture.output(str(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_orientadores))
+unique(data_orien3)
+#Sabendo seus orientados
+data_orien2 <- capture.output(str(unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_MESTRADO$`2017`$nome_aluno))
+unique(data_orien2)
+
+
+
+```
+
+Há apenas três doutorados concluídos em 2017 e 14 mestados neste mesmo ano. Os professores Rafael Timóteio e João da Costa orientaram mestrados e doutorados concluídos em 2017. Houve um aluno da Universitat Ilmenau - Binghua Guo, "Low Complexity Schemes to Semi-Blind Joint Channel and Symbol Estimation in MIMO-OFDM" .
 
 ###Descrição dos dados list.json
 
@@ -633,7 +666,6 @@ head(sort(table(unb.pub.ele_p7$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$`2014`$aut
 
 
 ####TODO LIST : VERIFICAR 
-  *  biomed - explicar algo
   *  automação
 
 
@@ -847,11 +879,86 @@ Em engenharia elétrica p8, tem uma boa divisão das grandes áreas dos orientad
 
 ####Verificando engenharia elétrica p7
 
+```{r}
+# Total de áreas de atuação de todos profissionais
+sum(sapply(unb.prof.ele_p7, function(x) nrow(x$areas_de_atuacao)))
+# número de pessoas por grande area
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$areas_de_atuacao$grande_area))))
+# número de pessoas que produziram os tipos de Produção específico
+table(unlist(sapply(unb.prof.ele_p7, function(x) names(x$producao_bibiografica))))
+# número de publicações por tipo
+#####ARTIGO ACEITO###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+
+#####CAPITULO DE LIVRO###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+
+#####LIVRO###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$LIVRO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$LIVRO$ano))))
+
+#####periódico###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$PERIODICO$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$PERIODICO$ano))))
+
+#####TEXTO EM JORNAIS###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+
+#####DEMAIS TIPOS###############
+sum(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO_BIBLIOGRAFICA$ano)))
+# número de pessoas por quantitativo de produções por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$producao_bibiografica$DEMAIS_TIPOS_DE_PRODUCAO$ano))))
 
 
-###Arquivo publicação
+
+# número de produções por ano
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$producao_bibiografica$ARTIGO_ACEITO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$producao_bibiografica$CAPITULO_DE_LIVRO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$producao_bibiografica$LIVRO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$producao_bibiografica$PERIODICO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$producao_bibiografica$TEXTO_EM_JORNAIS$ano))))
+# número de pessoas que realizaram diferentes tipos de orientações
+length(unlist(sapply(unb.prof.ele_p7, function(x) names(x$orientacoes_academicas))))
+# número de pessoas por tipo de orientação
+table(unlist(sapply(unb.prof.ele_p7, function(x) names(x$orientacoes_academicas))))
+#número de orientações concluidas
+sum(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano)))
+sum(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano)))
+sum(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano)))
+
+# número de pessoas por quantitativo de orientações por pessoa 0 = 1; 1 = 2...
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) length(x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+# número de orientações por ano
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_MESTRADO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_DOUTORADO$ano))))
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
+
+# números de orientações não concluidas por ano
+# Trabalho de mestrado em andamento
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_MESTRADO$ano))))
+# DOUTORADO em andamento
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_DOUTORADO$ano))))
+# Trabalho de Graduação em andamento
+table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIENTACAO_EM_ANDAMENTO_GRADUACAO$ano))))
+
+```
+
+Por fim, na área de engenharia elétrica - "p7", vê-se, novamente, um domínio da grande área de engenharias, como era de se esperar. Em 2016, é possível observar que se teve o maior numero de publicações em períodicos, 42 no total.
+
+Sobre as orientações, dos temas desta pesquisa, foi a que teve mais equilíbrio entre o número de profissionais de mestrados e os que trabalham com doutorados concluídos, tendo uma diferença de 5. Especificamente, sobre as orientações vê-se um enorme número de mestrados concluídos desde 2011, com valor baixo em 2010 (6 no total, número similar a de doutorados feitos: 4, naquele mesmo ano). Um dado que pode ser alarmante é que ainda existe têm dois doutorados iniciados em 2013 que não estão concluídos ainda, estando em seu último ano, pois o tempo máximo do mestrado é de 5 anos, já do mestrado há 4 trabalhos que estão no último ano possível.
+###Arquivo publicação 
 ####TODO LIST : VERIFICAR 
-  *  Engenharia p7
   *  automação
 
 
@@ -932,12 +1039,46 @@ Processando os dados, pode-se concluir que todas as publicações foram completa
 
 ####Verificando engenharia elétrica p7
 
+```{r}
+#Criando um data-frame com todos os anos
+unb.pub.ele_p7.df <- data.frame()
+for (i in 1:length(unb.pub.ele_p7[[1]]))
+  unb.pub.ele_p7.df <- rbind(unb.pub.ele_p7.df, unb.pub.ele_p7$PERIODICO[[i]])
+#glimpse(unb.pub.ele_p7.df)
+# Limpando o data-frame de listas
+unb.pub.ele_p7.df$autores <- gsub("\",\"|\", \"", "; ", unb.pub.ele_p7.df$autores)
+unb.pub.ele_p7.df$autores <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p7.df$autores)
+unb.pub.ele_p7.df$`autores-endogeno` <- gsub(",", ";", unb.pub.ele_p7.df$`autores-endogeno`)
+unb.pub.ele_p7.df$`autores-endogeno` <- gsub("\"|c\\(|\\)", "", unb.pub.ele_p7.df$`autores-endogeno`)
+#glimpse(unb.pub.ele_p7.df)
 
 
-###Arquivo Orientação
+### ARQUIVO PROCESSADO E LIMPO 
+## publicações por natureza - todas foram completas
+table(unb.pub.ele_p7.df$natureza)
+
+## publicações 2010 até 2017
+table(unb.pub.ele_p7.df$ano)
+## publicações por periódico, mostrando os top-5 na área de Elétrica p8
+d <- table(unb.pub.ele_p7.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+
+## Mostrando os autores que tiveram mais publicação
+### Neste caso é importante mostra que como a não uniformidade de como se escreve acaba por tornar este dado defasado
+head(sort(table(toupper(unlist(strsplit(unb.pub.ele_p7.df$autores,";")))),decreasing = TRUE),n=10)
+```
+Há um total de 161 publicações em engenharia elétrica p7, espaçado desde 2010 até 2017. Duas revistas 4 revistas se destacam, quando analisamos as revistas que foram enviadas:
+
+* Journal of Communication and Information Systems (Online) 
+*                               Revista IEEE América Latina 
+*                         Digital Signal Processing (Print) 
+*                       IEEE Transactions on Power Delivery 
+
+O professor com mais publicação é o professor Da Costa (professor Lustosa), seguido por Molina. E mais uma vez é verificado a dificuldade que se encontra ao analisar nomes de autores que são os mesmo, mas que foram preenchido de foram diferente.
+### Arquivo Orientação
+
 
 ####TODO LIST : VERIFICAR 
-  *  Engenharia p7
   *  automação
 
 ####Verificando engenharia biomédica
@@ -992,6 +1133,7 @@ sum(unb.adv.biomed.df$bolsa == 'SIM')
 table(unb.adv.biomed.df$agencia_financiadora)
 ```
 Das 123 orientações, apenas uma delas contém um segundo orientador. A maioria das orientações ocorrem na UnB - Darcy Ribeiro depois é unidade do Gama, na UnB.  Das 123, a maioria é dissertação de mestrado 109, Lourdes Matos Brasil é a professora com mais orientações. 46 alunos são bolsistas.
+
 ####Verificando engenharia automação
 
 
@@ -1052,6 +1194,72 @@ Das 135 orientações apenas 2 tem mais de um orientador. 2012 é o ano com mais
 
 ####Verificando engenharia elétrica p7
 
+```{r}
+#Orientação
+#Visualizar a estrutura do json no painel Viewer
+#jsonedit(unb.adv.biomed)
+#Reunir todos os anos e orientações concluidas em um mesmo data-frame
+unb.adv.ele_p7.tipo.df <- data.frame(); unb.adv.ele_p7.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p7[[1]]))
+  unb.adv.ele_p7.tipo.df <- rbind(unb.adv.ele_p7.tipo.df, unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_POS_DOUTORADO[[i]])
+unb.adv.ele_p7.df <- rbind(unb.adv.ele_p7.df, unb.adv.ele_p7.tipo.df); unb.adv.ele_p7.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p7[[1]]))
+  unb.adv.ele_p7.tipo.df <- rbind(unb.adv.ele_p7.tipo.df, unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_DOUTORADO[[i]])
+unb.adv.ele_p7.df <- rbind(unb.adv.ele_p7.df, unb.adv.ele_p7.tipo.df); unb.adv.ele_p7.tipo.df <- data.frame()
+for (i in 1:length(unb.adv.ele_p7[[1]]))
+  unb.adv.ele_p7.tipo.df <- rbind(unb.adv.ele_p7.tipo.df, unb.adv.ele_p7$ORIENTACAO_CONCLUIDA_MESTRADO[[i]])
+unb.adv.ele_p7.df <- rbind(unb.adv.ele_p7.df, unb.adv.ele_p7.tipo.df)
+#glimpse(unb.adv.ele_p7.df)
+#Transformar as colunas de listas em caracteres eliminando c("")
+unb.adv.ele_p7.df$nome_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.ele_p7.df$nome_orientadores)
+unb.adv.ele_p7.df$id_lattes_orientadores <- gsub("\"|c\\(|\\)", "", unb.adv.ele_p7.df$id_lattes_orientadores)
+#Separar as colunas com dois orientadores
+unb.adv.ele_p7.df <- separate(unb.adv.ele_p7.df, nome_orientadores, into = c("ori1", "ori2"), sep = ",")
+#Os que tem 1 orientador pelo menos
+length(unb.adv.ele_p7.df$ori1)
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.ele_p7.df$ori2))
+unb.adv.ele_p7.df <- separate(unb.adv.ele_p7.df, id_lattes_orientadores, into = c("idLattes1", "idLattes2"), sep = ",")
+# Contando quem tem apenas 1 orientador
+sum(is.na(unb.adv.ele_p7.df$idLattes2))
+#Numero de orientacoes por ano
+table(unb.adv.ele_p7.df$ano)
+#Numero de instituições 
+sort(table(unb.adv.ele_p7.df$instituicao),decreasing = TRUE)
+#Cursos que estão envolvido na pós-graduação de engenharia eletrica
+cursos_d <- sort(table(unb.adv.ele_p7.df$curso), decreasing = TRUE)
+cursos_d
+cursos_d5<-head(cursos_d,5)
+table(unb.adv.ele_p7.df$codigo_do_curso)
+#Quantidas de natureza dos trabalhos orientado
+table(unb.adv.ele_p7.df$natureza)
+#Tabela com nome de professor e numero de orientacoes
+head(sort(table(rbind(unb.adv.ele_p7.df$ori1, unb.adv.ele_p7.df$ori2)), decreasing = TRUE), 20)
+# Tabela com nome dos alunos que mais foram orientados
+head(sort(table(toupper(unb.adv.ele_p7.df$nome_aluno)),decreasing = TRUE),n=10)
+# Quantidade de alunos que não são bolsistas 
+sum(unb.adv.ele_p7.df$bolsa == 'NAO')
+# Quantidade de alunos que são bolsistas 
+sum(unb.adv.ele_p7.df$bolsa == 'SIM')
+# Reparar que a maioria não tem agência financiadora por trás e há dois alunos que tem bolsa mas que não tem/declararam agência financiadora.
+table(unb.adv.ele_p7.df$agencia_financiadora)
+```
+
+Dos 158 trabalhos orientados apenas 4 possuem 2 orientadores, sendo 154 possuindo apenas um orientador. Apenas um curso não é especificamente engenharia elétrica - Telecommunication Engineering & Management .Das universidades que não são UnB tem as seguintes :
+
+* City University of Hong Kong 
+* Technische Universität Ilmenau 
+* Universidade Estadual de Campinas 
+* Universidade Federal de Campina Grande 
+*  Universitat Politècnica de Catanlunya 
+
+Houve 22 doutorados e 136 mestrados. Os professores que mais orientaram são:
+
+*                  Rafael Timóteo de Sousa Jr - 31
+*        Joao Paulo Carvalho Lustosa da Costa  - 22
+*                         Kleber Melo e Silva  - 16 
+
+Apenas 52 alunos são bolisistas.
 
 ##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
 
@@ -1328,14 +1536,14 @@ unb.prof.biomed.df <- unb.prof.biomed.df.professores %>%
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
 
-glimpse(unb.prof.biomed.df)
+#glimpse(unb.prof.biomed.df)
 head(unb.prof.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.publication.json
-glimpse(unb.pub.biomed.df)
+#glimpse(unb.pub.biomed.df)
 #Podemos ver que contêm natureza, titulo, periodico , autores .... 
 head(unb.pub.biomed.df,3)
 ## Mostrando dados processados referente ao arquivo 279.advise.json
-glimpse(unb.adv.biomed.df)
+#glimpse(unb.adv.biomed.df)
 #Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
 head(unb.adv.biomed.df,3)
 ###################### Os arquivos 
@@ -1410,14 +1618,14 @@ unb.prof.ele_p8.df <- unb.prof.ele_p8.df.professores %>%
       summarise(n_distinct(AreaPos)), 
     by = "idLattes")
 
-glimpse(unb.prof.ele_p8.df)
+#glimpse(unb.prof.ele_p8.df)
 head(unb.prof.ele_p8.df,3)
 ## Mostrando dados processados referente ao arquivo 281.publication.json
-glimpse(unb.pub.ele_p8.df)
+#glimpse(unb.pub.ele_p8.df)
 #Podemos ver que contêm natureza, titulo, periodico , autores .... 
 head(unb.pub.ele_p8.df,3)
 ## Mostrando dados processados referente ao arquivo 281.advise.json
-glimpse(unb.adv.ele_p8.df)
+#glimpse(unb.adv.ele_p8.df)
 #Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
 head(unb.adv.ele_p8.df,3)
 ###################### Os arquivos 
@@ -1427,8 +1635,85 @@ head(unb.adv.ele_p8.df,3)
 unique(length(unb.prof.ele_p8.df.orientacoes$nome_aluno))
 ```
 
+
+
 ####Verificando engenharia elétrica p7
 
+```{r}
+########################### Inicio ###############################
+#### Começo da Preparação dos dados referente a profile
+
+unb.prof.ele_p7.json <- read_file("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
+unb.prof.ele_p7.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
+                              sep = ";", header = TRUE, colClasses = "character")
+unb.prof.ele_p7 <- fromJSON(unb.prof.ele_p7.json)
+length(unb.prof.ele_p7)
+
+# extrai perfis dos professores 
+unb.prof.ele_p7.df.professores <- extrai_perfis(unb.prof.ele_p7)
+
+# extrai producao bibliografica de todos os professores 
+unb.prof.ele_p7.df.publicacoes <- extrai_producoes(unb.prof.ele_p7)
+
+#extrai orientacoes 
+unb.prof.ele_p7.df.orientacoes <- extrai_orientacoes(unb.prof.ele_p7)
+
+#extrai areas de atuacao 
+unb.prof.ele_p7.df.areas.de.atuacao <- extrai_areas_atuacao(unb.prof.ele_p7)
+
+#salva os daframes 
+save(unb.prof.ele_p7.df.professores, unb.prof.ele_p7.df.publicacoes,
+     unb.prof.ele_p7.df.orientacoes, unb.prof.ele_p7.df.areas.de.atuacao, file = "dataframes.Rda")
+
+#cria arquivo para análise
+unb.prof.ele_p7.df <- data.frame()
+unb.prof.ele_p7.df <- unb.prof.ele_p7.df.professores %>% 
+  select(idLattes, nome, resumo_cv, senioridade) %>% 
+  left_join(
+    unb.prof.ele_p7.df.orientacoes %>% 
+      select(orientacao, idLattes) %>% 
+      filter(!grepl("EM_ANDAMENTO", orientacao)) %>% 
+      group_by(idLattes) %>% 
+      count(orientacao) %>% 
+      spread(key = orientacao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p7.df.publicacoes %>% 
+      select(tipo_producao, idLattes) %>% 
+      filter(!grepl("ARTIGO_ACEITO", tipo_producao)) %>% 
+      group_by(idLattes) %>% 
+      count(tipo_producao) %>% 
+      spread(key = tipo_producao, value = n), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p7.df.areas.de.atuacao %>% 
+      select(area, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(area)), 
+    by = "idLattes") %>% 
+  left_join(
+    unb.prof.ele_p7.df.capes %>% 
+      select(AreaPos, idLattes) %>% 
+      group_by(idLattes) %>% 
+      summarise(n_distinct(AreaPos)), 
+    by = "idLattes")
+
+glimpse(unb.prof.ele_p7.df)
+head(unb.prof.ele_p7.df,3)
+## Mostrando dados processados referente ao arquivo 281.publication.json
+glimpse(unb.pub.ele_p7.df)
+#Podemos ver que contêm natureza, titulo, periodico , autores .... 
+head(unb.pub.ele_p7.df,3)
+## Mostrando dados processados referente ao arquivo 281.advise.json
+glimpse(unb.adv.ele_p7.df)
+#Podemos ver que contêm natureza, titulo, autores, ano, nome aluno, orientadores .... 
+head(unb.adv.ele_p7.df,3)
+###################### Os arquivos 
+###### 279.graph.json - usado para mostrar correlações
+#### 279.list.json - Como explicado este arquivo não contem nenhuma informação interessante.
+#numero de docentes
+unique(length(unb.prof.ele_p7.df.orientacoes$nome_aluno))
+```
 
 
 ##CRISP-DM Fase.Atividade 3.4 - Integração dos dados
@@ -1690,12 +1975,54 @@ c(rbind(unb.graph.biomed$nodes$id,unb.graph.biomed$nodes$properties$name))
 
 ```{r}
 ### nuvem de palavras do curriculum
-dificuldades = unb.prof.biomed.df$resumo_cv[length(unb.prof.biomed.df$resumo_cv)] %>% tolower %>% 
-  removePunctuation %>% removeWords(., c(stopwords("pt"),"engenharia","federal","faculdade","pósgraduação","universidade"))
-wordcloud(enc2native(dificuldades), min.freq=2,max.words=100, random.order=F,colors=brewer.pal(8,"Dark2"), use.r.layout=TRUE, rot.per= 0.5)
+#docs <- Corpus(VectorSource(unb.prof.biomed.df$resumo_cv))
+unb.prof.biomed.df$resumo_cv <- iconv(unb.prof.biomed.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.prof.biomed.df$idLattes, text = unb.prof.biomed.df$resumo_cv, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
 ```
 
 Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "nanotecnologia" e "biomédica".
+
+```{r}
+### nuvem de palavras do título
+unb.adv.biomed.df$titulo <- iconv(unb.adv.biomed.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.adv.biomed.df$idLattes1, text = unb.adv.biomed.df$titulo, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+As palavras mais usadas nos títulos são relacionadas a sinais "processamento, sinais, tratamento" e saúde.
 
 ####Expondo engenharia automação
 
@@ -1705,30 +2032,109 @@ Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "n
 
 ```{r}
 ### nuvem de palavras do curriculum
+unb.prof.ele_p8.df$resumo_cv <- iconv(unb.prof.ele_p8.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.prof.ele_p8.df$idLattes, text = unb.prof.ele_p8.df$resumo_cv, stringsAsFactors = FALSE )
 docs <- Corpus(VectorSource(unb.prof.ele_p8.df$resumo_cv))
+  
+
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removeWords, stopwords("pt"))
-docs <- tm_map(docs, removeWords, c("pósgraduação", "federal","elétrica","pósgraduação")) 
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, stripWhitespace)
+
 dtm <- TermDocumentMatrix(docs)
-dtm$dimnames$Terms <- enc2native(dtm$dimnames$Terms )
 m <- as.matrix(dtm)
-m
 v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
 set.seed(1234)
 
-wordcloud(words =(d$word), freq = d$freq, min.freq = 1,
-          max.words=200, random.order=FALSE, rot.per=0.35, 
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
 
-Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "nanotecnologia" e "biomédica". Além de palavras comuns do português.
+Vê-se que as palavras mais usadas são relacionadas a eletricidade e informação.
+
+```{r}
+### nuvem de palavras do título
+unb.adv.ele_p8.df$titulo <- iconv(unb.adv.ele_p8.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.adv.ele_p8.df$idLattes1, text = unb.adv.ele_p8.df$titulo, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+Muitas palavras voltadas a assuntos quentes como a internet, learning, business inteligence, data. Voltada aplicações de dados "business inteligence".
 
 ####Expondo engenharia elétrica p7
 
+```{r}
+### nuvem de palavras do curriculum
+unb.prof.ele_p7.df$resumo_cv <- iconv(unb.prof.ele_p7.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.prof.ele_p7.df$idLattes, text = unb.prof.ele_p7.df$resumo_cv, stringsAsFactors = FALSE )
+docs <- Corpus(VectorSource(unb.prof.ele_p8.df$resumo_cv))
+  
+
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia")) 
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+
+```{r}
+### nuvem de palavras do título
+unb.adv.ele_p7.df$titulo <- iconv(unb.adv.ele_p7.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.adv.ele_p7.df$idLattes1, text = unb.adv.ele_p7.df$titulo, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+Muitas palavras ligada a análise, sistema e também há a palavra "business inteligence".
 
 #CRISP-DM Fase 6 - __Implatação__ (_deployment_)
  
