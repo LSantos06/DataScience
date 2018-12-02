@@ -1,16 +1,14 @@
 ---
 title:  Ciência de Dados para Todos (Data Science
   For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília 
-
-subtitle: Engenharia Biomédica, engenharia eletrônicos e automação, engenharia elétrica p7 e  engenharia elétrica p8. 
-
-author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento, Carlos Aragão"
-date: "20/09/2018"
+subtitle: Engenharia Biomédica, Engenharia de Sistemas Eletrônicos e de Automação, Engenharia Elétrica P7 e Engenharia Elétrica P8. 
+author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento Santos Souza e Carlos Aragão"
+date: "02/12/2018"
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -19,39 +17,41 @@ knitr::opts_knit$set(root.dir = getwd())
 
 # Introdução
 
-O presente trabalho tem por finalidade entender e correlacionar dados que possam algum significado mais profundo do que aparentam ter, assim com os dados da pós-graduação em engenharia Biomédica, engenharia elétrica em seus dois ramos (53001010059P8 e 53001010080P7) e engenharia de sistemas eletrônicos e de automação em mãos busca-se encontrar principais fatores, professores mais envolvidos, temas mais relevantes e afins.
+O presente trabalho tem por finalidade entender, correlacionar e analisar os dados da produção acadêmica e científica dos seguintes cursos de pós-graduação: Engenharia Biomédica, Engenharia Elétrica em seus dois ramos (53001010059P8 e 53001010080P7) e Engenharia de Sistemas Eletrônicos e de Automação.
 
-#Metodologia
+# Metodologia
 
-Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto usado pelo CRISP-DM.
+Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto da metodologia CRISP-DM.
 
-O ciclo é basicamente definido pelas seguintes fases:
+O ciclo é definido pelas seguintes fases:
 
-* **Entendimento do negócio** : primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
+* **Entendimento do negócio**: Primeiramente deve-se entender o que se busca encontrar, haja visto que não faz sentido fazer uma análise de dados sem saber o que se busca.
 
-* **Entendimento dos dados** : Busca-se entender os dados de forma mais superficial primeiramente.
+* **Entendimento dos dados**: Busca-se entender os dados de forma mais superficial inicialmente.
 
-* **Preparação de dados ** : Então limpa-se o dado e prepara o dado para que se possa facilitar seu processamento.
+* **Preparação de dados**: Então os dados são tratados para que se possa facilitar o processamento dos mesmos.
 
-* **Modelagem ** : Faz a modelagem do dado.
-* **Avaliação ** : Avalia-se o resultado da modelagem.
-* **Implatação ** : Faz uso dos dados.
+* **Modelagem**: Realiza a modelagem do dado.
 
-As fases não são independentes entre si, mas possuem certa comunicação, depedendo das fases, além de não ser estritamente sequencial, sendo melhor visualizado na figura abaixo.
+* **Avaliação**: Avalia-se o resultado da modelagem.
+
+* **Implatação**: Utilização dos dados.
+
+Para melhor visualização das fases e a comunicação entre elas, deves-se observar a Figura 1. Por esta figura consegue-se perceber que, por exemplo, o entendimento do negócio e do dado pode muitas vezes ser se alternar no ciclo da metodologia adotada.
 
 ![Ciclo do CRISP-DM que será usado como base](dados-2018-2/engenharia-biomedica/fluxo.png)
 
-Por esta imagem consegue-se perceber que o entendimento do negócio e do dado pode muitas vezes ser alternada, indo e voltando.
+
 
 # Delimitações iniciais
 
 
-###domínio de Aplicação do projeto
-O domínio de Aplicação do projeto é  Produção Científica ou Produção Acadêmica de um subgrupo de pesquisadores vinculados é Universidade de Brasília, sendo vinculado ao subtema __engenharia Biomédica__,__engenharia elétrica p7 e p8__ e __engenharia de automação__ tais arquivos foram pegos na plataforma elattes.
+### Domínio de Aplicação do projeto
+O domínio de Aplicação do projeto é a produção científica e acadêmica dos docentes e discentes dos seguintes cursos de pós-graduação da Universidade de Brasília: __Engenharia Biomédica__,__Engenharia Elétrica P7 e P8__ e __Engenharia de Sistemas Eletrônicos e de Automação__. Os dados para análise foram obtidos a partir da plataforma elattes e da plataforma sucupira.
 
-##Problema abordado
+## Problema abordado
 
-Problema abordado tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatística, que permitam caracterizar como, porque e também para que ocorre a Produção Científica e Acadêmica na área de engenharia Biomédica e nas demais.
+O problema tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatística, que permitam caracterizar como, porque e também para que ocorre a produção científica e acadêmica nos cursos de pós-graduação descritos anteriormente.
 
 ### Engenharia Biomédica
  O programa de pós-graduação da engenharia biomédica - possui as informações:  Código: 53001010083P6; Área-base: 31300006.
@@ -175,43 +175,40 @@ Por fim, sobre inserção social :
 | 5.1. Inserção e impacto regional e (ou) nacional do programa.                                                                                                                                                         | 40.0 | Muito Bom |
 | 5.2. Integração e cooperação com outros programas e centros de pesquisa e desenvolvimento profissional relacionados à área de conhecimento do programa, com vistas ao desenvolvimento da pesquisa e da pós-graduação. | 40.0 | Muito Bom |
 | 5.3 - Visibilidade ou transparência dada pelo programa a sua atuação.                                                                                                                                                 | 20.0 | Muito Bom |
+### Engenharia Elétrica P7
 
+### Engenharia Elétrica P8
 
-# CRISP-DM Fase 1 - Entendimento do negócio
+### Engenharia de Sistemas Eletrônicos e de Automação
 
-A Universidade de Brasília é uma das grandes universidades federais, sendo responsável pela Produção de artigos visando artigos acadêmicos, este presente trabalho de como programas :
+# Entendimento do Negócio
+
+A Universidade de Brasília é uma das grandes universidades federais, tendo enfoque na produção de artigos acadêmicos. Os programas a seguir são todos da área de avaliação ENGENHARIAS IV e serão analisados pelo trabalho como já exposto anteriormente:
 
 ## Programas de pós-graduação Grupo 15
-| Ids           | Área de Avaliação | Nome do Programa                                  | Link Capes                                                        | ME | DO | MP |
-|---------------|------------------:|---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
-| 53001010059P8 |    ENGENHARIAS IV | ENGENHARIA elétrica                               | [ENGENHARIA elétrica (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
-| 53001010080P7 |    ENGENHARIAS IV | ENGENHARIA elétrica                               | [ENGENHARIA elétrica (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
-| 53001010081P3 |    ENGENHARIAS IV | ENGENHARIA DE SISTEMAS eletrônicos E DE automação | [ENGENHARIA DE SISTEMAS eletrônicos E DE automação (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
-| 53001010083P6 |    ENGENHARIAS IV | ENGENHARIA Biomédica                              | [ENGENHARIA Biomédica (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
+| Nome do Programa                                                         | ME | DO | MP |
+|---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
+| [ENGENHARIA ELÉTRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
+| [ENGENHARIA ELÉTRICA (53001010080P7)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010080P7)                               | 4  | 4  | -  |
+| [ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO (53001010081P3)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010081P3) | 4  | 4  | -  |
+| [ENGENHARIA BIOMÉDICA (53001010083P6)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010083P6)                              | 3  | -  | -  |
 
-Sendo o enfoque principal os dados referente a engenharia Biomédica, que por sua vez tem sua pesquisa muitas voltada a novas soluções na área de Biomédica e demais áreas representadas acima.
+Sendo o enfoque principal os dados referente a Engenharia Biomédica, que por sua vez possui muitas de suas pesquisas voltadas a novas soluções na área de Biomédica e demais áreas representadas na tabela acima acima.
 
-### Engenharia de Sistemas Eletrôniocs e de Automação
+## Avaliação das Circunstâncias
 
-### Engenharia Elétrica p7
+Este trabalho terá como principal circunstância o limite que os próprios dados obtidos por meio das plataformas elattes e sucupira impõem, delimitando a análise dos dados de acordo com a disponibilidade de informações disponíveis nesta plataforma.
 
-### Engenharia Elétrica p8
+# Entendimento dos Dados
 
-
-##Avaliação das Circunstâncias
-
-Este trabalho terá o limite que os próprios dados gerado pela plataforma elattes tem, já que se os dados fornecidos delimitariam o escopo do projeto e até pode-se ir, ou melhor, até onde os dados permitem uma análise fidedgina. 
-
-#CRISP-DM Fase 2 - Entendimento dos Dados
-
-##CRISP-DM Fase.Atividade 2.1 - Coleta inicial dos dados
+## Coleta inicial dos dados
 
 Todos os arquivos com dados iniciais a seguir apresentados foram fornecidos pelos professores responsóveis pela disciplina, através da plataforma elattes. Os dados foram gerados no mês de setembro de 2018, data em que o presente grupo começou a realizar o trabalho e compilam informações entre os anos de 2010 e 2017, das áreas expostas na seção anterior. 
 Os arquivos estão no formato JSON, sendo todos fornecidos pelos docentes responsável por esta disciplina.
 
 ###Perfil profissional dos docentes vinculados às pós-graduaçães
 
-```{r}
+```{r echo=T, results='hide'}
 
 json.perfil.biomed <- "dados-2018-2/engenharia-biomedica/279.profile.json"
 file.info(json.perfil.biomed)
@@ -229,7 +226,7 @@ Os arquivos `r json.perfil.biomed`, `r json.perfil.auto`, `r json.perfil.ele_p7`
 
 ###Orientações de mestrado e doutorado realizadas pelos docentes vinculados às pós-graduaçães
 
-```{r}
+```{r echo=T, results='hide'}
 json.advise.biomed <- "dados-2018-2/engenharia-biomedica/279.advise.json"
 file.info(json.advise.biomed)
 json.advise.auto <- "dados-2018-2/engenharia-eletronicos-automacao/280.advise.json"
