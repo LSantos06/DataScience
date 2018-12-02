@@ -15,11 +15,11 @@ output:
 knitr::opts_knit$set(root.dir = getwd())
 ```
 
-# Introdução
+# I - Introdução
 
 O presente trabalho tem por finalidade entender, correlacionar e analisar os dados da produção acadêmica e científica dos seguintes cursos de pós-graduação: Engenharia Biomédica, Engenharia Elétrica em seus dois ramos (53001010059P8 e 53001010080P7) e Engenharia de Sistemas Eletrônicos e de Automação.
 
-# Metodologia
+# II - Metodologia
 
 Para um melhor resultado do trabalho buscou-se seguir e adaptar-se a metodologia CRISP-DM, para isso baseou-se no ciclo de projeto da metodologia CRISP-DM.
 
@@ -43,13 +43,13 @@ Para melhor visualização das fases e a comunicação entre elas, deves-se obse
 
 
 
-# Delimitações iniciais
+# III - Delimitações iniciais
 
 
-### Domínio de Aplicação do projeto
+## III.1 - Domínio de Aplicação do projeto
 O domínio de Aplicação do projeto é a produção científica e acadêmica dos docentes e discentes dos seguintes cursos de pós-graduação da Universidade de Brasília: __Engenharia Biomédica__,__Engenharia Elétrica P7 e P8__ e __Engenharia de Sistemas Eletrônicos e de Automação__. Os dados para análise foram obtidos a partir da plataforma elattes e da plataforma sucupira.
 
-## Problema abordado
+## III.2 - Problema abordado
 
 O problema tem por finalidade obter dados de forma descritiva, quantitativa e de modelagem computacional ou estatística, que permitam caracterizar como, porque e também para que ocorre a produção científica e acadêmica nos cursos de pós-graduação descritos anteriormente.
 
@@ -194,11 +194,11 @@ Todos os dados utilzados acima foram retirados da Plataforma Sucupira.
 ### Engenharia Elétrica P7
 
 
-# Entendimento do Negócio
+# IV - Entendimento do Negócio
 
 A Universidade de Brasília é uma das grandes universidades federais, tendo enfoque na produção de artigos acadêmicos. Os programas a seguir são todos da área de avaliação ENGENHARIAS IV e serão analisados pelo trabalho como já exposto anteriormente:
 
-## Programas de pós-graduação Grupo 15
+## IV.1 - Programas de pós-graduação Grupo 15
 | Nome do Programa                                                         | ME | DO | MP |
 |---------------------------------------------------|-------------------------------------------------------------------|----|----|----|
 | [ENGENHARIA ELÉTRICA (53001010059P8)](https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/programa/viewPrograma.jsf?popup=true&&cd_programa=53001010059P8)                               | -  | -  | 3  |
@@ -208,13 +208,13 @@ A Universidade de Brasília é uma das grandes universidades federais, tendo enf
 
 Sendo o enfoque principal os dados referente a Engenharia Biomédica, que por sua vez possui muitas de suas pesquisas voltadas a novas soluções na área de Biomédica e demais áreas representadas na tabela acima acima.
 
-## Avaliação das Circunstâncias
+## IV.2 - Avaliação das Circunstâncias
 
 Este trabalho terá como principal circunstância o limite que os próprios dados obtidos por meio das plataformas elattes e sucupira impõem, delimitando a análise dos dados de acordo com a disponibilidade de informações disponíveis nesta plataforma.
 
-# Entendimento dos Dados
+# V - Entendimento dos Dados
 
-## Coleta inicial dos dados
+## V.1 - Coleta inicial dos dados
 
 Todos os arquivos com dados iniciais a seguir foram fornecidos pelos professores responsóveis pela disciplina, através da plataforma elattes. Os dados foram gerados no mês de setembro de 2018, data em que o presente grupo começou a realizar o trabalho e compilam informações entre os anos de 2010 e 2017, das áreas expostas na seção anterior. Todos os arquivos se encontram no formato JSON.
 
@@ -296,7 +296,7 @@ file.info(json.graph.ele_p7)
 
 Os arquivos `r json.graph.biomed`,  `r json.graph.ele_p7`, `r json.graph.ele_p8` e `r json.graph.auto` apresenta redes de colaboração na co-autoria de artigos cientifícos, feitas entre os docentes vinculados a programas de pós-graduação da UnB alvos do trabalho, entre os anos de 2010 e 2017. 
 
-## Descrição dos Dados
+## V.2 - Descrição dos Dados
 
 Para ler, manipular, analisar e visualizar estes dados, serão utilizadas as seguintes bibliotecas:
 
@@ -713,7 +713,7 @@ str(unb.graph.ele_p7$links$weigth)
 ```
 
 
-## Análise Exploratória dos Dados
+## V.3 - Análise Exploratória dos Dados
 
 ### Arquivo Profile
   
@@ -1347,27 +1347,26 @@ Houveram 22 doutorados e 136 mestrados. Os professores que mais orientaram são:
 
 Apenas 52 alunos são bolisistas.
 
-##CRISP-DM Fase.Atividade 2.4 - Verificação da qualidade dos dados. 
+## V.4 - Verificação da Qualidade dos Dados
 
-Para o levantamento de informação os dados em geral são preciso, como por exemplo saber quais os professores mais envolvido em orientações, quantos artigos foram concluidos, informações por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou qualquer análise.
+Para o levantamento de informação os dados em geral são precisos, como por exemplo saber quais os professores mais envolvidos em orientações, quantos artigos foram concluidos, informações agrupadas por ano. Mas houve dificuldade quando o dado que se queria analisar dependia de como a pessoa que cadastrou escreveu, como por exemplo os autores nos artigos, haja visto que não foi encontrado um padrão, dificultou uma análise mais precisa dos dados.
 
-#CRISP-DM Fase 3 -  __Preparação dos Dados__
+# VI - Preparação dos Dados
 
 
-##CRISP-DM Fase.Atividade 3.1 - Seleção dos dados. 
+## VI.1 - Seleção dos Dados 
 
-Para a principal utilização dos dados foi definidos os __data frames__ unb.adv.biomed.df, que neste caso contêm alguns informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. também foi definido os dados importantes do arquivo profile.json, gerando o __data frame__ unb.prof.biomed.df, que já está limpo, com as principais colunas definidas.
+Para a principal utilização dos dados foram definidos os dataframes *adv*, que neste caso contém informações de qual a natureza da pesquisa produzida, qual aluno produziu, seus respectivos orientadores, o ano e etc. também foi definido os dados importantes do arquivo profile.json, gerando o mais dataframes, chamados de *prof*, que já está limpo, com as principais colunas definidas.
 
-##CRISP-DM Fase.Atividade 3.2 - Limpeza dos dados
+## VI.2 - Limpeza dos Dados
 
-Esta etapa se mistura com a próxima pelo fato de limpar e preparar o dado, ou seja, já construir.
+Esta etapa se encorpora com a próxima etapa, que é a construção dos dados. Durante a construção, a limpeza dos dados também foi realizada.
 
-##CRISP-DM Fase.Atividade 3.3 - Construção dos dados
+## VI.3 - Construção dos Dados
 
-Construindo e limpando alguns dados de interesse.
+Código em R para limpeza e construção dos dados de interesse a serem analisados na próxima etapa da metodologia adotada:
 ```{r}
-# Funcoes auxiliares que seráo usados
-# estas funções foram disponibilizada pelo professor da disciplina
+## Funcoes auxiliares disponibilizadas pelo professor da disciplina
 # converte as colunas de um dataframe tipo lista em tipo character
 cv_tplista2tpchar <- function( df  ) { 
   for( variavel in names(df)) {
@@ -1378,7 +1377,6 @@ cv_tplista2tpchar <- function( df  ) {
   }
   return(df)
 }
-###
 # converte o conteudo de lista em array de characters
 lista2texto <- function( lista  ) {
   if(is.null(lista)) {
@@ -1414,16 +1412,16 @@ converte_producao2dataframe<- function( lista_producao ) {
   return(df_saida)
   
 }
-#concatena dois dataframes com  colunas diferentes 
+# Concatena dois dataframes com  colunas diferentes 
 concatenadf <- function( df1, df2) { 
-  #cria colunas de df1 que faltam em df2
+  # cria colunas de df1 que faltam em df2
   for( coluna in names(df1 ) ) {
     if( !is.element(coluna, names(df2) )) {
       df2[coluna] <- NA
     }
   }
   
-  #cria colunas de df2 que faltam em df1  
+  # cria colunas de df2 que faltam em df1  
   for( coluna in names(df2 ) ) {
     
     if( !is.element(coluna, names(df1) )) {
@@ -1431,12 +1429,12 @@ concatenadf <- function( df1, df2) {
     }
   }
   
-  
-  #faz o rbind dos dois dataframes 
+  # faz o rbind dos dois dataframes 
   df_final <- rbind(df1 , df2)
   return(df_final)
   
 }
+
 # Extracao dos perfis dos professores 
 extrai_1perfil <- function( professor ) {
   idLattes <- names(professor)
@@ -1547,7 +1545,10 @@ extrai_areas_atuacao <- function(jsonProfessores){
   df_saida <- df_saida %>% filter( !is.na(idLattes))
   return(df_saida)   
 }
-########################### Inicio ###############################
+```
+
+#### Engenharia Biomédica
+```{r}
 #### Começo da Preparação dos dados referente a profile
 unb.prof.biomed.json <- read_file("dados-2018-2/engenharia-biomedica/279.profile.json")
 unb.prof.biomed.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
@@ -1614,13 +1615,12 @@ head(unb.adv.biomed.df,3)
 unique(length(unb.prof.biomed.df.orientacoes$nome_aluno))
 ```
 
-####Verificando engenharia automação
+#### Engenharia de Sistemas Eletrônicos e de Automação
 
 
-####Verificando engenharia elétrica p8
+#### Engenharia Elétrica P8
 
 ```{r}
-########################### Inicio ###############################
 #### Começo da Preparação dos dados referente a profile
 unb.prof.ele_p8.json <- read_file("dados-2018-2/engenharia-eletrica-p8/281.profile.json")
 unb.prof.ele_p8.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
@@ -1689,10 +1689,9 @@ unique(length(unb.prof.ele_p8.df.orientacoes$nome_aluno))
 
 
 
-####Verificando engenharia elétrica p7
+#### Engenharia Elétrica P7
 
 ```{r}
-########################### Inicio ###############################
 #### Começo da Preparação dos dados referente a profile
 unb.prof.ele_p7.json <- read_file("dados-2018-2/engenharia-eletrica-p7/282.profile.json")
 unb.prof.ele_p7.df.capes <- read.csv("dados-2018-2/PesqPosCapes.csv", 
