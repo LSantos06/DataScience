@@ -158,20 +158,24 @@ O corpo discente é descrito por "O número de dissertações concluídas por do
 
 Já sobre produção intelectual : 
 
+
 |                                         Itens de Avaliação                                        | Peso | Avaliação |
 |:-------------------------------------------------------------------------------------------------:|------|----------:|
 | 4.1. Publicações qualificadas do Programa por docente permanente.                                 | 50.0 |     Fraco |
 | 4.2. Distribuição de publicações qualificadas em relação ao corpo docente permanente do Programa. | 30.0 |   Regular |
 | 4.3. Produção técnica, patentes e outras produções consideradas relevantes.                       | 20.0 |       Bom |
 
+
 "O programa apresentou como produção intelectual um total de 63 artigos completos no quadriênio. Entretanto, após a distribuição nos diferentes estratos do QUALIS, apenas 16 foram qualificados como produção relevante (extratos A1, A2 e B1). Tal montante corresponde a meio artigo relevante por docente por ano, aquém da média dos programas da área. Naturalmente, a autoria desses artigos concentra-se em uma fração inadequada do corpo docente. Cabe salientar que alguns docentes permanentes têm investido em solicitação de patentes. A lista de produção intelectual tem um alto número de trabalhos listados como capítulos de livros, e mesmo livros, mas não há justificativa da importância das obras conforme orientação do documento de área das Engenharias IV. Em vários casos, é claro tratar-se de comunicações em congressos (p/ex da série IFMBE Proceedings).". Informação retirada de : https://sucupira.capes.gov.br/sucupira/public/consultas/avaliacao/viewPreenchimentoFicha.jsf?idFicha=5739&popup=true
 
 Por fim, sobre inserção social : 
+
 |                                                                                                   Itens de Avaliação                                                                                                  | Peso | Avaliação |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|------|----------:|
 | 5.1. Inserção e impacto regional e (ou) nacional do programa.                                                                                                                                                         | 40.0 | Muito Bom |
 | 5.2. Integração e cooperação com outros programas e centros de pesquisa e desenvolvimento profissional relacionados à área de conhecimento do programa, com vistas ao desenvolvimento da pesquisa e da pós-graduação. | 40.0 | Muito Bom |
 | 5.3 - Visibilidade ou transparência dada pelo programa a sua atuação.                                                                                                                                                 | 20.0 | Muito Bom |
+
 
 # CRISP-DM Fase 1 - Entendimento do negócio
 
@@ -722,8 +726,9 @@ str(unb.graph.ele_p7$links$weigth)
 ##CRISP-DM Fase.Atividade 2.3 - análise exploratéria dos dados
 
 ###Arquivo Profile
+
 ####TODO LIST : VERIFICAR 
-  *  Engenharia p7
+
   *  automação
   
 ####Verificando engenharia biomédica
@@ -957,7 +962,9 @@ table(unlist(sapply(unb.prof.ele_p7, function(x) (x$orientacoes_academicas$ORIEN
 Por fim, na área de engenharia elétrica - "p7", vê-se, novamente, um domínio da grande área de engenharias, como era de se esperar. Em 2016, é possível observar que se teve o maior numero de publicações em períodicos, 42 no total.
 
 Sobre as orientações, dos temas desta pesquisa, foi a que teve mais equilíbrio entre o número de profissionais de mestrados e os que trabalham com doutorados concluídos, tendo uma diferença de 5. Especificamente, sobre as orientações vê-se um enorme número de mestrados concluídos desde 2011, com valor baixo em 2010 (6 no total, número similar a de doutorados feitos: 4, naquele mesmo ano). Um dado que pode ser alarmante é que ainda existe têm dois doutorados iniciados em 2013 que não estão concluídos ainda, estando em seu último ano, pois o tempo máximo do mestrado é de 5 anos, já do mestrado há 4 trabalhos que estão no último ano possível.
+
 ###Arquivo publicação 
+
 ####TODO LIST : VERIFICAR 
   *  automação
 
