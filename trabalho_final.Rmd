@@ -1814,18 +1814,12 @@ As formatações de dados necessárias já foram feitas, como por exemplo "orien
 Após a realização da limpeza e da preparação dos dados, a ferramenta que será utilizada para modelagem será computacional, para fins de visualização gráfica dos dados obtidos a partir dos dataframes criados.
 
 # VIII - Avaliação
-
-#####TODO LIST:
-  * AUTOMAÇÃO
-  * P7
-  * P8
   
-  
-Será exposto em forma de gráficos certos dados que se acharam convenientes e interessante.
+A avaliação será feita de forma gráfica, sendo estes gráficos exibidos a seguir:
 
-#####Expondo engenharia biomédica
+#### Engenharia Biomédica
 
-Aqui visa-se ver as quantidades de publicações feitas por anos na área de engenharia de Biomédica. 
+Quantidade de orientações feitas por ano: 
 ```{r}
 unb.adv.biomed.df %>%
 group_by(ano) %>%
@@ -1836,8 +1830,7 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Agora verificando a quantidade separada por tipo de publicação.
-
+Quantidade de orientações separadas por tipo de publicação:
 ```{r}
 unb.adv.biomed.df %>%
 group_by(natureza) %>%
@@ -1848,34 +1841,18 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Verificando os cursos mais presentes.
-
+Cursos mais presentes:
 ```{r}
 cursos_d5
-pie(cursos_d5,clockwise=TRUE,main="Cursos mais presentes")
+pie(cursos_d5,clockwise=F,main="Cursos mais presentes")
 ```
-Quantos bolsistas tem ?
 
+Quantidade de bolsistas e não bolsistas:
 ```{r}
-unb.adv.biomed.df %>%
-group_by(bolsa) %>%
-summarise(Quantidade = n()) %>%
-ggplot(aes(x = bolsa, y = Quantidade)) +
-geom_bar(position = "stack",stat = "identity", fill = "blue")+
-geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-theme_minimal()
+pie(table(unb.adv.biomed.df$bolsa),main="Bolsas")
 ```
 
-Assim, estes gráficos permitem verificar alguns aspectos importantes sobre as orientações.
-
-Verificando, agora, o arquivo 279.publication.json, contendo informações sobre as publicações.
-
-```{r}
-pie(table(unb.pub.biomed.df$natureza),main="Natureza das publicações",col = "cyan")
-```
-
-Separando por ano e depois por periódico.
-
+Quantidade de publicações feitas por ano: 
 ```{r}
 unb.pub.biomed.df %>%
 group_by(ano) %>%
@@ -1886,21 +1863,19 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
+Periódicos com mais publicações:
 ```{r}
 d <- table(unb.pub.biomed.df$periodico)
 head(sort(d,decreasing = TRUE),n=5)
 ```
 
-Mostrando os autores que mais participaram de publicações. 
-
+Autores com mais participações em publicações:
 ```{r}
 head(sort(table(toupper(unlist(strsplit(unb.pub.biomed.df$autores,";")))),decreasing = TRUE),n=10)
 ```
+Vemos que há algumas incoeráncia neste dado acima, isto se dá pela falta de uniformidade dos dados.
 
-Assim, vemos que há algumas incoeráncia neste dado acima, isto se dá pela falta de uniformidade.
-
-Analisando o arquivo 279.profile.json.
-
+Perfis de docentes por senioridade:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(senioridade) %>%
@@ -1911,20 +1886,20 @@ geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
 theme_minimal()
 ```
 
-Analisando quandidade de orientações concluídas no doutorado por professor.
-
+Quantidade de orientações concluídas no doutorado por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
-filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO ))%>%  
+filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO))%>%  
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
 geom_bar(position = "stack",stat = "identity", fill = "blue")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de orientações concluídas no mestrado por professor.
-
+Quantidade de orientações concluídas no mestrado por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1932,11 +1907,12 @@ filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
 geom_bar(position = "stack",stat = "identity", fill = "gray")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de orientações concluídas no pós-doutorado por professor.
-
+Quantidade de orientações concluídas no pós-doutorado por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1944,11 +1920,12 @@ filter(!is.na(ORIENTACAO_CONCLUIDA_POS_DOUTORADO))%>%
 ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_POS_DOUTORADO)) +
 geom_bar(position = "stack",stat = "identity", fill = "gray")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de orientações concluídas em outros tipos por professor.
-
+Quantidade de orientações concluídas em outros tipos por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1956,11 +1933,12 @@ filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%
 ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
 geom_bar(position = "stack",stat = "identity", fill = "gray")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de eventos ido por professor.
-
+Quantidade de eventos por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1968,11 +1946,12 @@ filter(!is.na(EVENTO))%>%
 ggplot(aes(x = nome, y = EVENTO)) +
 geom_bar(position = "stack",stat = "identity", fill = "red")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de periódicos por professor.
-
+Quantidade de periódicos por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1980,11 +1959,12 @@ filter(!is.na(PERIODICO))%>%
 ggplot(aes(x = nome, y = PERIODICO)) +
 geom_bar(position = "stack",stat = "identity", fill = "green")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de livro por professor.
-
+Quantidade de livros por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -1992,11 +1972,12 @@ filter(!is.na(LIVRO))%>%
 ggplot(aes(x = nome, y = LIVRO)) +
 geom_bar(position = "stack",stat = "identity", fill = "blue")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quandidade de texto em jornais por professor.
-
+Quantidade de texto em jornais por professor:
 ```{r}
 unb.prof.biomed.df %>%
 group_by(nome) %>%
@@ -2004,55 +1985,32 @@ filter(!is.na(TEXTO_EM_JORNAIS))%>%
 ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
 geom_bar(position = "stack",stat = "identity", fill = "black")+
 geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
-theme_minimal()
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 ```
 
-Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
-
+Relações entre professores:
 ```{r}
-unb.prof.biomed.df %>%
-group_by(`n_distinct(area)`) %>%
-summarise(Quantidade = n()) %>%
-ggplot(aes(x = `n_distinct(area)`, y = Quantidade)) +
-geom_bar(position = "stack",stat = "identity", fill = "green")+
-geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-theme_minimal()
+list <- c(rbind(unb.graph.biomed$links$source,unb.graph.biomed$links$target))
+idx <- match(list, unb.graph.biomed$nodes$id)
+names <- unb.graph.biomed$nodes$properties$name
+graph_names <- names[idx]
+g <-graph(graph_names, directed=TRUE)
+plot(g, layout = layout_(g, nicely()),
+     edge.width = 1,
+     edge.arrow.width = 1,
+     vertex.size = 5,
+     edge.arrow.size = 1,
+     vertex.size2 = 3,
+     vertex.label.cex = 1,
+     asp = 0.35,
+     margin = -0.1)
 ```
 
 
-Analisando quantidade de professor por major área e posteriormente o área pós-graduação.
-
+Nuvem de palavras baseadas no resumo do currículo dos professores:
 ```{r}
-unb.prof.biomed.df %>%
-group_by(`n_distinct(AreaPos)`) %>%
-summarise(Quantidade = n()) %>%
-ggplot(aes(x = `n_distinct(AreaPos)`, y = Quantidade)) +
-geom_bar(position = "stack",stat = "identity", fill = "grey")+
-geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
-theme_minimal()
-```
-
-#####Grafos de engenharia biomédica
-
-```{r}
-unb.graph.biomed$links$source
-unb.graph.biomed$links$target
-list_biomed <- c(rbind(unb.graph.biomed$links$source,unb.graph.biomed$links$target))
-list_biomed
-g_biomed<-graph(list_biomed, directed=TRUE)
-g_biomed[ 1:length(g_biomed) ]
-plot(g_biomed)
-```
-
-Assim podemos ver algumas relações entre os professores. Abaixo segue o id do professor e seu nome loga em seguida.
-
-```{r}
-c(rbind(unb.graph.biomed$nodes$id,unb.graph.biomed$nodes$properties$name))
-```
-
-```{r}
-### nuvem de palavras do curriculum
-#docs <- Corpus(VectorSource(unb.prof.biomed.df$resumo_cv))
 unb.prof.biomed.df$resumo_cv <- iconv(unb.prof.biomed.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
 df_wc <- data.frame(doc_id = unb.prof.biomed.df$idLattes, text = unb.prof.biomed.df$resumo_cv, stringsAsFactors = FALSE )
 docs <- Corpus(DataframeSource(df_wc))
@@ -2072,10 +2030,8 @@ wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
           colors=brewer.pal(8, "Dark2"))
 ```
 
-Vê-se que as palavras mais usadas são relacionadas a saúde, como "saúde", "nanotecnologia" e "biomédica".
-
+Nuvem de palavras baseadas no título das orientações:
 ```{r}
-### nuvem de palavras do título
 unb.adv.biomed.df$titulo <- iconv(unb.adv.biomed.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
 df_wc <- data.frame(doc_id = unb.adv.biomed.df$idLattes1, text = unb.adv.biomed.df$titulo, stringsAsFactors = FALSE )
 docs <- Corpus(DataframeSource(df_wc))
@@ -2095,20 +2051,203 @@ wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
           max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
-As palavras mais usadas nos títulos são relacionadas a sinais "processamento, sinais, tratamento" e saúde.
 
-####Expondo engenharia automação
-
-
-
-####Expondo engenharia elétrica p8
-
+#### Engenharia de Sistemas Eletrônicos e de Automação
+Quantidade de orientações feitas por ano: 
 ```{r}
-### nuvem de palavras do curriculum
-unb.prof.ele_p8.df$resumo_cv <- iconv(unb.prof.ele_p8.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
-df_wc <- data.frame(doc_id = unb.prof.ele_p8.df$idLattes, text = unb.prof.ele_p8.df$resumo_cv, stringsAsFactors = FALSE )
-docs <- Corpus(VectorSource(unb.prof.ele_p8.df$resumo_cv))
-  
+unb.adv.auto.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações separadas por tipo de publicação:
+```{r}
+unb.adv.auto.df %>%
+group_by(natureza) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = natureza, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Cursos mais presentes:
+```{r}
+cursos_d5
+pie(cursos_d5,clockwise=F,main="Cursos mais presentes")
+```
+
+Quantidade de bolsistas e não bolsistas:
+```{r}
+pie(table(unb.adv.auto.df$bolsa),main="Bolsas")
+```
+
+Quantidade de publicações feitas por ano: 
+```{r}
+unb.pub.auto.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Periódicos com mais publicações:
+```{r}
+d <- table(unb.pub.auto.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+```
+
+Autores com mais participações em publicações:
+```{r}
+head(sort(table(toupper(unlist(strsplit(unb.pub.auto.df$autores,";")))),decreasing = TRUE),n=10)
+```
+Vemos que há algumas incoeráncia neste dado acima, isto se dá pela falta de uniformidade dos dados.
+
+Perfis de docentes por senioridade:
+```{r}
+unb.prof.auto.df %>%
+group_by(senioridade) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = senioridade, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações concluídas no doutorado por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas no mestrado por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas no pós-doutorado por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_POS_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_POS_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas em outros tipos por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%  
+ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de eventos por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(EVENTO))%>%  
+ggplot(aes(x = nome, y = EVENTO)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de periódicos por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(PERIODICO))%>%  
+ggplot(aes(x = nome, y = PERIODICO)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de livros por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(LIVRO))%>%  
+ggplot(aes(x = nome, y = LIVRO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de texto em jornais por professor:
+```{r}
+unb.prof.auto.df %>%
+group_by(nome) %>%
+filter(!is.na(TEXTO_EM_JORNAIS))%>%  
+ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
+geom_bar(position = "stack",stat = "identity", fill = "black")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Relações entre professores:
+```{r}
+list <- c(rbind(unb.graph.auto$links$source,unb.graph.auto$links$target))
+idx <- match(list, unb.graph.auto$nodes$id)
+names <- unb.graph.auto$nodes$properties$name
+graph_names <- names[idx]
+g <-graph(graph_names, directed=TRUE)
+plot(g, layout = layout_(g, nicely()),
+     edge.width = 1,
+     edge.arrow.width = 1,
+     vertex.size = 5,
+     edge.arrow.size = 1,
+     vertex.size2 = 3,
+     vertex.label.cex = 1,
+     asp = 0.35,
+     margin = -0.1)
+```
+
+
+Nuvem de palavras baseadas no resumo do currículo dos professores:
+```{r}
+unb.prof.auto.df$resumo_cv <- iconv(unb.prof.auto.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.prof.auto.df$idLattes, text = unb.prof.auto.df$resumo_cv, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removeWords, stopwords("pt"))
@@ -2121,14 +2260,247 @@ v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
 set.seed(1234)
 wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
-          max.words=30, random.order=FALSE, rot.per=0.35, 
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
 
-Vê-se que as palavras mais usadas são relacionadas a eletricidade e informação.
-
+Nuvem de palavras baseadas no título das orientações:
 ```{r}
-### nuvem de palavras do título
+unb.adv.auto.df$titulo <- iconv(unb.adv.auto.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.adv.auto.df$idLattes1, text = unb.adv.auto.df$titulo, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, stopwords("english"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+
+#### Engenharia Elétrica P8
+Quantidade de orientações feitas por ano: 
+```{r}
+unb.adv.ele_p8.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações separadas por tipo de publicação:
+```{r}
+unb.adv.ele_p8.df %>%
+group_by(natureza) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = natureza, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Cursos mais presentes:
+```{r}
+cursos_d5
+pie(cursos_d5,clockwise=F,main="Cursos mais presentes")
+```
+
+Quantidade de bolsistas e não bolsistas:
+```{r}
+pie(table(unb.adv.ele_p8.df$bolsa),main="Bolsas")
+```
+
+Quantidade de publicações feitas por ano: 
+```{r}
+unb.pub.ele_p8.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Periódicos com mais publicações:
+```{r}
+d <- table(unb.pub.ele_p8.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+```
+
+Autores com mais participações em publicações:
+```{r}
+head(sort(table(toupper(unlist(strsplit(unb.pub.ele_p8.df$autores,";")))),decreasing = TRUE),n=10)
+```
+Vemos que há algumas incoeráncia neste dado acima, isto se dá pela falta de uniformidade dos dados.
+
+Perfis de docentes por senioridade:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(senioridade) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = senioridade, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações concluídas no doutorado por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas no mestrado por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas no pós-doutorado por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_POS_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_POS_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas em outros tipos por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%  
+ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de eventos por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(EVENTO))%>%  
+ggplot(aes(x = nome, y = EVENTO)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de periódicos por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(PERIODICO))%>%  
+ggplot(aes(x = nome, y = PERIODICO)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de livros por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(LIVRO))%>%  
+ggplot(aes(x = nome, y = LIVRO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de texto em jornais por professor:
+```{r}
+unb.prof.ele_p8.df %>%
+group_by(nome) %>%
+filter(!is.na(TEXTO_EM_JORNAIS))%>%  
+ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
+geom_bar(position = "stack",stat = "identity", fill = "black")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Relações entre professores:
+```{r}
+list <- c(rbind(unb.graph.ele_p8$links$source,unb.graph.ele_p8$links$target))
+idx <- match(list, unb.graph.ele_p8$nodes$id)
+names <- unb.graph.ele_p8$nodes$properties$name
+graph_names <- names[idx]
+g <-graph(graph_names, directed=TRUE)
+plot(g, layout = layout_(g, nicely()),
+     edge.width = 1,
+     edge.arrow.width = 1,
+     vertex.size = 5,
+     edge.arrow.size = 1,
+     vertex.size2 = 3,
+     vertex.label.cex = 1,
+     asp = 0.35,
+     margin = -0.1)
+```
+
+
+Nuvem de palavras baseadas no resumo do currículo dos professores:
+```{r}
+unb.prof.ele_p8.df$resumo_cv <- iconv(unb.prof.ele_p8.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
+df_wc <- data.frame(doc_id = unb.prof.ele_p8.df$idLattes, text = unb.prof.ele_p8.df$resumo_cv, stringsAsFactors = FALSE )
+docs <- Corpus(DataframeSource(df_wc))
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removeWords, stopwords("pt"))
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+set.seed(1234)
+wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+Nuvem de palavras baseadas no título das orientações:
+```{r}
 unb.adv.ele_p8.df$titulo <- iconv(unb.adv.ele_p8.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
 df_wc <- data.frame(doc_id = unb.adv.ele_p8.df$idLattes1, text = unb.adv.ele_p8.df$titulo, stringsAsFactors = FALSE )
 docs <- Corpus(DataframeSource(df_wc))
@@ -2148,20 +2520,194 @@ wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
           max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
-Muitas palavras voltadas a assuntos quentes como a internet, learning, business inteligence, data. Voltada aplicações de dados "business inteligence".
 
-####Expondo engenharia elétrica p7
-
+#### Engenharia Elétrica P7
+Quantidade de orientações feitas por ano: 
 ```{r}
-### nuvem de palavras do curriculum
+unb.adv.ele_p7.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações separadas por tipo de publicação:
+```{r}
+unb.adv.ele_p7.df %>%
+group_by(natureza) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = natureza, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Cursos mais presentes:
+```{r}
+cursos_d5
+pie(cursos_d5,clockwise=F,main="Cursos mais presentes")
+```
+
+Quantidade de bolsistas e não bolsistas:
+```{r}
+pie(table(unb.adv.ele_p7.df$bolsa),main="Bolsas")
+```
+
+Quantidade de publicações feitas por ano: 
+```{r}
+unb.pub.ele_p7.df %>%
+group_by(ano) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = ano, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Periódicos com mais publicações:
+```{r}
+d <- table(unb.pub.ele_p7.df$periodico)
+head(sort(d,decreasing = TRUE),n=5)
+```
+
+Autores com mais participações em publicações:
+```{r}
+head(sort(table(toupper(unlist(strsplit(unb.pub.ele_p7.df$autores,";")))),decreasing = TRUE),n=10)
+```
+Vemos que há algumas incoeráncia neste dado acima, isto se dá pela falta de uniformidade dos dados.
+
+Perfis de docentes por senioridade:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(senioridade) %>%
+summarise(Quantidade = n()) %>%
+ggplot(aes(x = senioridade, y = Quantidade)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=Quantidade), vjust=-0.3, size=2.5)+
+theme_minimal()
+```
+
+Quantidade de orientações concluídas no doutorado por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_DOUTORADO))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_DOUTORADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas no mestrado por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(ORIENTACAO_CONCLUIDA_MESTRADO ))%>%  
+ggplot(aes(x = nome, y = ORIENTACAO_CONCLUIDA_MESTRADO)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de orientações concluídas em outros tipos por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(OUTRAS_ORIENTACOES_CONCLUIDAS))%>%  
+ggplot(aes(x = nome, y = OUTRAS_ORIENTACOES_CONCLUIDAS)) +
+geom_bar(position = "stack",stat = "identity", fill = "gray")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de eventos por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(EVENTO))%>%  
+ggplot(aes(x = nome, y = EVENTO)) +
+geom_bar(position = "stack",stat = "identity", fill = "red")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de periódicos por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(PERIODICO))%>%  
+ggplot(aes(x = nome, y = PERIODICO)) +
+geom_bar(position = "stack",stat = "identity", fill = "green")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de livros por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(LIVRO))%>%  
+ggplot(aes(x = nome, y = LIVRO)) +
+geom_bar(position = "stack",stat = "identity", fill = "blue")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Quantidade de texto em jornais por professor:
+```{r}
+unb.prof.ele_p7.df %>%
+group_by(nome) %>%
+filter(!is.na(TEXTO_EM_JORNAIS))%>%  
+ggplot(aes(x = nome, y = TEXTO_EM_JORNAIS)) +
+geom_bar(position = "stack",stat = "identity", fill = "black")+
+geom_text(aes(label=nome), vjust=-0.3, size=2.5)+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+Relações entre professores:
+```{r}
+list <- c(rbind(unb.graph.ele_p7$links$source,unb.graph.ele_p7$links$target))
+idx <- match(list, unb.graph.ele_p7$nodes$id)
+names <- unb.graph.ele_p7$nodes$properties$name
+graph_names <- names[idx]
+g <-graph(graph_names, directed=TRUE)
+plot(g, layout = layout_(g, nicely()),
+     edge.width = 1,
+     edge.arrow.width = 1,
+     vertex.size = 5,
+     edge.arrow.size = 1,
+     vertex.size2 = 3,
+     vertex.label.cex = 1,
+     asp = 0.35,
+     margin = -0.1)
+```
+
+
+Nuvem de palavras baseadas no resumo do currículo dos professores:
+```{r}
 unb.prof.ele_p7.df$resumo_cv <- iconv(unb.prof.ele_p7.df$resumo_cv,from="UTF-8", to = "ASCII//TRANSLIT")
 df_wc <- data.frame(doc_id = unb.prof.ele_p7.df$idLattes, text = unb.prof.ele_p7.df$resumo_cv, stringsAsFactors = FALSE )
-docs <- Corpus(VectorSource(unb.prof.ele_p8.df$resumo_cv))
-  
+docs <- Corpus(DataframeSource(df_wc))
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removeWords, stopwords("pt"))
-docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia")) 
+docs <- tm_map(docs, removeWords, c("universidade", "federal","eletrica","posgraduacao","engenheiro","engenharia"))
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, stripWhitespace)
 dtm <- TermDocumentMatrix(docs)
@@ -2170,13 +2716,12 @@ v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
 set.seed(1234)
 wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
-          max.words=30, random.order=FALSE, rot.per=0.35, 
+          max.words=30,scale = c(4, 0.2), random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
 
-
+Nuvem de palavras baseadas no título das orientações:
 ```{r}
-### nuvem de palavras do título
 unb.adv.ele_p7.df$titulo <- iconv(unb.adv.ele_p7.df$titulo,from="UTF-8", to = "ASCII//TRANSLIT")
 df_wc <- data.frame(doc_id = unb.adv.ele_p7.df$idLattes1, text = unb.adv.ele_p7.df$titulo, stringsAsFactors = FALSE )
 docs <- Corpus(DataframeSource(df_wc))
@@ -2197,18 +2742,16 @@ wordcloud(words =(d$word), freq = d$freq, min.freq = 3,
           colors=brewer.pal(8, "Dark2"))
 ```
 
-Muitas palavras ligada a análise, sistema e também há a palavra "business inteligence".
-
-#CRISP-DM Fase 6 - __Implatação__ (_deployment_)
+# IX - Implatação
  
- No caso deste presente trabalho, é basicamente os scripts desenvolvido ao decorrer do mesmo.
+ No caso deste trabalho, a implantação foi realizada por meio da implementação dos scripts apresentados no decorrer do documento.
  
-#Conclusão
+# X - Conclusão
 
-Ao final deste trabalho, podemos chegar a conclusão que com a "ferramenta" CRISP-DM foi possível realizar uma análise de dados apartir de vários arquivos __JSON__, assim, foi possível perceber como funciona - pelo menos de maneira simplória - a vida de cientista de dados, como se deve preparar os dados, como se deve buscar informações úteis, analisar determinadas informações, plotar gráficos para um efeito mais visual, ver a dificuldade que falta de padronização causa, ainda mais quando se tem os mais diversos arquivos para analisar das mais diversas fontes.
+Ao final deste trabalho, podemos chegar a conclusão que com a metodologia CRISP-DM foi possível realizar uma análise de dados a partir de vários arquivos __JSON__, assim, foi possível perceber como funciona - pelo menos de maneira simplória - a vida de cientista de dados, como se deve preparar os dados, como se deve buscar informações úteis, analisar determinadas informações, plotar gráficos para um efeito mais visual, ver a dificuldade que falta de padronização causa, ainda mais quando se tem os mais diversos arquivos para analisar das mais diversas fontes.
 
-O trabalho usou como base o arquivo disponibilizado pelo professor, no qual continha as explicações de todas as fase do CRISP-DM, seguindo o modelo passado pelo professor, tentou-se ir descorrendo sobre o script em R que se vinha fazendo e correlacionando com alguma fase do CRISP-DM, mas tal divisão não pode ser considerada totalmente fidedigna, haja visto que muitas vezes há mistura de fases e não apenas fases totalmente isoladas, sem influência de outras, procurou-se explicar de maneira simples como se encaixava cada fase.
+O trabalho usou como base o arquivo disponibilizado pelo professor, no qual continha as explicações de todas as fases do CRISP-DM, seguindo o modelo passado pelo professor, tentou-se ir descorrendo sobre o script em R que se vinha fazendo e correlacionando com alguma fase do CRISP-DM, mas tal divisão não pode ser considerada totalmente fidedigna, haja visto que muitas vezes há mistura de fases e não apenas fases totalmente isoladas, sem influência de outras, procurou-se explicar de maneira simples como cada etapa se encaixava cada fase.
 
-  Por fim, podemos chegar a alguns resultados valorosos ,como por exemplo : as revistas que tem mais publicações advindas da pós-graduação em engenharia biomédica, mas nem tudo são flores, algumas dificuldades vieram em decorrência da falta de uniformidade, porém podemos aprender bastante com este trabalho e nos interar de como começar a fazer análise de dados.
+Por fim, podemos chegar a alguns resultados valorosos, mas nem tudo são flores, algumas dificuldades vieram em decorrência da falta de uniformidade, porém podemos aprender bastante com este trabalho e nos interar de como começar a fazer análise de dados.
 
 # Referáncias
