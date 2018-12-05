@@ -1,8 +1,8 @@
 ---
-title:  Ciência de Dados para Todos (Data Science
-  For All) - 2018.2 - Análise da Produção Científica e Acadêmica da Universidade de Brasília 
-subtitle: Engenharia Biomédica, Engenharia de Sistemas Eletrônicos e de Automação, Engenharia Elétrica P7 e Engenharia Elétrica P8. 
-author: "Marcos Vinicius Prescendo Tonin, Lucas Nascimento Santos Souza e Carlos Aragão"
+title: Avaliação dos Programas de Pós-graduação Engenharia Biomédica, Engenharia de Sistemas Eletrônicos e de Automação, Engenharia Elétrica P7 e Engenharia Elétrica P8 e dos Currículos dos Professores e Pesquisadores Cadastrados
+subtitle: Tópicos Avançados em Computadores CIC/UnB 2018.2 Turma D "Ciência de Dados para Todos (Data Science
+  For All)".  Professor Ricardo Barros Sampaio e Professor Jorge Henrique Cabral Fernandes.
+author: "Marcos Vinicius Prescendo Tonin 14/0153233, Lucas Nascimento Santos Souza 14/0151010 e Carlos Aragão"
 date: "02/12/2018"
 output:
   html_document:
@@ -879,7 +879,7 @@ table(unlist(sapply(unb.prof.auto, function(x) length(x$orientacoes_academicas$O
 table(unlist(sapply(unb.prof.auto, function(x) (x$orientacoes_academicas$ORIENTACAO_CONCLUIDA_POS_DOUTORADO$ano))))
 ```
 
-todo
+Analisando o resultado dos scripts, pode-se perceber que os professores do programa possuem 4 áreas de atuação, sendo a mais popular ENGENHARIAS, com 57 ocorrênias da mesma nos perfis dos docentes. A principal produção dos docentes são períodicos com 226 produções bibliográficas no total.
 
 #### Engenharia Elétrica P8
 ```{r}
@@ -1097,7 +1097,7 @@ head(sort(d,decreasing = TRUE),n=5)
 head(sort(table(toupper(unlist(strsplit(unb.pub.auto.df$autores,";")))),decreasing = TRUE),n=10)
 ```
 
-todo
+Analisando as publicações, percebe-se que o programa obteve 206 no total durante sua existência (2010-2017). A informação que se faz interessante é o períodico que mais possui publicações do programa, sendo ele denominado "Revista Brasileira de Engenharia Biomédica (Impresso)", que possui grande relação com o outro programa de pós-graduação analisado (Engenharia Biomédica)
 
 #### Engenharia Elétrica P8
 ```{r}
@@ -1245,7 +1245,7 @@ sum(unb.adv.auto.df$bolsa == 'SIM')
 head(sort(table(unb.adv.auto.df$agencia_financiadora),decreasing = TRUE),n=10)
 ```
 
-todo
+Já no quesito de orientações, o programa possui 149 no total, sendo 141 delas com apenas um orientador. A instituição com mais orientações é a Universidade de Brasília e o curso com mais orientações "ENGENHARIA DE SISTEMAS ELETRÔNICOS E DE AUTOMAÇÃO", que é coerente com o programa de pós-graduação. A maioria das orientações foram dissertações de mestrado com 102 no total, e o docente com mais orientações é o professor Francisco Assis de Oliveira Nascimento com 16 orientações. A maioria dos alunos são bolsistas com 93 no total, sendo que a agência financiadora mais presente no programa é a Coordenação de Aperfeiçoamento de Pessoal de Nível Superior com 59 financiamentos.
 
 #### Engenharia Elétrica P8
 
